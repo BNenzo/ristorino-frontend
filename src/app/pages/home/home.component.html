@@ -3,5 +3,5 @@
 </div>
 
 <div class="cards-container">
-  <app-restaurant-card *ngFor="let card of cards"></app-restaurant-card>
+  <app-restaurant-card *ngFor="let promo of promos" [promotion]="promo"></app-restaurant-card>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RestaurantCardComponent } from '../../components/restaurant-card/restaurant-card.component';
 import { RistorinoResource } from '../../api/resources/ristorino-resource';
+import { Promotion } from '../../api/resources/models/promotion.model';
 
 @Component({
   selector: 'app-home',
@@ -12,9 +13,8 @@ import { RistorinoResource } from '../../api/resources/ristorino-resource';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  cards = Array(8).fill(null);
+  promos: Promotion[] = [];
 
-  promos: any[] = [];
   constructor(private api: RistorinoResource) {}
 
   ngOnInit(): void {
@@ -23,16 +23,12 @@ export class HomeComponent implements OnInit {
 
   cargar(): void {
     this.api.getPromociones().subscribe({
-      next: (lista: any[]) => {
+      next: (lista) => {
         console.log(lista);
         this.promos = lista ?? [];
       },
-      error: (err) => {
-        console.log(err);
-      },
-      complete: () => {
-        console.log('completado');
-      },
+      error: (err) => console.error('Error al cargar promociones', err),
+      complete: () => console.log('Carga completada'),
     });
   }
 }

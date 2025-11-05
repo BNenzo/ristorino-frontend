@@ -8,6 +8,7 @@ import {
 } from '@ngx-resource/core';
 import { environment } from '../../../enviroments/enviroment.development';
 import type { IResourceMethodObservable } from '@ngx-resource/core';
+import { Promotion } from './models/promotion.model';
 
 @Injectable()
 @ResourceParams({
@@ -21,5 +22,5 @@ export class RistorinoResource extends Resource {
     path: '/promociones',
     method: ResourceRequestMethod.Get,
   })
-  declare getPromociones: IResourceMethodObservable<void, any>;
+  declare getPromociones: IResourceMethodObservable<void, Promotion[]>;
 }

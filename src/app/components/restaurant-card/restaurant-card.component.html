@@ -1,4 +1,15 @@
 <div class="card">
-  <h3>Restaurante</h3>
-  <p>Oferta especial disponible</p>
+ <div class="image-container">
+    <img
+      [src]="promotion.imagenPromocional"
+      [alt]="promotion.razonSocial"
+      class="restaurant-image"
+    />
+  </div>
+  <div class="restaurant-info">
+    <h2>{{ promotion.razonSocial }}</h2>
+    <p>{{ promotion.contenidoPromocional }}</p>
+    <p class="small-text"><strong>Dirección:</strong> {{ promotion.calle }} {{ promotion.nroCalle }}, {{ promotion.barrio }}</p>
+    <p><strong>Localidad:</strong> {{ promotion.nomLocalidad }}</p>
+  </div>
 </div>
