@@ -9,6 +9,7 @@ import {
 import { environment } from '../../../enviroments/enviroment.development';
 import type { IResourceMethodObservable } from '@ngx-resource/core';
 import { Promotion } from './models/promotion.model';
+import { RegistrarClickPromocionBody } from './models/registrarClickPromocionBody.model';
 
 @Injectable()
 @ResourceParams({
@@ -23,4 +24,10 @@ export class RistorinoResource extends Resource {
     method: ResourceRequestMethod.Get,
   })
   declare getPromociones: IResourceMethodObservable<void, Promotion[]>;
+
+  @ResourceAction({
+    path: '/registrar-click-promocion',
+    method: ResourceRequestMethod.Post,
+  })
+  declare registrarClickContenido: IResourceMethodObservable<RegistrarClickPromocionBody, any>;
 }
