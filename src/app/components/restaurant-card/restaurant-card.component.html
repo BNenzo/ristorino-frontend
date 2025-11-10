@@ -1,4 +1,4 @@
-<a class="card" [routerLink]="['/restaurante', promotion.nroRestaurante]">
+<a class="card" [routerLink]="['/restaurante', promotion.nroRestaurante]" (click)="onCardClick()">
  <div class="image-container">
     <img
       [src]="promotion.imagenPromocional"

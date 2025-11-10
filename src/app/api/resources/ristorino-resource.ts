@@ -12,6 +12,7 @@ import { Promotion } from './models/promotion.model';
 import { Restaurant } from './models/restaurant.model';
 import { Sucursal } from './models/sucursal.model';
 import { PreferenciaRestaurante } from './models/preferencia-restaurante.model';
+import { RegistrarClickPromocionBody } from './models/registrarClickPromocionBody.model';
 
 @Injectable()
 @ResourceParams({
@@ -50,4 +51,10 @@ export class RistorinoResource extends Resource {
     { nroRestaurante: number },
     PreferenciaRestaurante[]
   >;
+
+  @ResourceAction({
+    path: '/registrar-click-promocion',
+    method: ResourceRequestMethod.Post,
+  })
+  declare registrarClickContenido: IResourceMethodObservable<RegistrarClickPromocionBody, any>;
 }
