@@ -9,6 +9,8 @@
   cursor: pointer;
   transition: transform 0.3s ease;
   overflow: hidden;
+  color: inherit;
+  text-decoration: none;
 }
 
 .card:hover {
@@ -17,7 +19,7 @@
 
 .image-container {
   width: 100%;
-  aspect-ratio: 16 / 9; /* mantiene relación horizontal */
+  aspect-ratio: 16 / 9;
   border-radius: 6px;
   overflow: hidden;
   margin-bottom: 0.75rem;

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RestaurantCardComponent } from '../../components/restaurant-card/restaurant-card.component';
 import { RistorinoResource } from '../../api/resources/ristorino-resource';
 import { Promotion } from '../../api/resources/models/promotion.model';
 import { RegistrarClickPromocionBody } from '../../api/resources/models/registrarClickPromocionBody.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,22 +16,13 @@ import { RegistrarClickPromocionBody } from '../../api/resources/models/registra
 })
 export class HomeComponent implements OnInit {
   promos: Promotion[] = [];
-
-  constructor(private api: RistorinoResource) {}
+  constructor(private _route: ActivatedRoute, private api: RistorinoResource) {}
 
   ngOnInit(): void {
-    this.cargar();
-  }
-
-  cargar(): void {
-    this.api.getPromociones().subscribe({
-      next: (lista) => {
-        console.log(lista);
-        this.promos = lista ?? [];
-      },
-      error: (err) => console.error('Error al cargar promociones', err),
-      complete: () => console.log('Carga completada'),
+    this._route.data.subscribe((data) => {
+      this.promos = data['promociones'];
     });
+    console.log(this.promos);
   }
 
   onPromoClick(promo: Promotion): void {
