@@ -1,21 +1,18 @@
-<div *ngIf="cargando" class="text-center py-6">
-  Cargando información del restaurante...
-</div>
-
 <div class="banner">
   <h1>Portal Ristorino</h1>
+  <p class="slogan">Encontrá tu próxima comida</p>
+</div>
+
+<div class="back-button">
+  <button (click)="volver()">← Volver</button>
 </div>
 
 <div *ngIf="!cargando && restaurante" class="container">
   <div class="card restaurante-card">
     <h2 class="nombre">{{ restaurante.nombreRestaurante }}</h2>
-
-        <p class="especialidad" *ngIf="especialidad">
-  Cocina <strong>{{ especialidad.nomValorDominio }}</strong><br />
-  <em>{{ especialidad.observaciones }}</em>
-</p>
-
-
+      <p class="especialidad" *ngIf="especialidad">
+        Cocina <strong>{{ especialidad.nomValorDominio }}</strong><br /><em>{{ especialidad.observaciones }}</em>
+      </p>
 
     <div class="sucursales">
       <h3>Sucursales</h3>
@@ -31,8 +28,4 @@
       </ul>
     </div>
   </div>
-</div>
-
-<div *ngIf="!cargando && !restaurante" class="text-center py-6">
-  No se encontraron datos del restaurante.
 </div>

@@ -4,12 +4,18 @@
   text-align: center;
   font-size: 1.8rem;
   color: #333;
+
+  .slogan {
+    font-size: 1.25rem;
+    color: #555;
+    font-style: italic;
+  }
 }
 
 .container {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .card {
@@ -27,7 +33,8 @@
 
 .nombre {
   font-size: 1.8rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0px;
+  margin-top: 0px;
   color: #3e2c1a;
 }
 
@@ -78,5 +85,26 @@
     font-size: 0.95rem;
     color: #555;
     margin: 0.2rem 0;
+  }
+
+}
+
+
+.back-button {
+  padding: 1rem 2rem;
+
+  button {
+    background-color: #bfa292;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #a3826f;
+    }
   }
 }
