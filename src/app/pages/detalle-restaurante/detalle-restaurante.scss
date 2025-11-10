@@ -1,0 +1,82 @@
+.banner {
+  background-color: var(--color-banner);
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.card {
+  background-color: var(--color-card);
+  border: 2px solid #bfa292;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nombre {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #3e2c1a;
+}
+
+.cuit {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1rem;
+}
+
+.especialidad {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.sucursales {
+  text-align: left;
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #bfa292;
+    display: inline-block;
+    padding-bottom: 0.3rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sucursal-item {
+    background-color: #f9f6f3;
+    border: 1px solid #d4b89f;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .nombre-sucursal {
+    font-weight: bold;
+    color: #3e2c1a;
+    margin-bottom: 0.3rem;
+  }
+
+  .direccion,
+  .contacto {
+    font-size: 0.95rem;
+    color: #555;
+    margin: 0.2rem 0;
+  }
+}

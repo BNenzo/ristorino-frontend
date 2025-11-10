@@ -1,4 +1,4 @@
-<div class="card">
+<a class="card" [routerLink]="['/restaurante', promotion.nroRestaurante]">
  <div class="image-container">
     <img
       [src]="promotion.imagenPromocional"
@@ -12,4 +12,4 @@
     <p class="small-text"><strong>Dirección:</strong> {{ promotion.calle }} {{ promotion.nroCalle }}, {{ promotion.barrio }}</p>
     <p><strong>Localidad:</strong> {{ promotion.nomLocalidad }}</p>
   </div>
-</div>
+</a>
