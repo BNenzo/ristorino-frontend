@@ -6,11 +6,12 @@ import { Restaurant } from '../../api/resources/models/restaurant.model';
 import { Sucursal } from '../../api/resources/models/sucursal.model';
 import { PreferenciaRestaurante } from '../../api/resources/models/preferencia-restaurante.model';
 import { Location } from '@angular/common';
+import { BannerComponent } from '../../components/banner/banner.component';
 
 @Component({
   selector: 'app-detalle-restaurante',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BannerComponent],
   providers: [RistorinoResource],
   templateUrl: './detalle-restaurante.html',
   styleUrls: ['./detalle-restaurante.scss'],

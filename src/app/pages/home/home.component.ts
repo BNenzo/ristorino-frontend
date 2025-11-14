@@ -5,11 +5,12 @@ import { RistorinoResource } from '../../api/resources/ristorino-resource';
 import { Promotion } from '../../api/resources/models/promotion.model';
 import { RegistrarClickPromocionBody } from '../../api/resources/models/registrarClickPromocionBody.model';
 import { ActivatedRoute } from '@angular/router';
+import { BannerComponent } from '../../components/banner/banner.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RestaurantCardComponent],
+  imports: [CommonModule, BannerComponent, RestaurantCardComponent],
   providers: [RistorinoResource],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
