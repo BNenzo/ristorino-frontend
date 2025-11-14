@@ -1,5 +1,10 @@
 <app-banner></app-banner>
 
 <div class="cards-container">
-  <app-restaurant-card *ngFor="let promo of promos" [promotion]="promo" (cardClick)="onPromoClick($event)"></app-restaurant-card >
+  @for (promo of promos; track promo) {
+    <app-restaurant-card
+      [promotion]="promo"
+      (cardClick)="onPromoClick($event)">
+    </app-restaurant-card>
+  }
 </div>

@@ -4,24 +4,26 @@
   <button (click)="volver()">← Volver</button>
 </div>
 
-<div *ngIf="!cargando && restaurante" class="container">
+<div class="container">
   <div class="card restaurante-card">
-    <h2 class="nombre">{{ restaurante.nombreRestaurante }}</h2>
-      <p class="especialidad" *ngIf="especialidad">
-        Cocina <strong>{{ especialidad.nomValorDominio }}</strong><br /><em>{{ especialidad.observaciones }}</em>
+    <h2 class="nombre">{{ restaurante!.nombreRestaurante }}</h2>
+      <p class="especialidad">
+        Cocina <strong>{{ especialidad!.nomValorDominio }}</strong><br /><em>{{ especialidad!.observaciones }}</em>
       </p>
 
     <div class="sucursales">
       <h3>Sucursales</h3>
       <ul>
-        <li *ngFor="let s of sucursales" class="sucursal-item">
-          <p class="nombre-sucursal">{{ s.nombreSucursal }}</p>
-          <p class="direccion">{{ s.direccionCompleta }}</p>
-          <p class="contacto">
-            📞 {{ s.telefonos }} <br />
-            📍 {{ s.localidad }}, {{ s.provincia }}
-          </p>
-        </li>
+        @for (s of sucursales; track s) {
+          <li class="sucursal-item">
+            <p class="nombre-sucursal">{{ s.nombreSucursal }}</p>
+            <p class="direccion">{{ s.direccionCompleta }}</p>
+            <p class="contacto">
+              📞 {{ s.telefonos }} <br />
+              📍 {{ s.localidad }}, {{ s.provincia }}
+            </p>
+          </li>
+        }
       </ul>
     </div>
   </div>
