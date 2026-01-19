@@ -1,0 +1,79 @@
+<app-banner></app-banner>
+
+<div class="register-container">
+  <div class="register-card">
+    <h2 class="register-title">Crear cuenta</h2>
+    <p class="register-subtitle">Registrate en Ristorino</p>
+
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input
+          id="nombre"
+          type="text"
+          placeholder="Ingresá tu nombre"
+          formControlName="nombre"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input
+          id="apellido"
+          type="text"
+          placeholder="Ingresá tu apellido"
+          formControlName="apellido"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="correo">Correo electrónico</label>
+        <input
+          id="correo"
+          type="email"
+          placeholder="Ingresá tu correo"
+          formControlName="correo"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input
+          id="password"
+          type="password"
+          placeholder="Creá una contraseña"
+          formControlName="clave"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input
+          id="telefono"
+          type="text"
+          placeholder="Ingresá tu teléfono"
+          formControlName="telefonos"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="localidad">Localidad</label>
+        <input
+          id="localidad"
+          type="number"
+          placeholder="Ingresá el nro de localidad"
+          formControlName="nroLocalidad"
+        />
+      </div>
+
+      <button type="submit" class="register-button" [disabled]="registroForm.invalid">
+        Registrarse
+      </button>
+    </form>
+
+    <p class="login-text">
+      ¿Ya tenés cuenta?
+      <a routerLink="/login">Iniciar sesión</a>
+    </p>
+  </div>
+</div>
