@@ -4,4 +4,5 @@ export interface RegistrarClickPromocionBody {
   nroContenido: number;
   nroCliente: number;
   costoClick: number;
+  codContenidoRestaurante: string;
 }
