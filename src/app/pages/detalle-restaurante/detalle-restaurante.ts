@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { RistorinoResource } from '../../api/resources/ristorino-resource';
-import { Restaurant } from '../../api/resources/models/restaurant.model';
-import { Sucursal } from '../../api/resources/models/sucursal.model';
-import { PreferenciaRestaurante } from '../../api/resources/models/preferencia-restaurante.model';
+import { Restaurant } from '../../api/resources/restaurante/models/restaurant.model';
+import { Sucursal } from '../../api/resources/restaurante/models/sucursal.model';
+import { PreferenciaRestaurante } from '../../api/resources/restaurante/models/preferencia-restaurante.model';
 import { Location } from '@angular/common';
 import { BannerComponent } from '../../components/banner/banner.component';
 
@@ -27,7 +27,7 @@ export class DetalleRestauranteComponent implements OnInit {
     private _route: ActivatedRoute,
     private api: RistorinoResource,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
   ) {}
 
   volver(): void {

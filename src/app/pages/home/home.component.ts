@@ -2,10 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RestaurantCardComponent } from '../../components/restaurant-card/restaurant-card.component';
 import { RistorinoResource } from '../../api/resources/ristorino-resource';
-import { Promotion } from '../../api/resources/models/promotion.model';
-import { RegistrarClickPromocionBody } from '../../api/resources/models/registrarClickPromocionBody.model';
+import { Promotion } from '../../api/resources/contenido/models/promotion.model';
+import { RegistrarClickPromocionBody } from '../../api/resources/contenido/models/registrarClickPromocionBody.model';
 import { ActivatedRoute } from '@angular/router';
 import { BannerComponent } from '../../components/banner/banner.component';
+import { ContenidoResource } from '../../api/resources/contenido/contenido-resource';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,10 @@ import { BannerComponent } from '../../components/banner/banner.component';
 })
 export class HomeComponent implements OnInit {
   promos: Promotion[] = [];
-  constructor(private _route: ActivatedRoute, private api: RistorinoResource) {}
+  constructor(
+    private _route: ActivatedRoute,
+    private contenidoApi: ContenidoResource,
+  ) {}
 
   ngOnInit(): void {
     this._route.data.subscribe((data) => {
@@ -35,7 +39,7 @@ export class HomeComponent implements OnInit {
       costoClick: promo.costoClick,
     };
 
-    this.api.registrarClickContenido(registrarClickBody).subscribe({
+    this.contenidoApi.registrarClickContenido(registrarClickBody).subscribe({
       next: (nroClick: number) => {
         console.log('Click registrado:', nroClick, 'promo:', promo);
       },
