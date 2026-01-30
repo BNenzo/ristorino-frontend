@@ -1,0 +1,85 @@
+<app-banner></app-banner>
+
+
+<section class="reserva-container">
+  <h2 class="reserva-title">Hacé tu reserva</h2>
+
+  <form class="reserva-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Restaurante -->
+    <div class="form-group">
+      <label for="restaurante">Restaurante</label>
+      <select id="restaurante" formControlName="restaurante">
+        <option value="">Seleccioná un restaurante</option>
+
+        <option
+          *ngFor="let r of restaurantes"
+          [value]="r.nroRestaurante"
+        >
+          {{ r.razonSocial }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Sucursal -->
+    <div class="form-group">
+      <label for="sucursal">Sucursal</label>
+      <select id="sucursal" formControlName="sucursal">
+        <option value="">Seleccioná una sucursal</option>
+
+        <option
+          *ngFor="let s of sucursales"
+          [value]="s.nroSucursal"
+        >
+          {{ s.nomSucursal }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Fecha -->
+    <div class="form-group">
+      <label for="fecha">Fecha</label>
+        <input
+          id="fecha"
+          type="date"
+          formControlName="fecha"
+        />
+    </div>
+
+    <!-- Cantidad de personas -->
+    <div class="form-group">
+      <label for="personas">Cantidad de personas</label>
+      <select id="personas" formControlName="personas">
+        <option value="">Seleccioná cantidad</option>
+        <option
+          *ngFor="let c of cantidadesComensalesOpciones"
+          [value]="c"
+        >
+          {{ c }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Turno / Hora -->
+    <div class="form-group">
+      <label for="turno">Turno</label>
+      <select id="turno" formControlName="turno">
+        <option value="">Seleccioná un turno</option>
+
+        <option
+          *ngFor="let t of turnosDisponibles"
+          [value]="t.horaReserva"
+          [disabled]="form.get('personas')?.value > t.cupoDisponible || t.turnoCerrado === 1"
+        >
+          {{ t.horaReserva.slice(0, 5) }} - {{ t.horaHasta.slice(0, 5) }}
+          (Disponibles: {{ t.cupoDisponible }})
+        </option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">
+      Reservar
+    </button>
+
+    
+  </form>
+</section>

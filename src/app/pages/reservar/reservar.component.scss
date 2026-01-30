@@ -1,0 +1,100 @@
+.reserva-container {
+  max-width: 480px;
+  margin: 16px auto;
+  padding: 16px;
+
+  background-color: var(--color-card);
+  border: 4px solid #b8a491;
+  border-radius: 8px;
+}
+
+.reserva-title {
+  margin-top: 0px;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #333;
+}
+
+.reserva-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: #333;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 14px;
+    
+  }
+
+  select {
+    padding: 8px;
+    border-radius: 4px;
+    border: 3px solid #b8a491;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+  }
+
+  input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 3px solid #b8a491;
+    color: #333;
+    cursor: pointer;
+  }
+  input:disabled {
+  background-color: #f3ebe4; // mismo tono que los selects disabled
+  color: #8c8c8c;
+  }
+}
+
+.reserva-form button[type='submit'] {
+  margin-top: 12px;
+  padding: 12px 16px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  border-radius: 100px;
+  border: 3px solid #b8a491;
+
+  background-color: #fff;
+  color: #333;
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Hover */
+.reserva-form button[type='submit']:hover:not(:disabled) {
+  background-color: #b8a491;
+  color: #fff;
+}
+
+/* Active (click) */
+.reserva-form button[type='submit']:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* Disabled */
+.reserva-form button[type='submit']:disabled {
+  background-color: #f3ebe4;
+  color: #8c8c8c;
+}
+
+
+
+@media (max-width: 425px) {
+  .reserva-container {
+    margin: 40px 15px;
+  }
+}

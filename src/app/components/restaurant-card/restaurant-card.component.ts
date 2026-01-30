@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import type { Promotion } from '../../api/resources/models/promotion.model';
+import type { Promotion } from '../../api/resources/contenido/models/promotion.model';
 import { RouterModule } from '@angular/router';
 
 @Component({
