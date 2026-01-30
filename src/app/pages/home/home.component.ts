@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
       nroContenido: promo.nroContenido,
       nroCliente: 1,
       costoClick: promo.costoClick,
+      codContenidoRestaurante: promo.codContenidoRestaurante,
     };
 
     this.contenidoApi.registrarClickContenido(registrarClickBody).subscribe({
