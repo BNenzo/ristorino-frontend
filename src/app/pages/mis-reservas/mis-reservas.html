@@ -1,0 +1,44 @@
+<section class="container">
+  <header class="header">
+    <h3>Mis Pedidos</h3>
+  </header>
+
+  <div class="reservas-cards-wrapper">
+    <aside class="sidebar">
+      <p>Side bar con filtros</p>
+      <form [formGroup]="form">
+        <div class="form-group">
+          <label for="fecha">Fecha</label>
+          <input id="fecha" type="date" formControlName="fecha" placeholder="Fecha" />
+        </div>
+
+        <div formGroupName="estados" class="filtros-estados-wrapper">
+          @for (estado of estadosDisponibles; track estado) {
+            <label>
+              <input type="checkbox" [formControlName]="estado.codEstado" />
+              {{ estado.estado }}
+            </label>
+          }
+        </div>
+      </form>
+
+      <button (click)="aplicarFiltros()">Aplicar</button>
+    </aside>
+    <section class="cards-wrapper">
+      @for (reserva of reservas; track reserva) {
+        <article class="card">
+          <img
+            class="logo-restaurante-media"
+            src="https://pedidosya.dhmedia.io/image/pedidosya/restaurants/nuevo-logo-mc-logo.jpg"
+          />
+          <div class="card-body">
+            <h4>{{ reserva.razonSocial }} - {{ reserva.nomSucursal }}</h4>
+            <h5>Estado: {{ reserva.estado }}</h5>
+            <h6>{{ formatearFecha(reserva.fechaReserva) }}</h6>
+            <h6>Cantidad de personas: {{ reserva.cantAdultos + reserva.cantMenores }}</h6>
+          </div>
+        </article>
+      }
+    </section>
+  </div>
+</section>

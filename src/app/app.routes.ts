@@ -4,15 +4,22 @@ import { DetalleRestauranteComponent } from './pages/detalle-restaurante/detalle
 import { promocionesResolver } from './resolvers/promociones/promociones-resolver';
 import { RistorinoResource } from './api/resources/ristorino-resource';
 import { ReservarComponent } from './pages/reservar/reservar.component';
+
+import { MisReservas } from './pages/mis-reservas/mis-reservas';
+import { ReservasResource } from './api/resources/reservas/reservas-resource';
 import {
-  restaurantesResolver,
-  datosRestauranteResolver,
-  preferenciasRestauranteResolver,
-  sucursalesResolver,
-} from './resolvers/restaurantes/restaurantes-resolver';
+  obtenerEstadosReservasResolver,
+  obtenerReservasClienteResolver,
+} from './resolvers/reservas/reservas-resolver';
+import { ContenidoResource } from './api/resources/contenido/contenido-resource';
 import { RestauranteResource } from './api/resources/restaurante/restaurante-resource';
 import { ReservaResource } from './api/resources/reserva/reserva-resource';
-import { ContenidoResource } from './api/resources/contenido/contenido-resource';
+import {
+  datosRestauranteResolver,
+  preferenciasRestauranteResolver,
+  restaurantesResolver,
+  sucursalesResolver,
+} from './resolvers/restaurantes/restaurantes-resolver';
 
 export const routes: Routes = [
   {
@@ -38,5 +45,14 @@ export const routes: Routes = [
       restaurantes: restaurantesResolver,
     },
     providers: [RestauranteResource, ReservaResource],
+  },
+  {
+    path: 'mis-reservas',
+    component: MisReservas,
+    resolve: {
+      reservas: obtenerReservasClienteResolver,
+      estadosReserva: obtenerEstadosReservasResolver,
+    },
+    providers: [ReservasResource],
   },
 ];
