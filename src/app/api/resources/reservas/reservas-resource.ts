@@ -11,11 +11,6 @@ import { environment } from '../../../../enviroments/enviroment.development';
 import { ObtenerReservasCliente } from './models/obtener-reservas-cliente.model';
 import { ObtenerEstadosReserva } from './models/obtener-estados-reserva.model';
 
-type GetReservasClienteParams = {
-  fecha?: string; // 'YYYY-MM-DD'
-  estados?: string[]; // ['confirmado','pendiente']
-};
-
 @Injectable()
 @ResourceParams({
   pathPrefix: `${environment.apiUrl}/ristorino`,
@@ -29,7 +24,10 @@ export class ReservasResource extends Resource {
     method: ResourceRequestMethod.Get,
   })
   declare getReservasCliente: IResourceMethodObservable<
-    GetReservasClienteParams,
+    {
+      fecha?: string;
+      estados?: string[];
+    },
     ObtenerReservasCliente[]
   >;
 
