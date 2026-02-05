@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ObtenerReservasCliente } from '../../api/resources/reservas/models/obtener-reservas-cliente.model';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ReservasResource } from '../../api/resources/reservas/reservas-resource';
 import { ObtenerEstadosReserva } from '../../api/resources/reservas/models/obtener-estados-reserva.model';
+import { FilterDropdown } from '../../components/filter-dropdown/filter-dropdown';
+import { obtenerTextoEstadoClassname } from '../../utils/obtenerColorEstadoReserva';
+import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
 
 @Component({
   selector: 'app-mis-reservas',
-  imports: [ReactiveFormsModule],
-  providers: [ReservasResource],
+  imports: [ReactiveFormsModule, FilterDropdown, RouterLink],
+  providers: [ReservasResource, ReservaResource],
   templateUrl: './mis-reservas.html',
   styleUrl: './mis-reservas.scss',
 })
@@ -16,12 +19,22 @@ export class MisReservas {
   constructor(
     private fb: FormBuilder,
     private api: ReservasResource,
+    private reservaApi: ReservaResource,
     private _route: ActivatedRoute,
   ) {}
 
   reservas: ObtenerReservasCliente[] = [];
   estadosDisponibles: ObtenerEstadosReserva[] = [];
+  obtenerTextoEstadoClassname = obtenerTextoEstadoClassname;
+  isFiltersOpen = false;
 
+  toggleFilters() {
+    this.isFiltersOpen = !this.isFiltersOpen;
+  }
+
+  closeFilters() {
+    this.isFiltersOpen = false;
+  }
   form = this.fb.group({
     fecha: this.fb.control<string | null>(null),
     estados: this.fb.group({
@@ -83,5 +96,45 @@ export class MisReservas {
     });
 
     return formato.charAt(0).toUpperCase() + formato.slice(1).replace(',', ' -');
+  }
+
+  puedeCancelar(reserva: ObtenerReservasCliente): boolean {
+    if (reserva.fechaCancelacion) return false;
+
+    if (reserva.codEstado !== 'PEN') return false;
+
+    const dtReserva = new Date(`${reserva.fechaReserva}T${reserva.horaReserva}`);
+
+    if (isNaN(dtReserva.getTime())) return false;
+
+    const ahora = new Date();
+    const diffMs = dtReserva.getTime() - ahora.getTime();
+    const diffHoras = diffMs / (1000 * 60 * 60);
+    return diffHoras >= 8;
+  }
+
+  obtenerFechaHoyISO(): string {
+    const hoy = new Date();
+
+    const year = hoy.getFullYear();
+    const month = String(hoy.getMonth() + 1).padStart(2, '0');
+    const day = String(hoy.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+  cancelarReserva({ codReservaSucursal, nroReserva, nroRestaurante }: ObtenerReservasCliente) {
+    const reserva = {
+      fechaCancelacion: this.obtenerFechaHoyISO(),
+      codReservaSucursal,
+      nroReserva,
+      nroRestaurante,
+    };
+
+    this.reservaApi.actualizarReservaCliente(reserva).subscribe(() => {
+      this.api.getReservasCliente().subscribe((res) => {
+        this.reservas = res;
+      });
+    });
   }
 }

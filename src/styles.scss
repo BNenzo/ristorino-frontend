@@ -10,8 +10,35 @@ body {
   font-family: 'Arial', sans-serif;
 }
 
-
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin: 0;
 }
 
+.color_texto_estado {
+  &_completado {
+    color: #1565c0;
+  }
+  &_confirmado {
+    color: #2e7d32;
+  }
+  &_pendiente {
+    color: #f9a825;
+  }
+  &_cancelado {
+    color: #c62828;
+  }
+}
+
+button {
+  margin: 0;
+  border: none;
+  background: none;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}

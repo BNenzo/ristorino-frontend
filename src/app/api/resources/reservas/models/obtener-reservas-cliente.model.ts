@@ -1,3 +1,5 @@
+import { TEstadoReserva } from '../../../../types';
+
 export interface ObtenerReservasCliente {
   nroCliente: number;
   nroReserva: number;
@@ -16,7 +18,7 @@ export interface ObtenerReservasCliente {
   horaReserva: string;
   cantAdultos: number;
   cantMenores: number;
-  codEstado: string;
+  codEstado: TEstadoReserva;
   estado: string;
   fechaCancelacion: string | null;
   costoReserva: number;

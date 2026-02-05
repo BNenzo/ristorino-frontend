@@ -1,0 +1,44 @@
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #ad8a69;
+  padding: 8px;
+}
+
+.trigger {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* rota el + para que parezca abrir/cerrar */
+.icon {
+  transition: transform 180ms ease;
+}
+.icon.open {
+  transform: rotate(45deg);
+}
+
+/* Panel animado */
+.panel {
+  overflow: hidden;
+  max-height: 0;
+  transition: all .5s ease-in-out;
+  pointer-events: none;
+}
+
+.panel.open {
+  max-height: 264px;
+  pointer-events: auto;
+}
+
+.panel-inner {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  padding-top: 4px;
+}

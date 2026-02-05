@@ -9,6 +9,7 @@ import { MisReservas } from './pages/mis-reservas/mis-reservas';
 import { ReservasResource } from './api/resources/reservas/reservas-resource';
 import {
   obtenerEstadosReservasResolver,
+  obtenerReservaClienteResolver,
   obtenerReservasClienteResolver,
 } from './resolvers/reservas/reservas-resolver';
 import { ContenidoResource } from './api/resources/contenido/contenido-resource';
@@ -20,6 +21,7 @@ import {
   restaurantesResolver,
   sucursalesResolver,
 } from './resolvers/restaurantes/restaurantes-resolver';
+import { EditarReserva } from './pages/editar-reserva/editar-reserva';
 
 export const routes: Routes = [
   {
@@ -53,6 +55,14 @@ export const routes: Routes = [
       reservas: obtenerReservasClienteResolver,
       estadosReserva: obtenerEstadosReservasResolver,
     },
-    providers: [ReservasResource],
+    providers: [ReservasResource, ReservaResource],
+  },
+  {
+    path: 'editar-reserva/:nro_reserva',
+    component: EditarReserva,
+    resolve: {
+      reserva: obtenerReservaClienteResolver,
+    },
+    providers: [ReservaResource],
   },
 ];
