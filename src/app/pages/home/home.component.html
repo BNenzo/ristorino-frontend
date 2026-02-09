@@ -2,9 +2,7 @@
 
 <div class="cards-container">
   @for (promo of promos; track promo) {
-    <app-restaurant-card
-      [promotion]="promo"
-      (cardClick)="onPromoClick($event)">
+    <app-restaurant-card [promotion]="promo" (cardClick)="onPromoClick($event)">
     </app-restaurant-card>
   }
 </div>
