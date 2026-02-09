@@ -7,25 +7,14 @@
     <!-- Restaurante -->
     <div class="form-group">
       <label for="restaurante">Restaurante</label>
-      <select id="restaurante" formControlName="restaurante">
-        <option value="">Seleccioná un restaurante</option>
-
-        <option *ngFor="let r of restaurantes" [value]="r.nroRestaurante">
-          {{ r.razonSocial }}
-        </option>
-      </select>
+      <input id="restaurante" type="text" [value]="reserva.razonSocial" disabled />
     </div>
 
     <!-- Sucursal -->
     <div class="form-group">
       <label for="sucursal">Sucursal</label>
-      <select id="sucursal" formControlName="sucursal">
-        <option value="">Seleccioná una sucursal</option>
 
-        <option *ngFor="let s of sucursales" [value]="s.nroSucursal">
-          {{ s.nomSucursal }}
-        </option>
-      </select>
+      <input id="sucursal" type="text" [value]="reserva.nomSucursal" disabled />
     </div>
 
     <!-- Fecha -->
@@ -39,7 +28,7 @@
       <label for="personas">Cantidad de personas</label>
       <select id="personas" formControlName="personas">
         <option value="">Seleccioná cantidad</option>
-        <option *ngFor="let c of cantidadesComensalesOpciones" [value]="c">
+        <option *ngFor="let c of cantidadesComensalesOpciones" [ngValue]="c">
           {{ c }}
         </option>
       </select>
@@ -54,7 +43,9 @@
         <option
           *ngFor="let t of turnosDisponibles"
           [value]="t.horaReserva"
-          [disabled]="form.get('personas')?.value > t.cupoDisponible || t.turnoCerrado === 1"
+          [disabled]="
+            +(form.get('personas')?.value ?? 0) > t.cupoDisponible || t.turnoCerrado === 1
+          "
         >
           {{ t.horaReserva.slice(0, 5) }} - {{ t.horaHasta.slice(0, 5) }} (Disponibles:
           {{ t.cupoDisponible }})
@@ -63,5 +54,6 @@
     </div>
 
     <button type="submit" [disabled]="form.invalid">Reservar</button>
+    <button type="button" [disabled]="form.invalid">Cancelar</button>
   </form>
 </section>

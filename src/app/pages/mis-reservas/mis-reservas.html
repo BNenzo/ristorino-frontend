@@ -1,0 +1,152 @@
+<section class="container">
+  <header class="header">
+    <h3>Mis Pedidos</h3>
+    <button type="button" class="filters-toggle" (click)="toggleFilters()">
+      <!-- ícono "filtros" simple -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+      >
+        <path
+          d="M4 6h16M7 12h10M10 18h4"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
+  </header>
+
+  <div class="reservas-cards-wrapper">
+    <!-- overlay (solo mobile) -->
+    <div class="filters-overlay" [class.open]="isFiltersOpen" (click)="closeFilters()"></div>
+
+    <aside class="sidebar" [class.open]="isFiltersOpen" (click)="$event.stopPropagation()">
+      <div class="sidebar-header">
+        <h3>Filtros</h3>
+        <button type="button" class="close-btn" (click)="closeFilters()">
+          <!-- X -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M6 6l12 12M18 6L6 18"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <form [formGroup]="form">
+        <app-filter-dropdown>
+          <div dropdown-trigger><h3>Fecha</h3></div>
+          <div dropdown-content>
+            <div class="form-group">
+              <input id="fecha" type="date" formControlName="fecha" placeholder="Fecha" />
+            </div>
+          </div>
+        </app-filter-dropdown>
+
+        <app-filter-dropdown>
+          <div dropdown-trigger><h3>Estados</h3></div>
+          <div dropdown-content>
+            <div formGroupName="estados" class="filtros-estados-wrapper">
+              @for (estado of estadosDisponibles; track estado.codEstado) {
+                <label class="checkbox-wrapper">
+                  <input class="checkbox" type="checkbox" [formControlName]="estado.codEstado" />
+                  <h4>{{ estado.estado }}</h4>
+                </label>
+              }
+            </div>
+          </div>
+        </app-filter-dropdown>
+      </form>
+
+      <button (click)="aplicarFiltros(); closeFilters()" class="aplicar-filtros-btn">
+        Aplicar
+      </button>
+    </aside>
+
+    <section class="cards-wrapper">
+      @for (reserva of reservas; track reserva) {
+        <article class="card">
+          <img
+            class="logo-restaurante-media"
+            src="https://pedidosya.dhmedia.io/image/pedidosya/restaurants/nuevo-logo-mc-logo.jpg"
+          />
+          <div class="card-body">
+            <h4>{{ reserva.razonSocial }} - {{ reserva.nomSucursal }}</h4>
+            <h5 class="">
+              Estado:
+              <span [class]="obtenerTextoEstadoClassname(reserva.codEstado)">{{
+                reserva.estado
+              }}</span>
+            </h5>
+            <h6>{{ formatearFecha(reserva.fechaReserva) }}</h6>
+            <h6>Cantidad de personas: {{ reserva.cantAdultos + reserva.cantMenores }}</h6>
+          </div>
+
+          <div class="actions_wrapper">
+            <!-- Icono: Editar (lápiz) -->
+            <button
+              type="button"
+              [routerLink]="['/editar-reserva', reserva.nroReserva]"
+              [disabled]="!puedeCancelar(reserva)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-label="Editar"
+                role="img"
+              >
+                <path d="M12 20h9" />
+                <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z" />
+                <path d="M15 5l4 4" />
+              </svg>
+            </button>
+
+            <!-- Icono: Cancelar (X) -->
+            <button
+              type="button"
+              (click)="cancelarReserva(reserva)"
+              [disabled]="!puedeCancelar(reserva)"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="24"
+                height="24"
+                fill="none"
+                stroke="red"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-label="Cancelar"
+                role="img"
+              >
+                <path d="M18 6 6 18" />
+                <path d="M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </article>
+      }
+    </section>
+  </div>
+</section>
