@@ -5,7 +5,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute } from '@angular/router';
 import { Restaurante } from '../../api/resources/restaurante/models/restaurante.model';
 import { SucursalRestaurante } from '../../api/resources/restaurante/models/sucursal-restaurante';
-import { RistorinoResource } from '../../api/resources/ristorino-resource';
 import { TurnoDisponible } from '../../api/resources/reserva/models/turno-disponible.model';
 import { CrearReservaRequest } from '../../api/resources/reserva/models/reserva.model';
 import { RestauranteResource } from '../../api/resources/restaurante/restaurante-resource';
@@ -136,13 +135,14 @@ export class ReservarComponent implements OnInit {
 
     const raw = this.form.getRawValue();
 
-    // REVISAR !!!
     const reserva: CrearReservaRequest = {
+      nroCliente: 1, // hardcodeado por ahora
       nroRestaurante: Number(raw.restaurante),
       nroSucursal: Number(raw.sucursal),
       fechaReserva: raw.fecha,
-      horaDesde: raw.turno,
-      cantidadPersonas: Number(raw.personas),
+      horaReserva: raw.turno,
+      cantAdultos: Number(raw.personas),
+      cantMenores: 0,
     };
 
     console.log('RESERVA NORMALIZADA:', reserva);
