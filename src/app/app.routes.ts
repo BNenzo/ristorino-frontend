@@ -22,6 +22,7 @@ import {
   sucursalesResolver,
 } from './resolvers/restaurantes/restaurantes-resolver';
 import { EditarReserva } from './pages/editar-reserva/editar-reserva';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
   {
@@ -64,5 +65,9 @@ export const routes: Routes = [
       reserva: obtenerReservaClienteResolver,
     },
     providers: [ReservaResource],
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
 ];

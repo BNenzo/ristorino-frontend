@@ -26,9 +26,13 @@ export class NavbarComponent {
   }
 
   login() {
-    this.isLoggedIn = true;
-    this.isDropdownOpen = false;
-    console.log('Usuario logueado');
+    //this.isLoggedIn = true;
+    //this.isDropdownOpen = false;
+    //console.log('Usuario logueado');
+
+    //CAMBIAR ACA PARA PERMUTAR ENTRE EL REDIRECT Y EL CAMBIO DE ICONO
+
+    this.router.navigate(['/login']);
   }
 
   logout() {
