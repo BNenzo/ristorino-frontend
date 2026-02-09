@@ -1,0 +1,49 @@
+<nav class="navbar">
+  <div class="navbar-left">
+    <span class="logo">LOGO</span>
+  </div>
+
+  <div class="navbar-right">
+
+    <div class="language-select">
+      <select (change)="onIdiomaChange($event)">
+        <option value="es">Español</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+
+    <span
+      *ngIf="!isLoggedIn"
+      class="login-text"
+      (click)="login()"
+    >
+      Ingresar
+    </span>
+
+    <div
+      *ngIf="isLoggedIn"
+      class="user-menu"
+    >
+      <i
+        class="fa-regular fa-user user-icon"
+        (click)="toggleDropdown()"
+      ></i>
+
+      <div
+        class="dropdown"
+        *ngIf="isDropdownOpen"
+      >
+        <div class="dropdown-item" (click)="misReservas()">
+          <i class="fa-solid fa-book"></i>
+          <span>Mis reservas</span>
+        </div>
+
+        <div class="dropdown-item" (click)="logout()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Cerrar sesión</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>

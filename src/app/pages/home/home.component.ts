@@ -7,11 +7,12 @@ import { RegistrarClickPromocionBody } from '../../api/resources/contenido/model
 import { ActivatedRoute } from '@angular/router';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { ContenidoResource } from '../../api/resources/contenido/contenido-resource';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, BannerComponent, RestaurantCardComponent],
+  imports: [CommonModule, BannerComponent, RestaurantCardComponent, NavbarComponent],
   providers: [RistorinoResource],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
