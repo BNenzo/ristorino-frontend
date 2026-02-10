@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { SessionStore } from '../../store/session-store';
 
 @Component({
   selector: 'app-navbar',
@@ -10,12 +11,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
+  constructor(
+    private router: Router,
+    private sessionStore: SessionStore,
+  ) {}
+
   idiomaSeleccionado = 'es';
 
-  isLoggedIn = false;
+  isLoggedIn = Boolean(this.sessionStore.token());
   isDropdownOpen = false;
-
-  constructor(private router: Router) {}
 
   onIdiomaChange(event: Event) {
     const select = event.target as HTMLSelectElement;
@@ -26,18 +30,13 @@ export class NavbarComponent {
   }
 
   login() {
-    //this.isLoggedIn = true;
-    //this.isDropdownOpen = false;
-    //console.log('Usuario logueado');
-
-    //CAMBIAR ACA PARA PERMUTAR ENTRE EL REDIRECT Y EL CAMBIO DE ICONO
-
     this.router.navigate(['/login']);
   }
 
   logout() {
     this.isLoggedIn = false;
     this.isDropdownOpen = false;
+    this.sessionStore.logout();
     console.log('Sesión cerrada');
   }
 
