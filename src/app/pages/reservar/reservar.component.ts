@@ -37,6 +37,7 @@ export class ReservarComponent implements OnInit {
       sucursal: [{ value: null, disabled: true }, Validators.required],
       fecha: [{ value: null, disabled: true }, Validators.required],
       personas: [{ value: null, disabled: true }, Validators.required],
+      menores: [{ value: null, disabled: true }, Validators.required],
       turno: [{ value: null, disabled: true }, Validators.required],
     });
 
@@ -79,7 +80,7 @@ export class ReservarComponent implements OnInit {
       }
 
       this.form.get('personas')?.enable();
-
+      this.form.get('menores')?.enable();
       const nroRestaurante = Number(this.form.get('restaurante')?.value);
       const nroSucursal = Number(this.form.get('sucursal')?.value);
 
@@ -135,20 +136,40 @@ export class ReservarComponent implements OnInit {
 
     const raw = this.form.getRawValue();
 
+    const sucursalSeleccionada = this.sucursales.find(
+      (sucursal) => sucursal.nroSucursal == Number(raw.sucursal),
+    );
+
     const reserva: CrearReservaRequest = {
-      nroCliente: 1, // hardcodeado por ahora
       nroRestaurante: Number(raw.restaurante),
       nroSucursal: Number(raw.sucursal),
       fechaReserva: raw.fecha,
       horaReserva: raw.turno,
       cantAdultos: Number(raw.personas),
       cantMenores: 0,
+      codZona: sucursalSeleccionada?.codZona ?? '',
     };
 
     console.log('RESERVA NORMALIZADA:', reserva);
 
-    this.reservaApi.crearReserva(reserva).subscribe(() => {
-      console.log('Reserva creada correctamente');
+    this.reservaApi.crearReserva(reserva).subscribe({
+      next: () => {
+        console.log('Reserva creada correctamente');
+      },
+      error: (err) => {
+        const turnoCtrl = this.form.get('turno');
+        turnoCtrl?.reset();
+
+        // forzar que el usuario vuelva a elegir fecha/personas
+        this.form.get('fecha')?.updateValueAndValidity();
+      },
     });
+  }
+
+  isTurnoDisabled(t: any): boolean {
+    const personas = this.form.get('personas')?.value ?? 0;
+    const menores = this.form.get('menores')?.value ?? 0;
+    const totalComensales = Number(menores) + Number(personas);
+    return totalComensales > t.cupoDisponible || t.turnoCerrado === 1;
   }
 }

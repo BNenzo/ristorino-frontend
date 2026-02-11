@@ -45,6 +45,17 @@
       </select>
     </div>
 
+    <!-- cantidad de menores -->
+    <div class="form-group">
+      <label for="menores">Cantidad de menores</label>
+      <select id="menores" formControlName="menores">
+        <option value="">Seleccioná cantidad</option>
+        <option *ngFor="let c of cantidadesComensalesOpciones" [value]="c">
+          {{ c }}
+        </option>
+      </select>
+    </div>
+
     <!-- Turno / Hora -->
     <div class="form-group">
       <label for="turno">Turno</label>
@@ -54,7 +65,7 @@
         <option
           *ngFor="let t of turnosDisponibles"
           [value]="t.horaReserva"
-          [disabled]="form.get('personas')?.value > t.cupoDisponible || t.turnoCerrado === 1"
+          [disabled]="isTurnoDisabled(t)"
         >
           {{ t.horaReserva.slice(0, 5) }} - {{ t.horaHasta.slice(0, 5) }} (Disponibles:
           {{ t.cupoDisponible }})

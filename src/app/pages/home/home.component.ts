@@ -12,7 +12,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, BannerComponent, RestaurantCardComponent, NavbarComponent],
+  imports: [CommonModule, BannerComponent, RestaurantCardComponent],
   providers: [RistorinoResource],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

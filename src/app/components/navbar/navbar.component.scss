@@ -22,7 +22,9 @@
     text-align-last: center;
     appearance: none;
 
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
 
     &:hover {
       background-color: #a58f7b;
@@ -72,7 +74,9 @@
   border: 2px solid #a58f7b;
   background-color: #fff;
 
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 
   &:hover {
     background-color: #a58f7b;

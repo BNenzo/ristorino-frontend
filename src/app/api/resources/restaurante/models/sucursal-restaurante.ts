@@ -11,4 +11,7 @@ export interface SucursalRestaurante {
   totalComensales: number;
   minToleranciaReserva: number;
   codSucursalRestaurante: string;
+  codZona: string;
+  permiteMenores: number;
+  habilitada: number;
 }
