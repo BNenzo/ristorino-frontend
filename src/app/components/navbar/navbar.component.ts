@@ -16,9 +16,12 @@ export class NavbarComponent {
     private sessionStore: SessionStore,
   ) {}
 
+  get isLoggedIn(): boolean {
+    return !!this.sessionStore.isUserLogged();
+  }
+
   idiomaSeleccionado = 'es';
 
-  isLoggedIn = Boolean(this.sessionStore.token());
   isDropdownOpen = false;
 
   onIdiomaChange(event: Event) {
@@ -34,7 +37,6 @@ export class NavbarComponent {
   }
 
   logout() {
-    this.isLoggedIn = false;
     this.isDropdownOpen = false;
     this.sessionStore.logout();
     console.log('Sesión cerrada');

@@ -30,7 +30,7 @@ export class LoginComponent {
         this.authApi.me().subscribe({
           next: (user) => {
             this.authStore.setUser(user);
-            this.router.navigate(['/']);
+            this.router.navigate([history.state?.from ?? '/']);
           },
         });
       },
