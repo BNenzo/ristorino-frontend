@@ -17,7 +17,7 @@ import { SessionStore } from '../../store/session-store';
 @Component({
   selector: 'app-reservar',
   standalone: true,
-  imports: [CommonModule, BannerComponent, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './reservar.component.html',
   styleUrls: ['./reservar.component.scss'],
 })
