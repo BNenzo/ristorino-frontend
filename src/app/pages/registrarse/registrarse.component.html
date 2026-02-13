@@ -1,0 +1,137 @@
+<app-banner></app-banner>
+
+<div class="register-container">
+  <div class="register-card">
+
+    <h2 class="register-title">Registrate en Ristorino</h2>
+
+    <!-- FORMULARIO REACTIVO -->
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <!-- CORREO -->
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input
+          id="email"
+          type="email"
+          placeholder="Ingresá tu correo"
+          formControlName="correo"
+        />
+      </div>
+
+      <!-- NOMBRE / APELLIDO -->
+      <div class="row">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input
+            id="nombre"
+            type="text"
+            formControlName="nombre"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="apellido">Apellido</label>
+          <input
+            id="apellido"
+            type="text"
+            formControlName="apellido"
+          />
+        </div>
+      </div>
+
+      <!-- DNI / TELÉFONO -->
+      <div class="row">
+        <div class="form-group">
+          <label for="dni">Documento</label>
+          <input
+            id="dni"
+            type="number"
+            formControlName="dni"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input
+            id="telefono"
+            type="text"
+            formControlName="telefono"
+          />
+        </div>
+      </div>
+
+      <!-- LOCALIDAD -->
+      <div class="form-group">
+        <label for="localidad">Localidad</label>
+        <select
+          id="localidad"
+          formControlName="nroLocalidad"
+        >
+          <option value="">Seleccioná una localidad</option>
+          <option *ngFor="let loc of localidades" [value]="loc.nro_localidad">
+  {{ loc.nom_localidad }}
+</option>
+
+        </select>
+      </div>
+
+      <!-- PREFERENCIAS -->
+      <div class="form-group">
+        <label for="preferencias">Preferencias gastronómicas</label>
+
+        <div class="chips-container">
+          <div
+            *ngFor="let pref of preferencias"
+            class="chip"
+            [class.selected]="isSelected(pref.nro_valor_dominio)"
+            (click)="togglePreferencia(pref.nro_valor_dominio)"
+          >
+            {{ pref.nom_valor_dominio }}
+          </div>
+        </div>
+      </div>
+
+      <!-- PASSWORD / CONFIRM -->
+      <div class="row">
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input
+            id="password"
+            type="password"
+            formControlName="password"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="confirm">Confirmar contraseña</label>
+          <input
+            id="confirm"
+            type="password"
+            formControlName="confirmPassword"
+          />
+        </div>
+        
+      </div>
+      <div class="error" *ngIf="form.errors?.['passwordsNotMatching']">
+        Las contraseñas no coinciden
+      </div>
+
+      <!-- BOTÓN -->
+      <button
+        type="submit"
+        class="register-button"
+        [disabled]="form.invalid"
+      >
+        Registrarme
+      </button>
+
+      <p class="login-link">
+        ¿Ya tenés cuenta?
+        <a routerLink="/login">Iniciar sesión</a>
+      </p>
+
+    </form>
+
+  </div>
+</div>
