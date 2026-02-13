@@ -1,96 +1,315 @@
+/* =========================
+   MOBILE FIRST (base = mobile)
+   Breakpoints: 480 / 820 / 1024+
+   ========================= */
+
 .container {
   display: flex;
-  justify-content: center;
-  padding: 1rem;
+  flex-direction: column;
+  padding: 0px 16px;
 }
 
-.card {
-  background-color: var(--color-card);
-  border: 2px solid #bfa292;
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
+.sucursal-card-wrapper {
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 0 14px;
+  border-radius: 14px;
+  background: #eeddd2;
+  border: 2px solid #d9c4b8;
+  padding: 12px 14px;
+}
+
+.sucursal-card-header {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 600px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0 12px 0;
+  border-bottom: 2px solid #e8d5ca;
+  color: #4a342b;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.2;
+  }
 }
 
-.nombre {
-  font-size: 1.8rem;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  color: #3e2c1a;
+.sucursal-card-body {
+  display: flex;
+  flex-direction: column;
 }
 
-.cuit {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 1rem;
+.sucursal-card-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  color: #7b594a;
+  padding: 10px 0;
 }
 
-.especialidad {
-  font-size: 1.1rem;
-  color: #333;
-  margin-bottom: 1.5rem;
+.sucursal-card-info-item {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  column-gap: 10px;
+
+  i {
+    margin-top: 2px;
+    flex: 0 0 auto;
+  }
+
+  span {
+    line-height: 1.35;
+    word-break: break-word;
+  }
+
+  .featured {
+    font-weight: 700;
+  }
 }
 
-.sucursales {
-  text-align: left;
+.branch-card__divider {
+  height: 1px;
+  background: rgba(58, 42, 33, 0.1);
+  margin: 14px 0;
+}
+
+.promociones-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  background: #f7ebe5;
+  border-radius: 14px;
+}
+
+.promociones-header {
+  display: flex;
+  margin-bottom: 10px;
 
   h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #bfa292;
-    display: inline-block;
-    padding-bottom: 0.3rem;
+    margin: 0;
+    font-size: 16px;
   }
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  .sucursal-item {
-    background-color: #f9f6f3;
-    border: 1px solid #d4b89f;
-    border-radius: 6px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .nombre-sucursal {
-    font-weight: bold;
-    color: #3e2c1a;
-    margin-bottom: 0.3rem;
-  }
-
-  .direccion,
-  .contacto {
-    font-size: 0.95rem;
-    color: #555;
-    margin: 0.2rem 0;
-  }
-
 }
 
+.promociones-cards-wrapper {
+  display: grid;
+  grid-template-columns: 1fr; /* mobile */
+  gap: 12px;
+}
 
-.back-button {
-  padding: 1rem 2rem;
+.promo {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  border-radius: 14px;
+  border: 1px solid rgba(58, 42, 33, 0.1);
+  background: rgba(255, 255, 255, 0.7);
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease;
+}
 
-  button {
-    background-color: #bfa292;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.promo:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 20px rgba(30, 20, 15, 0.1);
+}
 
-    &:hover {
-      background-color: #a3826f;
+.promotion-img {
+  width: 100%;
+  min-height: 160px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.promotion-title {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: #3a2a21;
+
+  :empty {
+    display: none;
+  }
+}
+
+.promotion-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 10px;
+  height: 100%;
+}
+
+.promotion-info {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(58, 42, 33, 0.72);
+  line-height: 1.35;
+  margin-top: auto;
+  margin-left: auto;
+}
+
+.btn {
+  height: 42px;
+  width: 100%; /* mobile: full width */
+  border-radius: 12px;
+  border: 1px solid rgba(58, 42, 33, 0.16);
+  background: rgba(255, 255, 255, 0.55);
+  color: #3a2a21;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease,
+    background 120ms ease;
+}
+
+.btn--primary {
+  background: #6b4031;
+  border-color: rgba(0, 0, 0, 0);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: #5f392b;
+}
+
+/* =========================
+   >= 480px (mobile grande)
+   ========================= */
+@media (min-width: 480px) {
+  .promociones-cards-wrapper {
+    grid-template-columns: 1fr 1fr; /* 2 columnas */
+  }
+}
+
+/* =========================
+   >= 820px (desktop layout)
+   ========================= */
+@media (min-width: 820px) {
+  .promociones-cards-wrapper {
+    grid-template-columns: 1fr 1fr; /* 2 columnas en tablet */
+  }
+}
+
+/* =========================
+   >= 1024px (desktop layout)
+   ========================= */
+@media (min-width: 1024px) {
+  .sucursal-card-wrapper {
+    min-width: 820px;
+    max-width: 1440px;
+    margin: 0 auto 18px;
+    border-radius: 18px;
+    padding: 16px 24px;
+  }
+
+  .sucursal-card-header {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    padding: 0 0 12px 0;
+
+    h2 {
+      font-size: inherit; /* o el tamaño que ya uses en desktop */
+      line-height: normal;
     }
   }
+
+  .sucursal-card-info-wrapper {
+    row-gap: 8px;
+    padding: 12px 0;
+  }
+
+  .sucursal-card-info-item {
+    align-items: center;
+    column-gap: 8px;
+
+    i {
+      margin-top: 0;
+    }
+
+    span {
+      word-break: normal;
+    }
+  }
+
+  .branch-card__divider {
+    margin: 16px 0;
+  }
+
+  .promociones-wrapper {
+    padding: 16px 24px;
+    border-radius: 18px;
+  }
+
+  .promotion-img {
+    min-height: 200px;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+  }
+
+  .promotion-info-wrapper {
+    padding: 4px 8px;
+  }
+
+  .promotion-info {
+    font-size: 13px;
+  }
+
+  .btn {
+    width: auto; /* desktop: no full width */
+  }
+
+  .promociones-cards-wrapper {
+    grid-template-columns: 1fr 1fr 1fr 1fr; /* 4 columnas */
+  }
+}
+
+.banner {
+  width: 100%;
+  height: 400px;
+  background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 42px;
+}
+
+.banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.banner-content {
+  position: relative;
+  text-align: center;
+  color: rgb(255, 238, 238);
+  max-width: 800px;
+  padding: 20px;
+}
+
+.banner h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.banner p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }

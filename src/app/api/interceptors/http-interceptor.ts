@@ -5,11 +5,11 @@ import { SessionStore } from '../../store/session-store';
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
   const store = inject(SessionStore);
   const token = store.token();
-  const nroIdioma = '1';
+  const nroIdioma = store.nroIdioma();
   const nroCliente = store.user()?.nroCliente;
 
   const headers: Record<string, string> = {
-    nroIdioma,
+    nroIdioma: nroIdioma.toString(),
   };
 
   token && (headers['Authorization'] = `Bearer ${token}`);

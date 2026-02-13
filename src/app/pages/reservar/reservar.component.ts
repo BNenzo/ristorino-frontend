@@ -6,7 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Restaurante } from '../../api/resources/restaurante/models/restaurante.model';
 import { SucursalRestaurante } from '../../api/resources/restaurante/models/sucursal-restaurante';
 import { TurnoDisponible } from '../../api/resources/reserva/models/turno-disponible.model';
-import { CrearReservaRequest } from '../../api/resources/reserva/models/reserva.model';
+import {
+  CrearReservaDraftRequest,
+  CrearReservaRequest,
+} from '../../api/resources/reserva/models/reserva.model';
 import { RestauranteResource } from '../../api/resources/restaurante/restaurante-resource';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
 import { SessionStore } from '../../store/session-store';
@@ -197,7 +200,7 @@ export class ReservarComponent implements OnInit {
     }
   }
 
-  private getDraft(): CrearReservaRequest | null {
+  private getDraft(): CrearReservaDraftRequest | null {
     return this.sessionStore.reservaDraft();
   }
 
