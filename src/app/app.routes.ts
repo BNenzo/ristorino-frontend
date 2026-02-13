@@ -43,8 +43,9 @@ export const routes: Routes = [
       datosRestaurante: datosRestauranteResolver,
       sucursales: sucursalesResolver,
       preferencias: preferenciasRestauranteResolver,
+      promociones: promocionesResolver,
     },
-    providers: [RestauranteResource],
+    providers: [RestauranteResource, ContenidoResource],
   },
   {
     path: 'reservar',

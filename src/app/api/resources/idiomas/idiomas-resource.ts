@@ -7,28 +7,21 @@ import {
   ResourceRequestMethod,
 } from '@ngx-resource/core';
 import { environment } from '../../../../enviroments/enviroment.development';
+import { Idiomas } from './models/idiomas.model';
 import type { IResourceMethodObservable } from '@ngx-resource/core';
-import { RegistrarClickPromocionBody } from './models/registrarClickPromocionBody.model';
-import { Promotion } from './models/promotion.model';
 
 @Injectable()
 @ResourceParams({
   pathPrefix: `${environment.apiUrl}/ristorino`,
 })
-export class ContenidoResource extends Resource {
+export class IdiomasResource extends Resource {
   constructor(handler: ResourceHandler) {
     super(handler);
   }
 
   @ResourceAction({
-    path: '/promociones',
+    path: '/idiomas',
     method: ResourceRequestMethod.Get,
   })
-  declare getPromociones: IResourceMethodObservable<{ nroRestaurante?: number }, Promotion[]>;
-
-  @ResourceAction({
-    path: '/registrar-click-promocion',
-    method: ResourceRequestMethod.Post,
-  })
-  declare registrarClickContenido: IResourceMethodObservable<RegistrarClickPromocionBody, any>;
+  declare getIdiomas: IResourceMethodObservable<void, Idiomas[]>;
 }

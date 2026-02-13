@@ -5,9 +5,10 @@
 
   <div class="navbar-right">
     <div class="language-select">
-      <select (change)="onIdiomaChange($event)">
-        <option value="es">Español</option>
-        <option value="en">English</option>
+      <select (change)="onIdiomaChange($event)" [(ngModel)]="idiomaSeleccionado">
+        @for (idioma of idiomas; track idioma.nroIdioma) {
+          <option [value]="idioma.nroIdioma">{{ idioma.nomIdioma }}</option>
+        }
       </select>
     </div>
 
