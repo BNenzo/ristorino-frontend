@@ -41,7 +41,7 @@ export class ReservaResource extends Resource {
     path: '/reservas',
     method: ResourceRequestMethod.Post,
   })
-  declare crearReserva: IResourceMethodObservable<CrearReservaRequest, void>;
+  declare crearReserva: IResourceMethodObservable<CrearReservaRequest, string>;
 
   // OBTENER LA RESERVA DE UN CLIENTE
   @ResourceAction({
