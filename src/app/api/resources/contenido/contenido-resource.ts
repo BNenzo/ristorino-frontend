@@ -31,4 +31,10 @@ export class ContenidoResource extends Resource {
     method: ResourceRequestMethod.Post,
   })
   declare registrarClickContenido: IResourceMethodObservable<RegistrarClickPromocionBody, any>;
+
+  @ResourceAction({
+    path: '/contenidos/busqueda',
+    method: ResourceRequestMethod.Post,
+  })
+  declare buscarContenidosConIA: IResourceMethodObservable<{ search: string }, Promotion[]>;
 }

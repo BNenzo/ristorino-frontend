@@ -2,7 +2,71 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1rem;
-  padding: 2rem;
+  padding: 16px 32px 32px 32px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #4f4f4f;
+}
+
+input {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #bfa292;
+  font-size: 14px;
+  background-color: #fff;
+  width: 100%;
+  height: -webkit-fill-available;
+}
+
+input:focus {
+  outline: none;
+  border-color: #a8846f;
+  box-shadow: 0 0 0 2px rgba(168, 132, 111, 0.2);
+}
+
+.buscador-container {
+  display: flex;
+  flex-direction: row;
+  column-gap: 16px;
+  padding: 32px;
+  align-items: center;
+}
+
+.btn {
+  height: 100%;
+  width: fit-content; /* mobile: full width */
+  border-radius: 12px;
+  border: 1px solid rgba(58, 42, 33, 0.16);
+  background: rgba(255, 255, 255, 0.55);
+  color: #3a2a21;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 600;
+  padding: 16px;
+  cursor: pointer;
+  transition:
+    transform 120ms ease,
+    box-shadow 120ms ease,
+    background 120ms ease;
+}
+
+.btn--primary {
+  background: #6b4031;
+  border-color: rgba(0, 0, 0, 0);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: #5f392b;
 }
 
 @media (max-width: 768px) {

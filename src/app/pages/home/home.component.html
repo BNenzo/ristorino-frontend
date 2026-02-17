@@ -1,8 +1,14 @@
 <app-banner></app-banner>
 
-<div class="cards-container">
-  @for (promo of promos; track promo) {
-    <app-restaurant-card [promotion]="promo" (cardClick)="onPromoClick($event)">
-    </app-restaurant-card>
-  }
-</div>
+<section class="container">
+  <div class="buscador-container">
+    <input [(ngModel)]="searchText" placeholder="¿Qué querés comer?" />
+    <button (click)="onBuscarClick()" class="btn btn--primary">Buscar</button>
+  </div>
+  <div class="cards-container">
+    @for (promo of promos; track promo) {
+      <app-restaurant-card [promotion]="promo" (cardClick)="onPromoClick($event)">
+      </app-restaurant-card>
+    }
+  </div>
+</section>

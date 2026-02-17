@@ -7,18 +7,19 @@ import { RegistrarClickPromocionBody } from '../../api/resources/contenido/model
 import { ActivatedRoute } from '@angular/router';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { ContenidoResource } from '../../api/resources/contenido/contenido-resource';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, BannerComponent, RestaurantCardComponent],
+  imports: [CommonModule, BannerComponent, RestaurantCardComponent, FormsModule],
   providers: [RistorinoResource],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
   promos: Promotion[] = [];
+  searchText: string = '';
   constructor(
     private _route: ActivatedRoute,
     private contenidoApi: ContenidoResource,
@@ -28,7 +29,6 @@ export class HomeComponent implements OnInit {
     this._route.data.subscribe((data) => {
       this.promos = data['promociones'];
     });
-    console.log(this.promos);
   }
 
   onPromoClick(promo: Promotion): void {
@@ -47,6 +47,30 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error registrando click:', err);
+      },
+    });
+  }
+
+  onBuscarClick(): void {
+    if (this.searchText === '') {
+      this.contenidoApi.getPromociones().subscribe({
+        next: (promociones) => {
+          this.promos = promociones;
+        },
+        error: (err) => {
+          console.error('Error obteniendo todas las promociones', err);
+        },
+      });
+
+      return;
+    }
+
+    this.contenidoApi.buscarContenidosConIA({ search: this.searchText }).subscribe({
+      next: (promociones) => {
+        this.promos = promociones;
+      },
+      error: (err) => {
+        console.error('Error buscando con IA:', err);
       },
     });
   }
