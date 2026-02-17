@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { AuthResource } from '../../api/resources/auth/auth-resource';
 import { SessionStore } from '../../store/session-store';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [BannerComponent, FormsModule],
+  imports: [BannerComponent, FormsModule, RouterModule],
   providers: [AuthResource],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
