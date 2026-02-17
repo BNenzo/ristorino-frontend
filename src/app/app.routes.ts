@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { DetalleRestauranteComponent } from './pages/detalle-restaurante/detalle-restaurante';
 import { promocionesResolver } from './resolvers/promociones/promociones-resolver';
-import { RistorinoResource } from './api/resources/ristorino-resource';
 import { ReservarComponent } from './pages/reservar/reservar.component';
 
 import { MisReservas } from './pages/mis-reservas/mis-reservas';
@@ -23,6 +22,12 @@ import {
 } from './resolvers/restaurantes/restaurantes-resolver';
 import { EditarReserva } from './pages/editar-reserva/editar-reserva';
 import { LoginComponent } from './pages/login/login.component';
+import { RegistrarseComponent } from './pages/registrarse/registrarse.component';
+import { ClienteResource } from './api/resources/cliente/cliente-resource';
+import { LocalidadResource } from './api/resources/localidad/localidad-resource';
+import { PreferenciaResource } from './api/resources/preferencia/preferencia-resource';
+import { localidadesResolver } from './resolvers/localidades/localidades-resolver';
+import { preferenciasResolver } from './resolvers/preferencias/preferencias-resolver';
 
 export const routes: Routes = [
   {
@@ -38,8 +43,9 @@ export const routes: Routes = [
       datosRestaurante: datosRestauranteResolver,
       sucursales: sucursalesResolver,
       preferencias: preferenciasRestauranteResolver,
+      promociones: promocionesResolver,
     },
-    providers: [RestauranteResource],
+    providers: [RestauranteResource, ContenidoResource],
   },
   {
     path: 'reservar',
@@ -69,5 +75,14 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'registrarse',
+    component: RegistrarseComponent,
+    resolve: {
+      localidades: localidadesResolver,
+      preferencias: preferenciasResolver,
+    },
+    providers: [ClienteResource, LocalidadResource, PreferenciaResource],
   },
 ];

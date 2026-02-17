@@ -1,4 +1,3 @@
-<app-banner></app-banner>
 
 <section class="reserva-container">
   <h2 class="reserva-title">Hacé tu reserva</h2>
@@ -57,22 +56,81 @@
     </div>
 
     <!-- Turno / Hora -->
-    <div class="form-group">
-      <label for="turno">Turno</label>
-      <select id="turno" formControlName="turno">
-        <option value="">Seleccioná un turno</option>
+    <!-- Turnos como cuadraditos -->
+<div class="form-group">
+  <label>Turno</label>
 
-        <option
-          *ngFor="let t of turnosDisponibles"
-          [value]="t.horaReserva"
-          [disabled]="isTurnoDisabled(t)"
-        >
-          {{ t.horaReserva.slice(0, 5) }} - {{ t.horaHasta.slice(0, 5) }} (Disponibles:
-          {{ t.cupoDisponible }})
-        </option>
-      </select>
+  <ng-container *ngIf="turnosDisponibles.length > 0; else emptyTurnos">
+    <div class="turnos-container">
+      <button
+        type="button"
+        *ngFor="let t of turnosDisponibles"
+        class="turno-card"
+        [class.selected]="form.get('turno')?.value === t.horaReserva"
+        [class.disabled]="isTurnoDisabled(t)"
+        [disabled]="isTurnoDisabled(t)"
+        (click)="form.get('turno')?.setValue(t.horaReserva)"
+      >
+        <div class="hora">
+          {{ t.horaReserva.slice(0, 5) }} - {{ t.horaHasta.slice(0, 5) }}
+        </div>
+        <div class="cupo">
+          Disponibles: {{ t.cupoDisponible }}
+        </div>
+      </button>
     </div>
+  </ng-container>
+
+  <ng-template #emptyTurnos>
+    <div class="turnos-placeholder">
+      Seleccioná restaurante, sucursal y fecha para ver los turnos disponibles
+    </div>
+  </ng-template>
+</div>
+
+
 
     <button type="submit" [disabled]="form.invalid">Reservar</button>
   </form>
 </section>
+
+
+<!-- MODAL CONFIRMACION -->
+<div class="modal-backdrop" *ngIf="mostrarModal">
+  <div class="modal-box">
+    <h3>🎉 Reserva confirmada</h3>
+
+    <p>
+      Has realizado tu reserva para 
+      <strong>{{ modalData.restaurante }}</strong>
+    </p>
+
+    <p>
+      <strong>Sucursal:</strong> {{ modalData.sucursal }}
+    </p>
+
+    <p>
+      <strong>Fecha:</strong> {{ modalData.fecha | date:'dd/MM/yyyy' }}
+    </p>
+
+    <p>
+      <strong>Hora:</strong> {{ modalData.hora }}hs
+    </p>
+
+    <p>
+      Tu código de reserva es:
+      <strong class="codigo">{{ modalData.codigo }}</strong>
+    </p>
+
+    <button (click)="irHome()">Aceptar</button>
+  </div>
+</div>
+
+<!-- MODAL ERROR -->
+<div class="modal-backdrop" *ngIf="mostrarModalError">
+  <div class="modal-box modal-error">
+    <h3>⚠️ Hubo un error al realizar la reserva</h3>
+
+    <button (click)="cerrarModalError()">Aceptar</button>
+  </div>
+</div>

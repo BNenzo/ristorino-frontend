@@ -24,7 +24,7 @@ export class ContenidoResource extends Resource {
     path: '/promociones',
     method: ResourceRequestMethod.Get,
   })
-  declare getPromociones: IResourceMethodObservable<void, Promotion[]>;
+  declare getPromociones: IResourceMethodObservable<{ nroRestaurante?: number }, Promotion[]>;
 
   @ResourceAction({
     path: '/registrar-click-promocion',

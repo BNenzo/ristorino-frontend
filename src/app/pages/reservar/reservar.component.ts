@@ -6,7 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Restaurante } from '../../api/resources/restaurante/models/restaurante.model';
 import { SucursalRestaurante } from '../../api/resources/restaurante/models/sucursal-restaurante';
 import { TurnoDisponible } from '../../api/resources/reserva/models/turno-disponible.model';
-import { CrearReservaRequest } from '../../api/resources/reserva/models/reserva.model';
+import {
+  CrearReservaDraftRequest,
+  CrearReservaRequest,
+} from '../../api/resources/reserva/models/reserva.model';
 import { RestauranteResource } from '../../api/resources/restaurante/restaurante-resource';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
 import { SessionStore } from '../../store/session-store';
@@ -14,7 +17,7 @@ import { SessionStore } from '../../store/session-store';
 @Component({
   selector: 'app-reservar',
   standalone: true,
-  imports: [CommonModule, BannerComponent, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './reservar.component.html',
   styleUrls: ['./reservar.component.scss'],
 })
@@ -47,6 +50,17 @@ export class ReservarComponent implements OnInit {
   // ----------------------------
   // Setup
   // ----------------------------
+
+  mostrarModal = false;
+  mostrarModalError = false;
+
+  modalData: {
+    restaurante?: string;
+    sucursal?: string;
+    fecha?: string;
+    hora?: string;
+    codigo?: string;
+  } = {};
 
   private buildForm(): void {
     this.form = this.fb.group({
@@ -197,7 +211,7 @@ export class ReservarComponent implements OnInit {
     }
   }
 
-  private getDraft(): CrearReservaRequest | null {
+  private getDraft(): CrearReservaDraftRequest | null {
     return this.sessionStore.reservaDraft();
   }
 
@@ -305,12 +319,43 @@ export class ReservarComponent implements OnInit {
     }
 
     this.reservaApi.crearReserva(reserva).subscribe({
-      next: () => {},
+      next: (codigoReserva: string) => {
+        const raw = this.form.getRawValue();
+
+        const restauranteSeleccionado = this.restaurantes.find(
+          (r) => Number(r.nroRestaurante) === Number(raw.restaurante),
+        );
+
+        const sucursalSeleccionada = this.sucursales.find(
+          (s) => Number(s.nroSucursal) === Number(raw.sucursal),
+        );
+
+        this.modalData = {
+          restaurante: restauranteSeleccionado?.razonSocial ?? '',
+          sucursal: sucursalSeleccionada?.nomSucursal ?? '',
+          fecha: raw.fecha,
+          hora: raw.turno?.slice(0, 5),
+          codigo: codigoReserva,
+        };
+
+        this.mostrarModal = true;
+      },
       error: () => {
         this.form.get('turno')?.reset();
         this.form.get('fecha')?.updateValueAndValidity();
+        this.mostrarModalError = true;
       },
     });
+  }
+
+  irHome(): void {
+    this.mostrarModal = false;
+    this.router.navigate(['/']);
+  }
+
+  cerrarModalError(): void {
+    this.mostrarModalError = false;
+    this.form.reset();
   }
 
   // ----------------------------

@@ -1,30 +1,64 @@
-<app-banner></app-banner>
-
-<div class="back-button">
+<!-- <div class="back-button">
   <button (click)="volver()">← Volver</button>
-</div>
+</div> -->
 
-<div class="container">
-  <div class="card restaurante-card">
-    <h2 class="nombre">{{ restaurante!.nombreRestaurante }}</h2>
-      <p class="especialidad">
-        Cocina <strong>{{ especialidad!.nomValorDominio }}</strong><br /><em>{{ especialidad!.observaciones }}</em>
-      </p>
-
-    <div class="sucursales">
-      <h3>Sucursales</h3>
-      <ul>
-        @for (s of sucursales; track s) {
-          <li class="sucursal-item">
-            <p class="nombre-sucursal">{{ s.nombreSucursal }}</p>
-            <p class="direccion">{{ s.direccionCompleta }}</p>
-            <p class="contacto">
-              📞 {{ s.telefonos }} <br />
-              📍 {{ s.localidad }}, {{ s.provincia }}
-            </p>
-          </li>
-        }
-      </ul>
-    </div>
+<section class="banner">
+  <div class="banner-content">
+    <h1>{{ restaurante!.nombreRestaurante }}</h1>
+    <p>
+      Cocina <strong>{{ especialidad!.nomValorDominio }}</strong
+      ><br /><em>{{ especialidad!.observaciones }}</em>
+    </p>
   </div>
-</div>
+</section>
+
+<section class="container">
+  @for (s of sucursales; track s) {
+    <article class="sucursal-card-wrapper">
+      <header class="sucursal-card-header">
+        <h2>Sucursal: {{ s.nombreSucursal }}</h2>
+        <button type="button" class="btn btn--primary" (click)="redirectToReservas(s.nroSucursal)">
+          <i class="fa-regular fa-calendar"></i>
+          <span>Reservar</span>
+        </button>
+      </header>
+
+      <div class="sucursal-card-body">
+        <div class="sucursal-card-info-wrapper">
+          <div class="sucursal-card-info-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span
+              >{{ s.direccionCompleta }} -
+              <span class="featured">{{ s.localidad }}, {{ s.provincia }}</span></span
+            >
+          </div>
+
+          <div class="sucursal-card-info-item">
+            <i class="fa-solid fa-phone"></i>
+            <span>{{ s.telefonos }}</span>
+          </div>
+        </div>
+
+        <div class="branch-card__divider"></div>
+
+        <div class="promociones-wrapper">
+          <div class="promociones-header">
+            <h3>Promociones</h3>
+          </div>
+
+          <div class="promociones-cards-wrapper">
+            @for (promotion of promosDeSucursal(s.nroSucursal); track promotion) {
+              <article class="promo" (click)="onPromoClick(promotion)">
+                <img src="{{ promotion.imagenPromocional }}" class="promotion-img" />
+                <div class="promotion-info-wrapper">
+                  <h4 class="promo-title">{{ promotion.contenidoPromocional }}</h4>
+                  <p class="promotion-info">Fin de promocion {{ promotion.fechaFinVigencia }}</p>
+                </div>
+              </article>
+            }
+          </div>
+        </div>
+      </div>
+    </article>
+  }
+</section>

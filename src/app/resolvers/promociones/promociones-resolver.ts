@@ -4,5 +4,7 @@ import { inject } from '@angular/core';
 import { ContenidoResource } from '../../api/resources/contenido/contenido-resource';
 
 export const promocionesResolver: ResolveFn<Promotion[]> = (route, state) => {
-  return inject(ContenidoResource).getPromociones();
+  const nroRestaurante = route.params['nro_restaurante'];
+  const t = nroRestaurante ? { nroRestaurante } : {};
+  return inject(ContenidoResource).getPromociones({ ...t });
 };
