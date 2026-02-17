@@ -177,3 +177,76 @@
   color: #8c8c8c;
   text-align: center;
 }
+
+//estilos modal
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 2rem;
+  border: 4px solid #a58f7b;
+  background-color: #b8a491;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-box h3 {
+  margin-bottom: 1rem;
+}
+
+.modal-box p {
+  margin: 0.5rem 0;
+}
+
+.modal-box .codigo {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  color: #038024;
+}
+
+.modal-box button {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: #b48a75;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-box button:hover {
+  background: #89614e;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+//estilos modal error
+.modal-error {
+  background-color: #b8a491;
+  border-color: #c0392b;
+}
+
+.modal-error h3 {
+  color: #922b21;
+}
+
+.modal-error button {
+  background: #c0392b;
+}
+
+.modal-error button:hover {
+  background: #922b21;
+}

@@ -93,3 +93,44 @@
     <button type="submit" [disabled]="form.invalid">Reservar</button>
   </form>
 </section>
+
+
+<!-- MODAL CONFIRMACION -->
+<div class="modal-backdrop" *ngIf="mostrarModal">
+  <div class="modal-box">
+    <h3>🎉 Reserva confirmada</h3>
+
+    <p>
+      Has realizado tu reserva para 
+      <strong>{{ modalData.restaurante }}</strong>
+    </p>
+
+    <p>
+      <strong>Sucursal:</strong> {{ modalData.sucursal }}
+    </p>
+
+    <p>
+      <strong>Fecha:</strong> {{ modalData.fecha | date:'dd/MM/yyyy' }}
+    </p>
+
+    <p>
+      <strong>Hora:</strong> {{ modalData.hora }}hs
+    </p>
+
+    <p>
+      Tu código de reserva es:
+      <strong class="codigo">{{ modalData.codigo }}</strong>
+    </p>
+
+    <button (click)="irHome()">Aceptar</button>
+  </div>
+</div>
+
+<!-- MODAL ERROR -->
+<div class="modal-backdrop" *ngIf="mostrarModalError">
+  <div class="modal-box modal-error">
+    <h3>⚠️ Hubo un error al realizar la reserva</h3>
+
+    <button (click)="cerrarModalError()">Aceptar</button>
+  </div>
+</div>

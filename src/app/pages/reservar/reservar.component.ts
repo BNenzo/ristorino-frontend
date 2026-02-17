@@ -51,6 +51,17 @@ export class ReservarComponent implements OnInit {
   // Setup
   // ----------------------------
 
+  mostrarModal = false;
+  mostrarModalError = false;
+
+  modalData: {
+    restaurante?: string;
+    sucursal?: string;
+    fecha?: string;
+    hora?: string;
+    codigo?: string;
+  } = {};
+
   private buildForm(): void {
     this.form = this.fb.group({
       restaurante: [null, Validators.required],
@@ -308,12 +319,43 @@ export class ReservarComponent implements OnInit {
     }
 
     this.reservaApi.crearReserva(reserva).subscribe({
-      next: () => {},
+      next: (codigoReserva: string) => {
+        const raw = this.form.getRawValue();
+
+        const restauranteSeleccionado = this.restaurantes.find(
+          (r) => Number(r.nroRestaurante) === Number(raw.restaurante),
+        );
+
+        const sucursalSeleccionada = this.sucursales.find(
+          (s) => Number(s.nroSucursal) === Number(raw.sucursal),
+        );
+
+        this.modalData = {
+          restaurante: restauranteSeleccionado?.razonSocial ?? '',
+          sucursal: sucursalSeleccionada?.nomSucursal ?? '',
+          fecha: raw.fecha,
+          hora: raw.turno?.slice(0, 5),
+          codigo: codigoReserva,
+        };
+
+        this.mostrarModal = true;
+      },
       error: () => {
         this.form.get('turno')?.reset();
         this.form.get('fecha')?.updateValueAndValidity();
+        this.mostrarModalError = true;
       },
     });
+  }
+
+  irHome(): void {
+    this.mostrarModal = false;
+    this.router.navigate(['/']);
+  }
+
+  cerrarModalError(): void {
+    this.mostrarModalError = false;
+    this.form.reset();
   }
 
   // ----------------------------
