@@ -34,26 +34,50 @@
       </select>
     </div>
 
-    <!-- Turno / Hora -->
+    <!-- cantidad de menores -->
     <div class="form-group">
-      <label for="turno">Turno</label>
-      <select id="turno" formControlName="turno">
-        <option value="">Seleccioná un turno</option>
-
-        <option
-          *ngFor="let t of turnosDisponibles"
-          [value]="t.horaReserva"
-          [disabled]="
-            +(form.get('personas')?.value ?? 0) > t.cupoDisponible || t.turnoCerrado === 1
-          "
-        >
-          {{ t.horaReserva.slice(0, 5) }} - {{ t.horaHasta.slice(0, 5) }} (Disponibles:
-          {{ t.cupoDisponible }})
+      <label for="menores">Cantidad de menores</label>
+      <select id="menores" formControlName="menores">
+        <option value="">Seleccioná cantidad</option>
+        <option *ngFor="let c of cantidadesComensalesOpciones" [value]="c">
+          {{ c }}
         </option>
       </select>
     </div>
 
-    <button type="submit" [disabled]="form.invalid">Reservar</button>
-    <button type="button" [disabled]="form.invalid">Cancelar</button>
+    <!-- Turno / Hora -->
+    <div class="form-group">
+      <label>Turno</label>
+
+      <ng-container *ngIf="turnosDisponibles.length > 0; else emptyTurnos">
+        <div class="turnos-container">
+          <button
+            type="button"
+            *ngFor="let t of turnosDisponibles"
+            class="turno-card"
+            [class.selected]="form.get('turno')?.value === t.horaReserva"
+            [class.disabled]="isTurnoDisabled(t)"
+            [disabled]="isTurnoDisabled(t)"
+            (click)="form.get('turno')?.setValue(t.horaReserva)"
+          >
+            <div class="hora">{{ t.horaReserva.slice(0, 5) }} - {{ t.horaHasta.slice(0, 5) }}</div>
+            <div class="cupo">Disponibles: {{ t.cupoDisponible }}</div>
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-template #emptyTurnos>
+        <div class="turnos-placeholder">
+          Seleccioná restaurante, sucursal y fecha para ver los turnos disponibles
+        </div>
+      </ng-template>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid" class="button-base button-submit">
+      Reservar
+    </button>
+    <button type="button" (click)="confirmarReserva()" class="button-base button-confirmar">
+      Confirmar
+    </button>
   </form>
 </section>

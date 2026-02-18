@@ -6,13 +6,13 @@
   display: flex;
   flex-direction: column;
   max-width: 100vw;
-  min-height: 100vh;
+  min-height: calc(100vh - 58px);
   height: 100%;
 }
 
 .reservas-cards-wrapper {
   display: flex;
-  min-height: calc(100vh - 48px);
+  flex: 1 1 0;
 }
 
 /* =========================
@@ -222,7 +222,7 @@ button:disabled {
   /* Sidebar off-canvas */
   .sidebar {
     position: fixed;
-    top: 44px; /* altura header */
+    top: 58px; /* altura header */
     left: 0;
 
     height: calc(100vh - 44px);

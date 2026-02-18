@@ -28,6 +28,7 @@ import { LocalidadResource } from './api/resources/localidad/localidad-resource'
 import { PreferenciaResource } from './api/resources/preferencia/preferencia-resource';
 import { localidadesResolver } from './resolvers/localidades/localidades-resolver';
 import { preferenciasResolver } from './resolvers/preferencias/preferencias-resolver';
+import { puedeEditarReservaGuard } from './pages/editar-reserva/guards/puedeEditarReservaGuard';
 
 export const routes: Routes = [
   {

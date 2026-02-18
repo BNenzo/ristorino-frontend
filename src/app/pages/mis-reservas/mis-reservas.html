@@ -1,6 +1,6 @@
 <section class="container">
   <header class="header">
-    <h3>Mis Pedidos</h3>
+    <h3>Mis Reservas</h3>
     <button type="button" class="filters-toggle" (click)="toggleFilters()">
       <!-- ícono "filtros" simple -->
       <svg
@@ -100,7 +100,7 @@
             <button
               type="button"
               [routerLink]="['/editar-reserva', reserva.nroReserva]"
-              [disabled]="!puedeCancelar(reserva)"
+              [disabled]="!puedeEditarReserva(reserva)"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +125,7 @@
             <button
               type="button"
               (click)="cancelarReserva(reserva)"
-              [disabled]="!puedeCancelar(reserva)"
+              [disabled]="!puedeEditarReserva(reserva)"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -7,6 +7,7 @@ import { ObtenerEstadosReserva } from '../../api/resources/reservas/models/obten
 import { FilterDropdown } from '../../components/filter-dropdown/filter-dropdown';
 import { obtenerTextoEstadoClassname } from '../../utils/obtenerColorEstadoReserva';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
+import { puedeEditarReserva } from '../editar-reserva/utils';
 
 @Component({
   selector: 'app-mis-reservas',
@@ -98,21 +99,6 @@ export class MisReservas {
     return formato.charAt(0).toUpperCase() + formato.slice(1).replace(',', ' -');
   }
 
-  puedeCancelar(reserva: ObtenerReservasCliente): boolean {
-    if (reserva.fechaCancelacion) return false;
-
-    if (reserva.codEstado !== 'PEN') return false;
-
-    const dtReserva = new Date(`${reserva.fechaReserva}T${reserva.horaReserva}`);
-
-    if (isNaN(dtReserva.getTime())) return false;
-
-    const ahora = new Date();
-    const diffMs = dtReserva.getTime() - ahora.getTime();
-    const diffHoras = diffMs / (1000 * 60 * 60);
-    return diffHoras >= 8;
-  }
-
   obtenerFechaHoyISO(): string {
     const hoy = new Date();
 
@@ -136,5 +122,9 @@ export class MisReservas {
         this.reservas = res;
       });
     });
+  }
+
+  puedeEditarReserva(reserva: ObtenerReservasCliente): boolean {
+    return puedeEditarReserva({ ...reserva });
   }
 }

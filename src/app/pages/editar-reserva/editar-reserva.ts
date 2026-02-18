@@ -1,7 +1,7 @@
 import { Component, DestroyRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReservaCliente } from '../../api/resources/reserva/models/reserva-cliente.model';
 import { TurnoDisponible } from '../../api/resources/reserva/models/turno-disponible.model';
 import { BannerComponent } from '../../components/banner/banner.component';
@@ -21,6 +21,7 @@ export class EditarReserva {
     private fb: FormBuilder,
     private reservaApi: ReservaResource,
     private _route: ActivatedRoute,
+    private router: Router,
   ) {}
   private destroyRef = inject(DestroyRef);
   reserva!: ReservaCliente; // <- es 1 sola reserva, no array
@@ -44,6 +45,9 @@ export class EditarReserva {
     personas: this.fb.nonNullable.control(0, {
       validators: [Validators.required, Validators.min(1)],
     }),
+    menores: this.fb.nonNullable.control(0, {
+      validators: [Validators.required, Validators.min(1)],
+    }),
     turno: this.fb.nonNullable.control('', { validators: [Validators.required] }),
   });
 
@@ -59,6 +63,7 @@ export class EditarReserva {
           fecha: this.reserva.fechaReserva,
           turno: this.reserva.horaReserva,
           personas: this.reserva.cantAdultos,
+          menores: this.reserva.cantMenores,
         },
         { emitEvent: false },
       );
@@ -96,12 +101,39 @@ export class EditarReserva {
       fechaReserva: raw.fecha,
       horaReserva: raw.turno,
       cantAdultos: Number(raw.personas),
+      cantMenores: Number(raw.menores),
       codReservaSucursal: this.reserva.codReservaSucursal,
       nroRestaurante: this.reserva.nroRestaurante,
     };
 
-    this.reservaApi.actualizarReservaCliente(reserva).subscribe(() => {
-      console.log('Reserva creada correctamente');
+    this.reservaApi.actualizarReservaCliente(reserva).subscribe({
+      next: () => {
+        console.log('Reserva creada correctamente');
+        this.router.navigate(['/mis-reservas']);
+      },
+    });
+  }
+
+  isTurnoDisabled(t: TurnoDisponible): boolean {
+    const personas = Number(this.form.get('personas')?.value ?? 0);
+    const menores = Number(this.form.get('menores')?.value ?? 0);
+    const total = personas + menores;
+    return total > t.cupoDisponible || t.turnoCerrado === 1;
+  }
+
+  confirmarReserva() {
+    const reserva = {
+      nroReserva: this.reserva.nroReserva,
+      codEstado: 'CONF',
+      nroRestaurante: this.reserva.nroRestaurante,
+      codReservaSucursal: this.reserva.codReservaSucursal,
+    };
+
+    this.reservaApi.actualizarReservaCliente(reserva).subscribe({
+      next: () => {
+        console.log('Reserva confirmada correctamente');
+        this.router.navigate(['/mis-reservas']);
+      },
     });
   }
 }

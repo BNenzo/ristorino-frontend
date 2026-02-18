@@ -9,4 +9,5 @@ export interface ReservaCliente {
   fechaReserva: string; // yyyy-MM-dd
   cantAdultos: number;
   codReservaSucursal: string;
+  cantMenores: number;
 }

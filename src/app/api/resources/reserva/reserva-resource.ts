@@ -61,7 +61,9 @@ export class ReservaResource extends Resource {
       nroReserva: number;
       fechaReserva?: string;
       cantAdultos?: number;
+      cantMenores?: number;
       horaReserva?: string;
+      codEstado?: string;
       fechaCancelacion?: string;
       codReservaSucursal?: string;
     },
