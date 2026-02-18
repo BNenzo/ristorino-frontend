@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import type { Promotion } from '../../api/resources/contenido/models/promotion.model';
 import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant-card',
@@ -11,6 +12,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './restaurant-card.component.scss',
 })
 export class RestaurantCardComponent {
+  constructor(private router: Router) {}
   @Input() promotion!: Promotion;
 
   // Emite el evento al hacer click
@@ -18,5 +20,9 @@ export class RestaurantCardComponent {
 
   onCardClick(): void {
     this.cardClick.emit(this.promotion);
+  }
+
+  redirectToReservas(): void {
+    this.router.navigate(['/reservar']);
   }
 }
