@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 64 64" role="img" aria-label="Ristorino">
+  <!-- Fondo circular rojo -->
+  <circle cx="32" cy="32" r="28" fill="#C62828"></circle>
+
+  <!-- Plato -->
+  <circle cx="32" cy="32" r="18" fill="none" stroke="#FFFFFF" stroke-width="4"></circle>
+
+  <!-- Tenedor (dorado) -->
+  <g fill="#FBC02D">
+    <rect x="20.5" y="18" width="3.2" height="20" rx="1.6"></rect>
+    <rect x="17.8" y="16" width="1.6" height="8" rx="0.8"></rect>
+    <rect x="20.4" y="16" width="1.6" height="8" rx="0.8"></rect>
+    <rect x="23.0" y="16" width="1.6" height="8" rx="0.8"></rect>
+    <rect x="20.5" y="38" width="3.2" height="10" rx="1.6"></rect>
+  </g>
+
+  <!-- Cuchara (dorado) -->
+  <g fill="#FBC02D">
+    <ellipse cx="44.2" cy="22.5" rx="4.2" ry="6"></ellipse>
+    <rect x="42.6" y="28" width="3.2" height="20" rx="1.6"></rect>
+  </g>
+
+  <!-- Letra R -->
+  <path d="M28 24.5h8.3c3.5 0 6 2.3 6 5.5 0 2.6-1.6 4.6-4.1 5.3l4.4 6.2h-4.4l-3.9-5.7H32v5.7h-4V24.5zm4 3.4V33h4.1c1.7 0 2.8-1 2.8-2.5S37.8 28 36.1 28H32z" fill="#FFFFFF"></path>
+</svg>

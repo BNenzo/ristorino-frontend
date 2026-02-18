@@ -7,6 +7,7 @@ export interface ObtenerReservasCliente {
   fechaReserva: string;
   nroRestaurante: number;
   razonSocial: string;
+  iconoSrc: string;
   nroSucursal: number;
   nomSucursal: string;
   calle: string;
