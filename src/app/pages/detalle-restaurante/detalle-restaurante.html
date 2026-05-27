@@ -5,7 +5,7 @@
 <section class="banner">
   <div class="banner-content">
     <h1>{{ restaurante!.nombreRestaurante }}</h1>
-    <p>
+    <p i18n>
       Cocina <strong>{{ especialidad!.nomValorDominio }}</strong
       ><br /><em>{{ especialidad!.observaciones }}</em>
     </p>
@@ -16,10 +16,10 @@
   @for (s of sucursales; track s) {
     <article class="sucursal-card-wrapper">
       <header class="sucursal-card-header">
-        <h2>Sucursal: {{ s.nombreSucursal }}</h2>
+        <h2 i18n>Sucursal: {{ s.nombreSucursal }}</h2>
         <button type="button" class="btn btn--primary" (click)="redirectToReservas(s.nroSucursal)">
           <i class="fa-regular fa-calendar"></i>
-          <span>Reservar</span>
+          <span i18n>Reservar</span>
         </button>
       </header>
 
@@ -43,7 +43,7 @@
 
         <div class="promociones-wrapper">
           <div class="promociones-header">
-            <h3>Promociones</h3>
+            <h3 i18n>Promociones</h3>
           </div>
 
           <div class="promociones-cards-wrapper">
@@ -52,7 +52,7 @@
                 <img src="{{ promotion.imagenPromocional }}" class="promotion-img" />
                 <div class="promotion-info-wrapper">
                   <h4 class="promo-title">{{ promotion.contenidoPromocional }}</h4>
-                  <p class="promotion-info">Fin de promocion {{ promotion.fechaFinVigencia }}</p>
+                  <p class="promotion-info" i18n>Fin de promocion {{ promotion.fechaFinVigencia }}</p>
                 </div>
               </article>
             }

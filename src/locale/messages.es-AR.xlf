@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="es-AR" datatype="plaintext" original="ng2.template" target-language="es-AR">
+    <body>
+      <trans-unit id="6204625689313532583" datatype="html">
+        <source>Portal Ristorino</source><target state="final">Portal Ristorino</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/banner/banner.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="536475590027773055" datatype="html">
+        <source>Encontrá tu próxima comida</source><target state="final">Encontrá tu próxima comida</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/banner/banner.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit><trans-unit id="7904313455104046575" datatype="html">
+        <source> Ingresar </source><target state="final"> Ingresar </target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/components/navbar/navbar.component.html</context><context context-type="linenumber">17</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/pages/login/login.component.html</context><context context-type="linenumber">35</context></context-group></trans-unit><trans-unit id="7748145165405672260" datatype="html">
+        <source>Mis reservas</source><target state="final">Mis reservas</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit><trans-unit id="1294390259244223882" datatype="html">
+        <source>Cerrar sesión</source><target state="final">Cerrar sesión</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/navbar/navbar.component.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+      </trans-unit><trans-unit id="5379196306172170620" datatype="html">
+        <source>Reservar</source><target state="final">Reservar</target>
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/components/restaurant-card/restaurant-card.component.html</context><context context-type="linenumber">45</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/pages/detalle-restaurante/detalle-restaurante.html</context><context context-type="linenumber">22</context></context-group></trans-unit><trans-unit id="4813134992510367860" datatype="html">
+        <source> Cocina <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/><x id="INTERPOLATION" equiv-text="{{ especialidad!.nomValorDominio }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong
+      >"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br />"/><x id="START_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;em>"/><x id="INTERPOLATION_1" equiv-text="{{ especialidad!.observaciones }}"/><x id="CLOSE_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;/em>"/></source><target state="final"> Cocina <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/><x id="INTERPOLATION" equiv-text="{{ especialidad!.nomValorDominio }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong
+      >"/><x id="LINE_BREAK" ctype="lb" equiv-text="&lt;br />"/><x id="START_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;em>"/><x id="INTERPOLATION_1" equiv-text="{{ especialidad!.observaciones }}"/><x id="CLOSE_EMPHASISED_TEXT" ctype="x-em" equiv-text="&lt;/em>"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/detalle-restaurante/detalle-restaurante.html</context>
+          <context context-type="linenumber">9,13</context>
+        </context-group>
+      </trans-unit><trans-unit id="8169573902162958383" datatype="html">
+        <source>Sucursal: <x id="INTERPOLATION" equiv-text="{{ s.nombreSucursal }}"/></source><target state="final">Sucursal: <x id="INTERPOLATION" equiv-text="{{ s.nombreSucursal }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/detalle-restaurante/detalle-restaurante.html</context>
+          <context context-type="linenumber">19,20</context>
+        </context-group>
+      </trans-unit><trans-unit id="7976033268821733717" datatype="html">
+        <source>Promociones</source><target state="final">Promociones</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/detalle-restaurante/detalle-restaurante.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit><trans-unit id="3403268214611016971" datatype="html">
+        <source>Fin de promocion <x id="INTERPOLATION" equiv-text="{{ promotion.fechaFinVigencia }}"/></source><target state="final">Fin de promocion <x id="INTERPOLATION" equiv-text="{{ promotion.fechaFinVigencia }}"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/detalle-restaurante/detalle-restaurante.html</context>
+          <context context-type="linenumber">55,56</context>
+        </context-group>
+      </trans-unit><trans-unit id="2607299328321013053" datatype="html">
+        <source>¿Qué querés comer?</source><target state="final">¿Qué querés comer?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit><trans-unit id="8713073708350341933" datatype="html">
+        <source>Buscar</source><target state="final">Buscar</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home/home.component.html</context>
+          <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit><trans-unit id="4311569858228721961" datatype="html">
+        <source>Iniciar sesión</source><target state="final">Iniciar sesión</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit><trans-unit id="8611341226135725986" datatype="html">
+        <source>Accedé al portal Ristorino</source><target state="final">Accedé al portal Ristorino</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit><trans-unit id="9016536884183098576" datatype="html">
+        <source>Usuario</source><target state="final">Usuario</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit><trans-unit id="2839457762096002632" datatype="html">
+        <source>Ingresá tu usuario</source><target state="final">Ingresá tu usuario</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">17,18</context>
+        </context-group>
+      </trans-unit><trans-unit id="7132730488496169673" datatype="html">
+        <source>Contraseña</source><target state="final">Contraseña</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">22,23</context>
+        </context-group>
+      </trans-unit><trans-unit id="1004393195508306636" datatype="html">
+        <source>Ingresá tu contraseña</source><target state="final">Ingresá tu contraseña</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit><trans-unit id="3439766735000714405" datatype="html">
+        <source> ¿No tenés cuenta? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/registrarse&quot;>"/>Registrate<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source><target state="final"> ¿No tenés cuenta? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/registrarse&quot;>"/>Registrate<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">40,43</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
