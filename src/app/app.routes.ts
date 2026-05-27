@@ -50,7 +50,7 @@ export const routes: Routes = [
     providers: [RestauranteResource, ContenidoResource],
   },
   {
-    path: 'reservar',
+    path: 'reservar/:nroRestaurante/:nroSucursal',
     component: ReservarComponent,
     resolve: {
       restaurantes: restaurantesResolver,

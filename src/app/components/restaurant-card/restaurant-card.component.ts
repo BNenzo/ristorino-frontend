@@ -23,6 +23,6 @@ export class RestaurantCardComponent {
   }
 
   redirectToReservas(): void {
-    this.router.navigate(['/reservar']);
+    this.router.navigate(['/reservar', this.promotion.nroRestaurante, this.promotion.nroSucursal]);
   }
 }

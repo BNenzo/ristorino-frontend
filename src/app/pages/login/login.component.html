@@ -38,7 +38,7 @@
 
     <p i18n class="register-text">
       ¿No tenés cuenta?
-      <a routerLink="/registrarse">Registrate</a>
+      <a routerLink="/registrarse" [queryParams]="{ redirectTo: returnUrl }">Registrate</a>
     </p>
   </div>
 </div>

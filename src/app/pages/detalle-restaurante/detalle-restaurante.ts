@@ -9,7 +9,6 @@ import { Location } from '@angular/common';
 import { Promotion } from '../../api/resources/contenido/models/promotion.model';
 import { RegistrarClickPromocionBody } from '../../api/resources/contenido/models/registrarClickPromocionBody.model';
 import { ContenidoResource } from '../../api/resources/contenido/contenido-resource';
-import { SessionStore } from '../../store/session-store';
 
 @Component({
   selector: 'app-detalle-restaurante',
@@ -33,7 +32,6 @@ export class DetalleRestauranteComponent implements OnInit {
     private router: Router,
     private location: Location,
     private contenidoApi: ContenidoResource,
-    private sessionStore: SessionStore,
   ) {}
 
   volver(): void {
@@ -81,10 +79,6 @@ export class DetalleRestauranteComponent implements OnInit {
 
   redirectToReservas(nroSucursal: number) {
     const nroRestaurante = Number(this._route.snapshot.paramMap.get('nro_restaurante'));
-    this.sessionStore.setReservaDraft({
-      nroRestaurante,
-      nroSucursal,
-    });
-    this.router.navigate(['/reservar']);
+    this.router.navigate(['/reservar', nroRestaurante, nroSucursal]);
   }
 }

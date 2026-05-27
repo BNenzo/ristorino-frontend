@@ -2,10 +2,6 @@ import { Injectable, computed, signal } from '@angular/core';
 import { Usuario } from '../api/resources/auth/models/usuario.model';
 import { INITITAL_STATE, NRO_IDIOMA_KEY, TOKEN_KEY } from './constants';
 import { AuthState } from './types';
-import {
-  CrearReservaDraftRequest,
-  CrearReservaRequest,
-} from '../api/resources/reserva/models/reserva.model';
 
 @Injectable({ providedIn: 'root' })
 export class SessionStore {
@@ -35,10 +31,6 @@ export class SessionStore {
     this.state.update((s) => ({ ...s, user }));
   }
 
-  setReservaDraft(reserva: CrearReservaDraftRequest) {
-    this.state.update((s) => ({ ...s, reservaDraft: reserva }));
-  }
-
   setNroIdioma(nroIdioma: number) {
     localStorage.setItem(NRO_IDIOMA_KEY, nroIdioma.toString());
     this.state.update((s) => ({ ...s, nroIdioma }));
@@ -47,10 +39,6 @@ export class SessionStore {
   clearSession() {
     localStorage.removeItem(TOKEN_KEY);
     this.state.set(INITITAL_STATE);
-  }
-
-  clearReservaDraft() {
-    this.state.update((s) => ({ ...s, reservaDraft: null }));
   }
 
   logout() {

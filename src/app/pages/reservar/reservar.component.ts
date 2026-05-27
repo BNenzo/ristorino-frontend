@@ -7,7 +7,7 @@ import { ObtenerSucursalesFormReservas } from '../../api/resources/reservas/mode
 import { ObtenerZonasSucursalesRestaurantesFormReservas } from '../../api/resources/reservas/models/obtener-zonas-sucursales-restaurantes.model';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
 import { DisponibilidadTurnos } from '../../api/resources/reserva/models/disponibilidad-turnos.model';
-import { TurnoDisponible } from '../../api/resources/reserva/models/turno-disponible.model';
+import { SessionStore } from '../../store/session-store';
 
 @Component({
   selector: 'app-reservar.component',
@@ -46,6 +46,7 @@ export class ReservarComponent {
     private route: ActivatedRoute,
     private router: Router,
     private reservaApi: ReservaResource,
+    private sessionStore: SessionStore,
   ) {
     this.form = this.fb.group({
       restaurante: ['', [Validators.required]],
@@ -58,11 +59,18 @@ export class ReservarComponent {
   }
 
   ngOnInit(): void {
-    this.route.data.subscribe(({ restaurantes, sucursales, zonas }) => {
-      this.restaurantes = restaurantes;
-      this.sucursales = sucursales;
-      this.zonas = zonas;
-    });
+    const nroRestaurante = this.route.snapshot.paramMap.get('nroRestaurante');
+    const nroSucursal = this.route.snapshot.paramMap.get('nroSucursal');
+
+    if (!this.sessionStore.isUserLogged()) {
+      const returnUrl = this.router.serializeUrl(
+        this.router.createUrlTree(['/reservar', nroRestaurante, nroSucursal]),
+      );
+      this.router.navigate(['/login'], {
+        queryParams: { redirectTo: returnUrl },
+      });
+      return;
+    }
 
     // Escuchás cambios en el select de restaurante
     this.form.get('restaurante')!.valueChanges.subscribe((nroRestaurante) => {
@@ -85,6 +93,24 @@ export class ReservarComponent {
 
       this.form.get('zona')!.setValue('');
     });
+
+    this.route.data.subscribe(({ restaurantes, sucursales, zonas }) => {
+      this.restaurantes = restaurantes;
+      this.sucursales = sucursales;
+      this.zonas = zonas;
+
+      console.log(nroSucursal);
+      if (nroRestaurante) {
+        // Preseleccionás el restaurante → esto dispara el valueChanges
+        // que filtra las sucursales automáticamente
+        this.form.get('restaurante')!.setValue(nroRestaurante);
+      }
+
+      if (nroSucursal) {
+        // Preseleccionás la sucursal → dispara el valueChanges de zonas
+        this.form.get('sucursal')!.setValue(nroSucursal);
+      }
+    });
   }
 
   get cantMenores(): number {
@@ -98,6 +124,21 @@ export class ReservarComponent {
   get nombreZonaSeleccionada(): string {
     const codZona = this.form.get('zona')!.value;
     return this.zonasFiltradas.find((z) => z.codZona === codZona)?.zona ?? codZona;
+  }
+
+  get nomSucursal(): string {
+    const nroSucursal = this.form.get('sucursal')!.value;
+    return (
+      this.sucursales.find((s) => s.nroSucursal === Number(nroSucursal))?.nomSucursal ?? nroSucursal
+    );
+  }
+
+  get nomRestaurante(): string {
+    const nroRestaurante = this.form.get('restaurante')!.value;
+    return (
+      this.restaurantes.find((s) => s.nroRestaurante === Number(nroRestaurante))?.razonSocial ??
+      nroRestaurante
+    );
   }
 
   consultarDisponibilidad(): void {

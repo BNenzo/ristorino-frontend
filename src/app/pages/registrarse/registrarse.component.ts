@@ -23,6 +23,7 @@ import { PreferenciaResponse } from '../../api/resources/preferencia/models/pref
 export class RegistrarseComponent {
   localidades: LocalidadResponse[] = [];
   preferencias: PreferenciaResponse[] = [];
+  returnUrl = '/';
 
   form = this.fb.group(
     {
@@ -48,6 +49,7 @@ export class RegistrarseComponent {
     // DATOS VIENEN DEL RESOLVER
     this.localidades = this.route.snapshot.data['localidades'];
     this.preferencias = this.route.snapshot.data['preferencias'];
+    this.returnUrl = this.route.snapshot.queryParamMap.get('redirectTo') ?? '/'; // 👈
   }
 
   /* ==========================
@@ -97,7 +99,9 @@ export class RegistrarseComponent {
     this.clienteApi.registrar(payload).subscribe({
       next: () => {
         alert('Cuenta creada correctamente 🎉');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/login'], {
+          queryParams: { redirectTo: this.returnUrl },
+        });
       },
       error: (err) => {
         if (err.status === 409) {
