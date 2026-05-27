@@ -70,7 +70,12 @@
         <input id="fecha" type="date" formControlName="fecha" />
       </div>
 
-      <button type="button" [disabled]="form.invalid" (click)="consultarDisponibilidad()">
+      <button
+        type="button"
+        [disabled]="form.invalid"
+        (click)="consultarDisponibilidad()"
+        class="btn--primary"
+      >
         Consultar disponibilidad
       </button>
     </form>
@@ -80,14 +85,15 @@
   @if (turnosDisponibles.length > 0) {
     <div class="turnos-section">
       <!-- Resumen de lo seleccionado -->
-      <div class="turnos-resumen">
-        <span>{{ nombreZonaSeleccionada }}</span>
-        <span>{{ form.get('fecha')?.value | date: 'dd/MM/yyyy' }}</span>
-        <span>{{ cantAdultos }} adultos · {{ cantMenores }} menores</span>
-        <button type="button" class="btn-volver" (click)="volverAlFormulario()">← Modificar</button>
+      <div class="chips-container">
+        <div class="chip">{{ nomRestaurante }}</div>
+        <div class="chip">{{ nomSucursal }}</div>
+        <div class="chip">{{ nombreZonaSeleccionada }}</div>
+        <div class="chip">{{ form.get('fecha')?.value | date: 'dd/MM/yyyy' }}</div>
+        <div class="chip">{{ cantAdultos }} adultos - {{ cantMenores }} menores</div>
       </div>
 
-      <label class="turnos-label">Seleccioná un turno</label>
+      <h4 class="turnos-label">Seleccioná un turno:</h4>
 
       <div class="turnos-container">
         @for (turno of turnosDisponibles; track turno.horaDesde) {
@@ -105,7 +111,12 @@
         }
       </div>
 
-      <button type="button" [disabled]="form.invalid" (click)="reservar()">Reservar</button>
+      <div class="btns-container">
+        <button class="btn--primary" type="button" [disabled]="form.invalid" (click)="reservar()">
+          Reservar
+        </button>
+        <button class="btn--volver" type="button" (click)="volverAlFormulario()">Modificar</button>
+      </div>
     </div>
   }
 </section>

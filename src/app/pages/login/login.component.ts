@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { AuthResource } from '../../api/resources/auth/auth-resource';
@@ -17,12 +17,18 @@ import { RouterModule } from '@angular/router';
 export class LoginComponent {
   usuario = '';
   password = '';
+  returnUrl = '/';
 
   constructor(
     private router: Router,
     private authApi: AuthResource,
     private authStore: SessionStore,
+    private route: ActivatedRoute,
   ) {}
+
+  ngOnInit(): void {
+    this.returnUrl = this.route.snapshot.queryParamMap.get('redirectTo') ?? '/';
+  }
 
   onSubmit(email: string, clave: string): void {
     this.authApi.login({ email, clave }).subscribe({
@@ -31,7 +37,7 @@ export class LoginComponent {
         this.authApi.me().subscribe({
           next: (user) => {
             this.authStore.setUser(user);
-            this.router.navigate([history.state?.from ?? '/']);
+            this.router.navigateByUrl(this.returnUrl);
           },
         });
       },

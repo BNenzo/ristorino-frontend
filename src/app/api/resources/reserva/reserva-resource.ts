@@ -8,10 +8,8 @@ import {
 } from '@ngx-resource/core';
 import { environment } from '../../../../enviroments/enviroment.development';
 import type { IResourceMethodObservable } from '@ngx-resource/core';
-import { TurnoDisponible } from './models/turno-disponible.model';
 import { CrearReservaRequest } from './models/reserva.model';
 import { ReservaCliente } from './models/reserva-cliente.model';
-import { DisponibilidadZonaRow } from '../../../pages/reservar-v1/types';
 import { DisponibilidadTurnos } from './models/disponibilidad-turnos.model';
 
 @Injectable()
