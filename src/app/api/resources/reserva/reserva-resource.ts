@@ -11,6 +11,8 @@ import type { IResourceMethodObservable } from '@ngx-resource/core';
 import { TurnoDisponible } from './models/turno-disponible.model';
 import { CrearReservaRequest } from './models/reserva.model';
 import { ReservaCliente } from './models/reserva-cliente.model';
+import { DisponibilidadZonaRow } from '../../../pages/reservar-v1/types';
+import { DisponibilidadTurnos } from './models/disponibilidad-turnos.model';
 
 @Injectable()
 @ResourceParams({
@@ -23,7 +25,7 @@ export class ReservaResource extends Resource {
 
   //TRAEMOS LOS TURNOS DISPONIBLES DE UNA SUCURSAL
   @ResourceAction({
-    path: '/reservas/disponibilidad',
+    path: '/reservas/disponibilidad-v2',
     method: ResourceRequestMethod.Get,
   })
   declare getDisponibilidadTurnos: IResourceMethodObservable<
@@ -31,8 +33,9 @@ export class ReservaResource extends Resource {
       nroRestaurante: number;
       nroSucursal: number;
       fechaAReservar: string;
+      codZona: string;
     },
-    TurnoDisponible[]
+    DisponibilidadTurnos[]
   >;
 
   // REVISAR!!!

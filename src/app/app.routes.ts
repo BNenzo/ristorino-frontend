@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { DetalleRestauranteComponent } from './pages/detalle-restaurante/detalle-restaurante';
 import { promocionesResolver } from './resolvers/promociones/promociones-resolver';
-import { ReservarComponent } from './pages/reservar/reservar.component';
 
 import { MisReservas } from './pages/mis-reservas/mis-reservas';
 import { ReservasResource } from './api/resources/reservas/reservas-resource';
@@ -10,6 +9,8 @@ import {
   obtenerEstadosReservasResolver,
   obtenerReservaClienteResolver,
   obtenerReservasClienteResolver,
+  obtenerSucursalesFormReservasResolver,
+  obtenerZonasSucursalesRestaurantesFormReservasResolver,
 } from './resolvers/reservas/reservas-resolver';
 import { ContenidoResource } from './api/resources/contenido/contenido-resource';
 import { RestauranteResource } from './api/resources/restaurante/restaurante-resource';
@@ -20,7 +21,6 @@ import {
   restaurantesResolver,
   sucursalesResolver,
 } from './resolvers/restaurantes/restaurantes-resolver';
-import { EditarReserva } from './pages/editar-reserva/editar-reserva';
 import { LoginComponent } from './pages/login/login.component';
 import { RegistrarseComponent } from './pages/registrarse/registrarse.component';
 import { ClienteResource } from './api/resources/cliente/cliente-resource';
@@ -29,6 +29,7 @@ import { PreferenciaResource } from './api/resources/preferencia/preferencia-res
 import { localidadesResolver } from './resolvers/localidades/localidades-resolver';
 import { preferenciasResolver } from './resolvers/preferencias/preferencias-resolver';
 import { puedeEditarReservaGuard } from './pages/editar-reserva/guards/puedeEditarReservaGuard';
+import { ReservarComponent } from './pages/reservar/reservar.component';
 
 export const routes: Routes = [
   {
@@ -53,8 +54,10 @@ export const routes: Routes = [
     component: ReservarComponent,
     resolve: {
       restaurantes: restaurantesResolver,
+      sucursales: obtenerSucursalesFormReservasResolver,
+      zonas: obtenerZonasSucursalesRestaurantesFormReservasResolver,
     },
-    providers: [RestauranteResource, ReservaResource],
+    providers: [RestauranteResource, ReservaResource, ReservasResource],
   },
   {
     path: 'mis-reservas',
@@ -65,14 +68,14 @@ export const routes: Routes = [
     },
     providers: [ReservasResource, ReservaResource],
   },
-  {
-    path: 'editar-reserva/:nro_reserva',
-    component: EditarReserva,
-    resolve: {
-      reserva: obtenerReservaClienteResolver,
-    },
-    providers: [ReservaResource],
-  },
+  // {
+  //   path: 'editar-reserva/:nro_reserva',
+  //   component: EditarReserva,
+  //   resolve: {
+  //     reserva: obtenerReservaClienteResolver,
+  //   },
+  //   providers: [ReservaResource],
+  // },
   {
     path: 'login',
     component: LoginComponent,

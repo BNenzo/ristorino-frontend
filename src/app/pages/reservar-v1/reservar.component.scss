@@ -29,6 +29,7 @@
 
   label {
     font-size: 14px;
+    
   }
 
   select {
@@ -48,8 +49,8 @@
     cursor: pointer;
   }
   input:disabled {
-    background-color: #f3ebe4; // mismo tono que los selects disabled
-    color: #8c8c8c;
+  background-color: #f3ebe4; // mismo tono que los selects disabled
+  color: #8c8c8c;
   }
 }
 
@@ -90,11 +91,19 @@
   color: #8c8c8c;
 }
 
+
+
 @media (max-width: 425px) {
   .reserva-container {
     margin: 40px 15px;
   }
 }
+
+
+
+
+
+
 
 .turnos-container {
   display: flex;
@@ -107,6 +116,7 @@
 
   scroll-behavior: smooth;
 }
+
 
 .turno-card {
   min-width: 120px;
@@ -219,14 +229,8 @@
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 //estilos modal error

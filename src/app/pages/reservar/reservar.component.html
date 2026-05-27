@@ -1,99 +1,114 @@
-
 <section class="reserva-container">
   <h2 class="reserva-title">Hacé tu reserva</h2>
 
-  <form class="reserva-form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <!-- Restaurante -->
-    <div class="form-group">
-      <label for="restaurante">Restaurante</label>
-      <select id="restaurante" formControlName="restaurante">
-        <option value="">Seleccioná un restaurante</option>
+  <!-- FORMULARIO: se oculta cuando hay turnos disponibles -->
+  @if (turnosDisponibles.length === 0) {
+    <form class="reserva-form" [formGroup]="form">
+      <!-- Restaurante -->
+      <div class="form-group">
+        <label for="restaurante">Restaurante</label>
+        <select id="restaurante" formControlName="restaurante">
+          <option value="">Seleccioná un restaurante</option>
+          @for (restaurante of restaurantes; track restaurante.nroRestaurante) {
+            <option [value]="restaurante.nroRestaurante">{{ restaurante.razonSocial }}</option>
+          }
+        </select>
+      </div>
 
-        <option *ngFor="let r of restaurantes" [value]="r.nroRestaurante">
-          {{ r.razonSocial }}
-        </option>
-      </select>
-    </div>
+      <!-- Sucursal -->
+      <div class="form-group">
+        <label for="sucursal">Sucursal</label>
+        <select id="sucursal" formControlName="sucursal">
+          <option value="">Seleccioná una sucursal</option>
+          @for (sucursal of sucursalesFiltradas; track sucursal.nroSucursal) {
+            <option [value]="sucursal.nroSucursal">{{ sucursal.nomSucursal }}</option>
+          }
+        </select>
+      </div>
 
-    <!-- Sucursal -->
-    <div class="form-group">
-      <label for="sucursal">Sucursal</label>
-      <select id="sucursal" formControlName="sucursal">
-        <option value="">Seleccioná una sucursal</option>
+      <!-- Cantidad adultos -->
+      <div class="form-group">
+        <label for="cantAdultos">Cantidad de adultos</label>
+        <select id="cantAdultos" formControlName="cantAdultos">
+          <option value="">Seleccioná cantidad</option>
+          @for (cant of cantidadesComensalesOpciones; track cant) {
+            <option [value]="cant">{{ cant }}</option>
+          }
+        </select>
+      </div>
 
-        <option *ngFor="let s of sucursales" [value]="s.nroSucursal">
-          {{ s.nomSucursal }}
-        </option>
-      </select>
-    </div>
+      <!-- Cantidad menores -->
+      <div class="form-group">
+        <label for="cantMenores">Cantidad de menores</label>
+        <select id="cantMenores" formControlName="cantMenores">
+          <option value="">Seleccioná cantidad</option>
+          @for (cant of cantidadesComensalesOpciones; track cant) {
+            <option [value]="cant">{{ cant }}</option>
+          }
+        </select>
+      </div>
 
-    <!-- Fecha -->
-    <div class="form-group">
-      <label for="fecha">Fecha</label>
-      <input id="fecha" type="date" formControlName="fecha" />
-    </div>
+      <!-- Zona -->
+      <div class="form-group">
+        <label for="zona">Zona</label>
+        <select id="zona" formControlName="zona">
+          <option value="">Seleccioná una Zona</option>
+          @for (zona of zonasFiltradas; track zona.codZona) {
+            <option
+              [value]="zona.codZona"
+              [disabled]="zona.habilitada === 0 || (zona.permiteMenores === 0 && cantMenores > 0)"
+            >
+              {{ zona.zona }}
+            </option>
+          }
+        </select>
+      </div>
 
-    <!-- Cantidad de personas -->
-    <div class="form-group">
-      <label for="personas">Cantidad de personas</label>
-      <select id="personas" formControlName="personas">
-        <option value="">Seleccioná cantidad</option>
-        <option *ngFor="let c of cantidadesComensalesOpciones" [value]="c">
-          {{ c }}
-        </option>
-      </select>
-    </div>
+      <!-- Fecha -->
+      <div class="form-group">
+        <label for="fecha">Fecha</label>
+        <input id="fecha" type="date" formControlName="fecha" />
+      </div>
 
-    <!-- cantidad de menores -->
-    <div class="form-group">
-      <label for="menores">Cantidad de menores</label>
-      <select id="menores" formControlName="menores">
-        <option value="">Seleccioná cantidad</option>
-        <option *ngFor="let c of cantidadesComensalesOpciones" [value]="c">
-          {{ c }}
-        </option>
-      </select>
-    </div>
-
-    <!-- Turno / Hora -->
-    <!-- Turnos como cuadraditos -->
-<div class="form-group">
-  <label>Turno</label>
-
-  <ng-container *ngIf="turnosDisponibles.length > 0; else emptyTurnos">
-    <div class="turnos-container">
-      <button
-        type="button"
-        *ngFor="let t of turnosDisponibles"
-        class="turno-card"
-        [class.selected]="form.get('turno')?.value === t.horaReserva"
-        [class.disabled]="isTurnoDisabled(t)"
-        [disabled]="isTurnoDisabled(t)"
-        (click)="form.get('turno')?.setValue(t.horaReserva)"
-      >
-        <div class="hora">
-          {{ t.horaReserva.slice(0, 5) }} - {{ t.horaHasta.slice(0, 5) }}
-        </div>
-        <div class="cupo">
-          Disponibles: {{ t.cupoDisponible }}
-        </div>
+      <button type="button" [disabled]="form.invalid" (click)="consultarDisponibilidad()">
+        Consultar disponibilidad
       </button>
+    </form>
+  }
+
+  <!-- TURNOS: se muestra cuando hay resultados -->
+  @if (turnosDisponibles.length > 0) {
+    <div class="turnos-section">
+      <!-- Resumen de lo seleccionado -->
+      <div class="turnos-resumen">
+        <span>{{ nombreZonaSeleccionada }}</span>
+        <span>{{ form.get('fecha')?.value | date: 'dd/MM/yyyy' }}</span>
+        <span>{{ cantAdultos }} adultos · {{ cantMenores }} menores</span>
+        <button type="button" class="btn-volver" (click)="volverAlFormulario()">← Modificar</button>
+      </div>
+
+      <label class="turnos-label">Seleccioná un turno</label>
+
+      <div class="turnos-container">
+        @for (turno of turnosDisponibles; track turno.horaDesde) {
+          <button
+            type="button"
+            class="turno-card"
+            [class.selected]="turnoSeleccionado === turno.horaDesde"
+            (click)="seleccionarTurno(turno)"
+          >
+            <div class="hora">
+              {{ turno.horaDesde.slice(0, 5) }} - {{ turno.horaHasta.slice(0, 5) }}
+            </div>
+            <div class="cupo">Disponibles: {{ turno.cupoDisponible }}</div>
+          </button>
+        }
+      </div>
+
+      <button type="button" [disabled]="form.invalid" (click)="reservar()">Reservar</button>
     </div>
-  </ng-container>
-
-  <ng-template #emptyTurnos>
-    <div class="turnos-placeholder">
-      Seleccioná restaurante, sucursal y fecha para ver los turnos disponibles
-    </div>
-  </ng-template>
-</div>
-
-
-
-    <button type="submit" [disabled]="form.invalid">Reservar</button>
-  </form>
+  }
 </section>
-
 
 <!-- MODAL CONFIRMACION -->
 <div class="modal-backdrop" *ngIf="mostrarModal">
@@ -101,21 +116,15 @@
     <h3>🎉 Reserva confirmada</h3>
 
     <p>
-      Has realizado tu reserva para 
+      Has realizado tu reserva para
       <strong>{{ modalData.restaurante }}</strong>
     </p>
 
-    <p>
-      <strong>Sucursal:</strong> {{ modalData.sucursal }}
-    </p>
+    <p><strong>Sucursal:</strong> {{ modalData.sucursal }}</p>
 
-    <p>
-      <strong>Fecha:</strong> {{ modalData.fecha | date:'dd/MM/yyyy' }}
-    </p>
+    <p><strong>Fecha:</strong> {{ modalData.fecha | date: 'dd/MM/yyyy' }}</p>
 
-    <p>
-      <strong>Hora:</strong> {{ modalData.hora }}hs
-    </p>
+    <p><strong>Hora:</strong> {{ modalData.hora }}hs</p>
 
     <p>
       Tu código de reserva es:

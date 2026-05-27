@@ -5,10 +5,11 @@ import { ReservasResource } from '../../api/resources/reservas/reservas-resource
 import { ObtenerEstadosReserva } from '../../api/resources/reservas/models/obtener-estados-reserva.model';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
 import { ReservaCliente } from '../../api/resources/reserva/models/reserva-cliente.model';
-import { TurnoDisponible } from '../../api/resources/reserva/models/turno-disponible.model';
-import { catchError, EMPTY, map, mergeMap, of, switchMap } from 'rxjs';
+import { catchError, EMPTY, mergeMap, of } from 'rxjs';
 import { puedeEditarReserva } from '../../pages/editar-reserva/utils';
 import { TEstadoReserva } from '../../types';
+import { ObtenerSucursalesFormReservas } from '../../api/resources/reservas/models/obtener-sucursales.model';
+import { ObtenerZonasSucursalesRestaurantesFormReservas } from '../../api/resources/reservas/models/obtener-zonas-sucursales-restaurantes.model';
 
 export const obtenerReservasClienteResolver: ResolveFn<ObtenerReservasCliente[]> = (route) => {
   return inject(ReservasResource).getReservasCliente();
@@ -45,4 +46,16 @@ export const obtenerReservaClienteResolver: ResolveFn<ReservaCliente> = (route) 
       return EMPTY;
     }),
   );
+};
+
+export const obtenerSucursalesFormReservasResolver: ResolveFn<ObtenerSucursalesFormReservas[]> = (
+  route,
+) => {
+  return inject(ReservasResource).getObtenerSucursalesFormReservas();
+};
+
+export const obtenerZonasSucursalesRestaurantesFormReservasResolver: ResolveFn<
+  ObtenerZonasSucursalesRestaurantesFormReservas[]
+> = (route) => {
+  return inject(ReservasResource).getObtenerZonasSucursalesRestaurantesFormReservas();
 };

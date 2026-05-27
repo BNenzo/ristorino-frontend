@@ -72,23 +72,23 @@ export class EditarReserva {
     const fechaCtrl = this.form.get('fecha');
     if (!fechaCtrl) return;
 
-    fechaCtrl.valueChanges
-      .pipe(
-        startWith(fechaCtrl.value),
-        distinctUntilChanged(),
-        filter((fecha): fecha is string => !!fecha),
-        switchMap((fecha) =>
-          this.reservaApi.getDisponibilidadTurnos({
-            nroRestaurante: this.reserva.nroRestaurante,
-            nroSucursal: this.reserva.nroSucursal,
-            fechaAReservar: fecha,
-          }),
-        ),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe((turnos) => {
-        this.turnosDisponibles = turnos;
-      });
+    // fechaCtrl.valueChanges
+    //   .pipe(
+    //     startWith(fechaCtrl.value),
+    //     distinctUntilChanged(),
+    //     filter((fecha): fecha is string => !!fecha),
+    //     switchMap((fecha) =>
+    //       this.reservaApi.getDisponibilidadTurnos({
+    //         nroRestaurante: this.reserva.nroRestaurante,
+    //         nroSucursal: this.reserva.nroSucursal,
+    //         fechaAReservar: fecha,
+    //       }),
+    //     ),
+    //     takeUntilDestroyed(this.destroyRef),
+    //   )
+    //   .subscribe((turnos) => {
+    //     // this.turnosDisponibles = turnos;
+    //   });
   }
 
   onSubmit(): void {

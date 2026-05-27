@@ -1,59 +1,38 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BannerComponent } from '../../components/banner/banner.component';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Restaurante } from '../../api/resources/restaurante/models/restaurante.model';
-import { SucursalRestaurante } from '../../api/resources/restaurante/models/sucursal-restaurante';
-import { TurnoDisponible } from '../../api/resources/reserva/models/turno-disponible.model';
-import {
-  CrearReservaDraftRequest,
-  CrearReservaRequest,
-} from '../../api/resources/reserva/models/reserva.model';
-import { RestauranteResource } from '../../api/resources/restaurante/restaurante-resource';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ObtenerSucursalesFormReservas } from '../../api/resources/reservas/models/obtener-sucursales.model';
+import { ObtenerZonasSucursalesRestaurantesFormReservas } from '../../api/resources/reservas/models/obtener-zonas-sucursales-restaurantes.model';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
-import { SessionStore } from '../../store/session-store';
+import { DisponibilidadTurnos } from '../../api/resources/reserva/models/disponibilidad-turnos.model';
+import { TurnoDisponible } from '../../api/resources/reserva/models/turno-disponible.model';
 
 @Component({
-  selector: 'app-reservar',
-  standalone: true,
+  selector: 'app-reservar.component',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './reservar.component.html',
-  styleUrls: ['./reservar.component.scss'],
+  styleUrl: './reservar.component.scss',
 })
-export class ReservarComponent implements OnInit {
-  form!: FormGroup;
+export class ReservarComponent {
+  form: FormGroup;
+
   restaurantes: Restaurante[] = [];
-  sucursales: SucursalRestaurante[] = [];
-  turnosDisponibles: TurnoDisponible[] = [];
 
-  cantidadesComensalesOpciones: number[] = Array.from({ length: 60 }, (_, i) => i);
+  sucursales: ObtenerSucursalesFormReservas[] = [];
+  sucursalesFiltradas: ObtenerSucursalesFormReservas[] = [];
 
-  private restoring = false;
+  zonas: ObtenerZonasSucursalesRestaurantesFormReservas[] = [];
+  zonasFiltradas: ObtenerZonasSucursalesRestaurantesFormReservas[] = [];
 
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private restauranteApi: RestauranteResource,
-    private reservaApi: ReservaResource,
-    private sessionStore: SessionStore,
-  ) {}
+  cantidadesComensalesOpciones: number[] = Array.from({ length: 10 }, (_, i) => i);
 
-  ngOnInit(): void {
-    this.buildForm();
-    this.loadRestaurantesFromResolver();
-    this.wireControlFlow();
-    this.tryRestoreDraft();
-  }
-
-  // ----------------------------
-  // Setup
-  // ----------------------------
+  turnosDisponibles: DisponibilidadTurnos[] = [];
+  turnoSeleccionado: string | null = null;
 
   mostrarModal = false;
   mostrarModalError = false;
-
   modalData: {
     restaurante?: string;
     sucursal?: string;
@@ -62,290 +41,134 @@ export class ReservarComponent implements OnInit {
     codigo?: string;
   } = {};
 
-  private buildForm(): void {
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private reservaApi: ReservaResource,
+  ) {
     this.form = this.fb.group({
-      restaurante: [null, Validators.required],
-      sucursal: [{ value: null, disabled: true }, Validators.required],
-      fecha: [{ value: null, disabled: true }, Validators.required],
-      personas: [{ value: null, disabled: true }, Validators.required],
-      menores: [{ value: null, disabled: true }, Validators.required],
-      turno: [{ value: null, disabled: true }, Validators.required],
+      restaurante: ['', [Validators.required]],
+      sucursal: ['', [Validators.required]],
+      zona: ['', Validators.required],
+      cantAdultos: [0, Validators.required],
+      cantMenores: [0, Validators.required],
+      fecha: ['', Validators.required],
     });
   }
 
-  private loadRestaurantesFromResolver(): void {
-    this.route.data.subscribe(({ restaurantes }) => (this.restaurantes = restaurantes));
-  }
+  ngOnInit(): void {
+    this.route.data.subscribe(({ restaurantes, sucursales, zonas }) => {
+      this.restaurantes = restaurantes;
+      this.sucursales = sucursales;
+      this.zonas = zonas;
+    });
 
-  private wireControlFlow(): void {
-    this.onRestauranteChange();
-    this.onSucursalChange();
-    this.onFechaChange();
-    this.onPersonasChange();
-    this.onMenoresChange();
-  }
+    // Escuchás cambios en el select de restaurante
+    this.form.get('restaurante')!.valueChanges.subscribe((nroRestaurante) => {
+      this.sucursalesFiltradas = this.sucursales.filter(
+        (s) => s.nroRestaurante === Number(nroRestaurante),
+      );
 
-  // ----------------------------
-  // ValueChanges (flujo)
-  // ----------------------------
+      // Reseteás la sucursal seleccionada cuando cambia el restaurante
+      this.form.get('sucursal')!.setValue('');
+      this.form.get('zona')!.setValue('');
+    });
 
-  private onRestauranteChange(): void {
-    this.form.get('restaurante')?.valueChanges.subscribe((nroRestaurante) => {
-      this.resetFrom('restaurante');
+    this.form.get('sucursal')!.valueChanges.subscribe((nroSucursal) => {
+      const nroRestaurante = Number(this.form.get('restaurante')!.value);
 
-      if (!nroRestaurante) return;
+      this.zonasFiltradas = this.zonas.filter(
+        (zona) =>
+          zona.nroRestaurante === nroRestaurante && zona.nroSucursal === Number(nroSucursal),
+      );
 
-      this.fetchSucursales(nroRestaurante);
+      this.form.get('zona')!.setValue('');
     });
   }
 
-  private onSucursalChange(): void {
-    this.form.get('sucursal')?.valueChanges.subscribe((sucursal) => {
-      this.resetFrom('sucursal');
-
-      if (!sucursal) return;
-
-      this.enable('fecha');
-    });
+  get cantMenores(): number {
+    return Number(this.form.get('cantMenores')!.value) || 0;
   }
 
-  private onFechaChange(): void {
-    this.form.get('fecha')?.valueChanges.subscribe((fecha) => {
-      this.resetFrom('fecha');
-
-      if (!fecha) return;
-
-      this.enable('personas');
-      this.updateMenoresAvailability();
-
-      const nroRestaurante = Number(this.form.get('restaurante')?.value);
-      const nroSucursal = Number(this.form.get('sucursal')?.value);
-      if (!nroRestaurante || !nroSucursal) return;
-
-      this.fetchTurnosDisponibles(nroRestaurante, nroSucursal, fecha);
-    });
+  get cantAdultos(): number {
+    return Number(this.form.get('cantAdultos')!.value) || 0;
   }
 
-  private onPersonasChange(): void {
-    this.form.get('personas')?.valueChanges.subscribe((cantidad) => {
-      this.resetFrom('personas');
-
-      if (!cantidad) return;
-
-      this.enable('turno');
-    });
+  get nombreZonaSeleccionada(): string {
+    const codZona = this.form.get('zona')!.value;
+    return this.zonasFiltradas.find((z) => z.codZona === codZona)?.zona ?? codZona;
   }
 
-  private onMenoresChange(): void {
-    this.form.get('menores')?.valueChanges.subscribe((menores) => {
-      this.resetFrom('menores');
-
-      if (!menores) return;
-
-      this.enable('turno');
-    });
-  }
-
-  // ----------------------------
-  // Reset/Enable helpers
-  // ----------------------------
-
-  /**
-   * Resetea y deshabilita todo lo que depende del campo indicado.
-   * La idea: una sola fuente de verdad para el "cascade reset".
-   */
-  private resetFrom(from: 'restaurante' | 'sucursal' | 'fecha' | 'personas' | 'menores'): void {
-    if (from === 'restaurante') {
-      this.sucursales = [];
-      this.turnosDisponibles = [];
-      this.disableAndReset(['sucursal', 'fecha', 'personas', 'menores', 'turno']);
-      return;
-    }
-
-    if (from === 'sucursal') {
-      this.turnosDisponibles = [];
-      this.disableAndReset(['fecha', 'personas', 'menores', 'turno']);
-      return;
-    }
-
-    if (from === 'fecha') {
-      this.turnosDisponibles = [];
-      this.disableAndReset(['personas', 'menores', 'turno']);
-      return;
-    }
-
-    // from === 'personas'
-    this.disableAndReset(['turno']);
-  }
-
-  private disableAndReset(
-    keys: Array<'sucursal' | 'fecha' | 'personas' | 'menores' | 'turno'>,
-  ): void {
-    keys.forEach((k) => {
-      const c = this.form.get(k);
-      c?.reset();
-      c?.disable();
-    });
-  }
-
-  private enable(key: 'sucursal' | 'fecha' | 'personas' | 'menores' | 'turno'): void {
-    this.form.get(key)?.enable();
-  }
-
-  // ----------------------------
-  // Business helpers
-  // ----------------------------
-
-  private updateMenoresAvailability(): void {
-    // por defecto, menores queda deshabilitado hasta evaluar la sucursal
-    this.form.get('menores')?.reset();
-    this.form.get('menores')?.disable();
-
-    const raw = this.form.getRawValue();
-    const sucursalSeleccionada = this.sucursales.find(
-      (s) => Number(s.nroSucursal) === Number(raw.sucursal),
-    );
-
-    if (sucursalSeleccionada?.permiteMenores === 1) {
-      this.enable('menores');
-    }
-  }
-
-  private getDraft(): CrearReservaDraftRequest | null {
-    return this.sessionStore.reservaDraft();
-  }
-
-  // ----------------------------
-  // Draft restore (secuencia explícita)
-  // ----------------------------
-
-  private tryRestoreDraft(): void {
-    const draft = this.getDraft();
-    if (!draft) return;
-
-    this.restoring = true;
-
-    // Paso 1: set restaurante => dispara fetchSucursales
-    this.form.patchValue({ restaurante: draft.nroRestaurante }, { emitEvent: true });
-  }
-
-  private continueRestoreAfterSucursalesLoaded(): void {
-    const d = this.getDraft();
-    if (!this.restoring || !d) return;
-
-    // Paso 2: set sucursal => habilita fecha
-    this.form.patchValue({ sucursal: d.nroSucursal }, { emitEvent: true });
-
-    // Paso 3: set fecha => dispara fetchTurnosDisponibles
-    this.enable('fecha');
-    this.form.patchValue({ fecha: d.fechaReserva }, { emitEvent: true });
-  }
-
-  private continueRestoreAfterTurnosLoaded(): void {
-    const d = this.getDraft();
-    if (!this.restoring || !d) return;
-
-    // Paso 4: set personas/menores => habilita turno
-    this.enable('personas');
-    this.enable('menores');
-    this.form.patchValue({ personas: d.cantAdultos, menores: d.cantMenores }, { emitEvent: true });
-
-    // Paso 5: turno si existe
-    const existe = this.turnosDisponibles.some((t) => t.horaReserva === d.horaReserva);
-    this.enable('turno');
-    this.form.patchValue({ turno: existe ? d.horaReserva : null }, { emitEvent: true });
-
-    this.restoring = false;
-    this.sessionStore.clearReservaDraft();
-  }
-
-  // ----------------------------
-  // API
-  // ----------------------------
-
-  private fetchSucursales(nroRestaurante: number): void {
-    this.restauranteApi
-      .getSucursalesDeRestaurante({ nro_restaurante: nroRestaurante })
-      .subscribe((sucursales) => {
-        this.sucursales = sucursales;
-        this.enable('sucursal');
-
-        // si venimos de draft, seguimos la secuencia
-        this.continueRestoreAfterSucursalesLoaded();
-      });
-  }
-
-  private fetchTurnosDisponibles(
-    nroRestaurante: number,
-    nroSucursal: number,
-    fechaAReservar: string,
-  ): void {
+  consultarDisponibilidad(): void {
+    const nroRestaurante = Number(this.form.get('restaurante')!.value);
+    const nroSucursal = Number(this.form.get('sucursal')!.value);
+    const codZona = this.form.get('zona')!.value;
+    const fecha = this.form.get('fecha')!.value;
     this.reservaApi
-      .getDisponibilidadTurnos({ nroRestaurante, nroSucursal, fechaAReservar })
-      .subscribe((turnos) => {
-        this.turnosDisponibles = turnos;
-
-        // si venimos de draft, seguimos la secuencia
-        this.continueRestoreAfterTurnosLoaded();
+      .getDisponibilidadTurnos({
+        nroRestaurante,
+        nroSucursal,
+        codZona,
+        fechaAReservar: fecha,
+      })
+      .subscribe((rows: DisponibilidadTurnos[]) => {
+        console.log(rows);
+        this.turnosDisponibles = rows;
       });
   }
 
-  // ----------------------------
-  // Submit
-  // ----------------------------
+  reservar(): void {
+    // POST de reserva
+    const nroRestaurante = Number(this.form.get('restaurante')!.value);
+    const nroSucursal = Number(this.form.get('sucursal')!.value);
+    const codZona = this.form.get('zona')!.value;
+    const fecha = this.form.get('fecha')!.value;
 
-  onSubmit(): void {
-    if (this.form.invalid) return;
+    this.reservaApi
+      .crearReserva({
+        nroRestaurante,
+        nroSucursal,
+        codZona,
+        cantAdultos: this.cantAdultos,
+        cantMenores: this.cantMenores,
+        fechaReserva: fecha,
+        horaReserva: this.turnoSeleccionado ?? '',
+      })
+      .subscribe({
+        next: (codigoReserva: string) => {
+          const restauranteSeleccionado = this.restaurantes.find(
+            (r) => Number(r.nroRestaurante) === nroRestaurante,
+          );
+          const sucursalSeleccionada = this.sucursales.find(
+            (s) => Number(s.nroSucursal) === nroSucursal,
+          );
 
-    const raw = this.form.getRawValue();
-    const sucursalSeleccionada = this.sucursales.find(
-      (s) => Number(s.nroSucursal) === Number(raw.sucursal),
-    );
+          this.modalData = {
+            restaurante: restauranteSeleccionado?.razonSocial ?? '',
+            sucursal: sucursalSeleccionada?.nomSucursal ?? '',
+            fecha: fecha,
+            hora: this.turnoSeleccionado ?? '',
+            codigo: codigoReserva,
+          };
+          this.mostrarModal = true;
+        },
+        error: () => {
+          this.form.get('turno')?.reset();
+          this.mostrarModalError = true;
+        },
+      });
+  }
 
-    const reserva: CrearReservaRequest = {
-      nroRestaurante: Number(raw.restaurante),
-      nroSucursal: Number(raw.sucursal),
-      fechaReserva: raw.fecha,
-      horaReserva: raw.turno,
-      cantAdultos: Number(raw.personas),
-      cantMenores: Number(raw.menores),
-      codZona: sucursalSeleccionada?.codZona ?? '',
-    };
+  seleccionarTurno(turno: DisponibilidadTurnos): void {
+    this.turnoSeleccionado = turno.horaDesde;
+    // Acá después harías el POST de la reserva
+    console.log('Turno seleccionado:', turno);
+  }
 
-    if (!this.sessionStore.isUserLogged()) {
-      this.sessionStore.setReservaDraft(reserva);
-      this.router.navigate(['/login'], { state: { from: this.router.url } });
-      return;
-    }
-
-    this.reservaApi.crearReserva(reserva).subscribe({
-      next: (codigoReserva: string) => {
-        const raw = this.form.getRawValue();
-
-        const restauranteSeleccionado = this.restaurantes.find(
-          (r) => Number(r.nroRestaurante) === Number(raw.restaurante),
-        );
-
-        const sucursalSeleccionada = this.sucursales.find(
-          (s) => Number(s.nroSucursal) === Number(raw.sucursal),
-        );
-
-        this.modalData = {
-          restaurante: restauranteSeleccionado?.razonSocial ?? '',
-          sucursal: sucursalSeleccionada?.nomSucursal ?? '',
-          fecha: raw.fecha,
-          hora: raw.turno?.slice(0, 5),
-          codigo: codigoReserva,
-        };
-
-        this.mostrarModal = true;
-      },
-      error: () => {
-        this.form.get('turno')?.reset();
-        this.form.get('fecha')?.updateValueAndValidity();
-        this.mostrarModalError = true;
-      },
-    });
+  volverAlFormulario(): void {
+    this.turnosDisponibles = [];
+    this.turnoSeleccionado = null;
   }
 
   irHome(): void {
@@ -356,16 +179,5 @@ export class ReservarComponent implements OnInit {
   cerrarModalError(): void {
     this.mostrarModalError = false;
     this.form.reset();
-  }
-
-  // ----------------------------
-  // UI helpers
-  // ----------------------------
-
-  isTurnoDisabled(t: TurnoDisponible): boolean {
-    const personas = Number(this.form.get('personas')?.value ?? 0);
-    const menores = Number(this.form.get('menores')?.value ?? 0);
-    const total = personas + menores;
-    return total > t.cupoDisponible || t.turnoCerrado === 1;
   }
 }

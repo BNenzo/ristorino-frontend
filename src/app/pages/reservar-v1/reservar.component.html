@@ -1,0 +1,117 @@
+<section class="reserva-container">
+  <h2 class="reserva-title">Hacé tu reserva</h2>
+
+  <form class="reserva-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <!-- Restaurante -->
+    <div class="form-group">
+      <label for="restaurante">Restaurante</label>
+      <select id="restaurante" formControlName="restaurante">
+        <option value="">Seleccioná un restaurante</option>
+        <option *ngFor="let r of restaurantes" [value]="r.nroRestaurante">
+          {{ r.razonSocial }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Sucursal -->
+    <div class="form-group">
+      <label for="sucursal">Sucursal</label>
+      <select id="sucursal" formControlName="sucursal">
+        <option value="">Seleccioná una sucursal</option>
+        <option *ngFor="let s of sucursales" [value]="s.nroSucursal">
+          {{ s.nomSucursal }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Fecha -->
+    <div class="form-group">
+      <label for="fecha">Fecha</label>
+      <input id="fecha" type="date" formControlName="fecha" />
+    </div>
+
+    <!-- Zona — aparece luego del fetch -->
+    <div class="form-group" *ngIf="zonasDisponibles.length > 0">
+      <label for="zona">Sector</label>
+      <select id="zona" formControlName="zona">
+        <option value="">Seleccioná un sector</option>
+        <option *ngFor="let z of zonasDisponibles" [value]="z.codZona">
+          {{ z.codZona }} (cap. {{ z.cantComensales }})
+        </option>
+      </select>
+    </div>
+
+    <!-- Turnos — aparece cuando hay zona seleccionada -->
+    <div class="form-group" *ngIf="zonaSeleccionada">
+      <label>Turno</label>
+      <div class="turnos-container">
+        <button
+          type="button"
+          *ngFor="let h of horariosDeZonaSeleccionada"
+          class="turno-card"
+          [class.selected]="form.get('turno')?.value === h.horaDesde"
+          [class.disabled]="isHorarioDisabled(h)"
+          [disabled]="isHorarioDisabled(h) || form.get('turno')?.disabled"
+          (click)="form.get('turno')?.setValue(h.horaDesde)"
+        >
+          <div class="hora">{{ h.horaDesde.slice(0, 5) }} - {{ h.horaHasta.slice(0, 5) }}</div>
+          <div class="cupo">Disponibles: {{ h.cupoDisponible }}</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Cantidad adultos -->
+    <div class="form-group" *ngIf="form.get('turno')?.value">
+      <label for="personas">Cantidad de adultos</label>
+      <select id="personas" formControlName="personas">
+        <option value="">Seleccioná cantidad</option>
+        <option *ngFor="let c of cantidadesComensalesOpciones" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <!-- Menores — solo si la zona lo permite -->
+    <div class="form-group" *ngIf="zonaSeleccionada?.permiteMenores && form.get('turno')?.value">
+      <label for="menores">Cantidad de menores</label>
+      <select id="menores" formControlName="menores">
+        <option value="">Seleccioná cantidad</option>
+        <option *ngFor="let c of cantidadesComensalesOpciones" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="form.invalid">Reservar</button>
+  </form>
+</section>
+
+<!-- MODAL CONFIRMACION -->
+<div class="modal-backdrop" *ngIf="mostrarModal">
+  <div class="modal-box">
+    <h3>🎉 Reserva confirmada</h3>
+
+    <p>
+      Has realizado tu reserva para
+      <strong>{{ modalData.restaurante }}</strong>
+    </p>
+
+    <p><strong>Sucursal:</strong> {{ modalData.sucursal }}</p>
+
+    <p><strong>Fecha:</strong> {{ modalData.fecha | date: 'dd/MM/yyyy' }}</p>
+
+    <p><strong>Hora:</strong> {{ modalData.hora }}hs</p>
+
+    <p>
+      Tu código de reserva es:
+      <strong class="codigo">{{ modalData.codigo }}</strong>
+    </p>
+
+    <button (click)="irHome()">Aceptar</button>
+  </div>
+</div>
+
+<!-- MODAL ERROR -->
+<div class="modal-backdrop" *ngIf="mostrarModalError">
+  <div class="modal-box modal-error">
+    <h3>⚠️ Hubo un error al realizar la reserva</h3>
+
+    <button (click)="cerrarModalError()">Aceptar</button>
+  </div>
+</div>
