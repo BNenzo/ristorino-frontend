@@ -16,6 +16,5 @@ const ESTADOS_COLORES = {
 };
 
 export const obtenerTextoEstadoClassname = (estado: TEstadoReserva) => {
-  console.log(estado);
   return ESTADOS_COLORES[estado].color_texto_estado;
 };

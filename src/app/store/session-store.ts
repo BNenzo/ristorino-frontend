@@ -1,6 +1,6 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { Usuario } from '../api/resources/auth/models/usuario.model';
-import { INITITAL_STATE, NRO_IDIOMA_KEY, TOKEN_KEY } from './constants';
+import { INITITAL_STATE, TOKEN_KEY } from './constants';
 import { AuthState } from './types';
 
 @Injectable({ providedIn: 'root' })
@@ -11,14 +11,10 @@ export class SessionStore {
   readonly token = computed(() => this.state().token);
   readonly user = computed(() => this.state().user);
   readonly isUserLogged = computed(() => this.state().token && this.state().user);
-  readonly reservaDraft = computed(() => this.state().reservaDraft);
-  readonly nroIdioma = computed(() => this.state().nroIdioma);
 
   initFromStorage() {
-    const nroIdioma = localStorage.getItem(NRO_IDIOMA_KEY);
     const token = localStorage.getItem(TOKEN_KEY);
     if (token) this.setToken(token);
-    if (nroIdioma) this.setNroIdioma(Number(nroIdioma));
   }
 
   // actions
@@ -29,11 +25,6 @@ export class SessionStore {
 
   setUser(user: Usuario) {
     this.state.update((s) => ({ ...s, user }));
-  }
-
-  setNroIdioma(nroIdioma: number) {
-    localStorage.setItem(NRO_IDIOMA_KEY, nroIdioma.toString());
-    this.state.update((s) => ({ ...s, nroIdioma }));
   }
 
   clearSession() {

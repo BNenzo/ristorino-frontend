@@ -1,15 +1,16 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, LOCALE_ID } from '@angular/core';
 import { SessionStore } from '../../store/session-store';
+import { NRO_IDIOMA_POR_LOCALE } from '../../constants';
 
 export const httpInterceptor: HttpInterceptorFn = (req, next) => {
+  const locale = inject(LOCALE_ID);
   const store = inject(SessionStore);
   const token = store.token();
-  const nroIdioma = store.nroIdioma();
   const nroCliente = store.user()?.nroCliente;
 
   const headers: Record<string, string> = {
-    nroIdioma: nroIdioma.toString(),
+    nroIdioma: NRO_IDIOMA_POR_LOCALE[locale].toString(),
   };
 
   token && (headers['Authorization'] = `Bearer ${token}`);

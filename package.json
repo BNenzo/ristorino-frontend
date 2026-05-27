@@ -6,10 +6,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-  "extract-i18n": "ng extract-i18n --output-path=src/locale && xliffmerge --profile xliffmerge.json",
-  "start": "ng serve --open --configuration=development-es",
-  "start-en": "ng serve  --open --configuration=development-en"
-    
+    "extract-i18n": "ng extract-i18n --output-path=src/locale && xliffmerge --profile xliffmerge.json",
+    "start": "ng serve --open --configuration=development-es",
+    "start-en": "ng serve  --open  --port 4201 --configuration=development-en"
   },
   "prettier": {
     "printWidth": 100,
@@ -41,6 +40,7 @@
     "@angular/build": "^20.3.7",
     "@angular/cli": "^20.3.7",
     "@angular/compiler-cli": "^20.3.0",
+    "@angular/localize": "^20.3.7",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
