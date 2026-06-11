@@ -6,9 +6,9 @@
     <form class="reserva-form" [formGroup]="form">
       <!-- Restaurante -->
       <div class="form-group">
-        <label for="restaurante">Restaurante</label>
+        <label for="restaurante" i18n>Restaurante</label>
         <select id="restaurante" formControlName="restaurante">
-          <option value="">Seleccioná un restaurante</option>
+          <option value="" i18n>Seleccioná un restaurante</option>
           @for (restaurante of restaurantes; track restaurante.nroRestaurante) {
             <option [value]="restaurante.nroRestaurante">{{ restaurante.razonSocial }}</option>
           }
@@ -17,9 +17,9 @@
 
       <!-- Sucursal -->
       <div class="form-group">
-        <label for="sucursal">Sucursal</label>
+        <label for="sucursal" i18n>Sucursal</label>
         <select id="sucursal" formControlName="sucursal">
-          <option value="">Seleccioná una sucursal</option>
+          <option value="" i18n>Seleccioná una sucursal</option>
           @for (sucursal of sucursalesFiltradas; track sucursal.nroSucursal) {
             <option [value]="sucursal.nroSucursal">{{ sucursal.nomSucursal }}</option>
           }
@@ -28,9 +28,9 @@
 
       <!-- Cantidad adultos -->
       <div class="form-group">
-        <label for="cantAdultos">Cantidad de adultos</label>
+        <label for="cantAdultos" i18n>Cantidad de adultos</label>
         <select id="cantAdultos" formControlName="cantAdultos">
-          <option value="">Seleccioná cantidad</option>
+          <option value="" i18n>Seleccioná cantidad</option>
           @for (cant of cantidadesComensalesOpciones; track cant) {
             <option [value]="cant">{{ cant }}</option>
           }
@@ -39,9 +39,9 @@
 
       <!-- Cantidad menores -->
       <div class="form-group">
-        <label for="cantMenores">Cantidad de menores</label>
+        <label for="cantMenores" i18n>Cantidad de menores</label>
         <select id="cantMenores" formControlName="cantMenores">
-          <option value="">Seleccioná cantidad</option>
+          <option value="" i18n>Seleccioná cantidad</option>
           @for (cant of cantidadesComensalesOpciones; track cant) {
             <option [value]="cant">{{ cant }}</option>
           }
@@ -50,9 +50,9 @@
 
       <!-- Zona -->
       <div class="form-group">
-        <label for="zona">Zona</label>
+        <label for="zona" i18n>Zona</label>
         <select id="zona" formControlName="zona">
-          <option value="">Seleccioná una Zona</option>
+          <option value="" i18n>Seleccioná una Zona</option>
           @for (zona of zonasFiltradas; track zona.codZona) {
             <option
               [value]="zona.codZona"
@@ -66,7 +66,7 @@
 
       <!-- Fecha -->
       <div class="form-group">
-        <label for="fecha">Fecha</label>
+        <label for="fecha" i18n>Fecha</label>
         <input id="fecha" type="date" formControlName="fecha" />
       </div>
 
@@ -90,7 +90,7 @@
         <div class="chip">{{ nomSucursal }}</div>
         <div class="chip">{{ nombreZonaSeleccionada }}</div>
         <div class="chip">{{ form.get('fecha')?.value | date: 'dd/MM/yyyy' }}</div>
-        <div class="chip">{{ cantAdultos }} adultos - {{ cantMenores }} menores</div>
+        <div class="chip" i18n>{{ cantAdultos }} adultos - {{ cantMenores }} menores</div>
       </div>
 
       <h4 class="turnos-label">Seleccioná un turno:</h4>
@@ -106,7 +106,7 @@
             <div class="hora">
               {{ turno.horaDesde.slice(0, 5) }} - {{ turno.horaHasta.slice(0, 5) }}
             </div>
-            <div class="cupo">Disponibles: {{ turno.cupoDisponible }}</div>
+            <div class="cupo" i18n>Disponibles: {{ turno.cupoDisponible }}</div>
           </button>
         }
       </div>
@@ -124,20 +124,20 @@
 <!-- MODAL CONFIRMACION -->
 <div class="modal-backdrop" *ngIf="mostrarModal">
   <div class="modal-box">
-    <h3>🎉 Reserva confirmada</h3>
+    <h3 i18n>🎉 Reserva confirmada</h3>
 
-    <p>
+    <p i18n>
       Has realizado tu reserva para
       <strong>{{ modalData.restaurante }}</strong>
     </p>
 
-    <p><strong>Sucursal:</strong> {{ modalData.sucursal }}</p>
+    <p><strong i18n>Sucursal:</strong> {{ modalData.sucursal }}</p>
 
-    <p><strong>Fecha:</strong> {{ modalData.fecha | date: 'dd/MM/yyyy' }}</p>
+    <p><strong i18n>Fecha:</strong> {{ modalData.fecha | date: 'dd/MM/yyyy' }}</p>
 
-    <p><strong>Hora:</strong> {{ modalData.hora }}hs</p>
+    <p><strong i18n>Hora:</strong> {{ modalData.hora }}hs</p>
 
-    <p>
+    <p i18n>
       Tu código de reserva es:
       <strong class="codigo">{{ modalData.codigo }}</strong>
     </p>
@@ -149,7 +149,7 @@
 <!-- MODAL ERROR -->
 <div class="modal-backdrop" *ngIf="mostrarModalError">
   <div class="modal-box modal-error">
-    <h3>⚠️ Hubo un error al realizar la reserva</h3>
+    <h3 i18n>⚠️ Hubo un error al realizar la reserva</h3>
 
     <button (click)="cerrarModalError()">Aceptar</button>
   </div>

@@ -1,6 +1,6 @@
 <section class="container">
   <header class="header">
-    <h3>Mis Reservas</h3>
+    <h3 i18n>Mis Reservas</h3>
     <button type="button" class="filters-toggle" (click)="toggleFilters()">
       <!-- ícono "filtros" simple -->
       <svg
@@ -26,7 +26,7 @@
 
     <aside class="sidebar" [class.open]="isFiltersOpen" (click)="$event.stopPropagation()">
       <div class="sidebar-header">
-        <h3>Filtros</h3>
+        <h3 i18n>Filtros</h3>
         <button type="button" class="close-btn" (click)="closeFilters()">
           <!-- X -->
           <svg
@@ -48,7 +48,7 @@
 
       <form [formGroup]="form">
         <app-filter-dropdown>
-          <div dropdown-trigger><h3>Fecha</h3></div>
+          <div dropdown-trigger><h3 i18n>Fecha</h3></div>
           <div dropdown-content>
             <div class="form-group">
               <input id="fecha" type="date" formControlName="fecha" placeholder="Fecha" />
@@ -57,7 +57,7 @@
         </app-filter-dropdown>
 
         <app-filter-dropdown>
-          <div dropdown-trigger><h3>Estados</h3></div>
+          <div dropdown-trigger><h3 i18n>Estados</h3></div>
           <div dropdown-content>
             <div formGroupName="estados" class="filtros-estados-wrapper">
               @for (estado of estadosDisponibles; track estado.codEstado) {
@@ -82,14 +82,14 @@
           <img class="logo-restaurante-media" [src]="reserva.iconoSrc" />
           <div class="card-body">
             <h4>{{ reserva.razonSocial }} - {{ reserva.nomSucursal }}</h4>
-            <h5 class="">
+            <h5 class="" i18n>
               Estado:
               <span [class]="obtenerTextoEstadoClassname(reserva.codEstado)">{{
                 reserva.estado
               }}</span>
             </h5>
             <h6>{{ formatearFecha(reserva.fechaReserva) }}</h6>
-            <h6>Cantidad de personas: {{ reserva.cantAdultos + reserva.cantMenores }}</h6>
+            <h6 i18n>Cantidad de personas: {{ reserva.cantAdultos + reserva.cantMenores }}</h6>
           </div>
 
           <div class="actions_wrapper">
