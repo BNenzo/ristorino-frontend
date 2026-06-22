@@ -7,7 +7,6 @@ import { MisReservas } from './pages/mis-reservas/mis-reservas';
 import { ReservasResource } from './api/resources/reservas/reservas-resource';
 import {
   obtenerEstadosReservasResolver,
-  obtenerReservaClienteResolver,
   obtenerReservasClienteResolver,
   obtenerSucursalesFormReservasResolver,
   obtenerZonasSucursalesRestaurantesFormReservasResolver,
@@ -28,7 +27,6 @@ import { LocalidadResource } from './api/resources/localidad/localidad-resource'
 import { PreferenciaResource } from './api/resources/preferencia/preferencia-resource';
 import { localidadesResolver } from './resolvers/localidades/localidades-resolver';
 import { preferenciasResolver } from './resolvers/preferencias/preferencias-resolver';
-import { puedeEditarReservaGuard } from './pages/editar-reserva/guards/puedeEditarReservaGuard';
 import { ReservarComponent } from './pages/reservar/reservar.component';
 
 export const routes: Routes = [
@@ -68,14 +66,6 @@ export const routes: Routes = [
     },
     providers: [ReservasResource, ReservaResource],
   },
-  // {
-  //   path: 'editar-reserva/:nro_reserva',
-  //   component: EditarReserva,
-  //   resolve: {
-  //     reserva: obtenerReservaClienteResolver,
-  //   },
-  //   providers: [ReservaResource],
-  // },
   {
     path: 'login',
     component: LoginComponent,
