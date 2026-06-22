@@ -43,31 +43,4 @@ export class ReservaResource extends Resource {
     method: ResourceRequestMethod.Post,
   })
   declare crearReserva: IResourceMethodObservable<CrearReservaRequest, string>;
-
-  // OBTENER LA RESERVA DE UN CLIENTE
-  @ResourceAction({
-    path: '/reservas/cliente/{nroReserva}',
-    method: ResourceRequestMethod.Get,
-  })
-  declare getReservaCliente: IResourceMethodObservable<{ nroReserva: number }, ReservaCliente>;
-
-  // ACTUALIZAR LA RESERVA DE UN CLIENTE
-  @ResourceAction({
-    path: '/reservas/cliente/{nroReserva}',
-    method: ResourceRequestMethod.Put,
-  })
-  declare actualizarReservaCliente: IResourceMethodObservable<
-    {
-      nroRestaurante: number;
-      nroReserva: number;
-      fechaReserva?: string;
-      cantAdultos?: number;
-      cantMenores?: number;
-      horaReserva?: string;
-      codEstado?: string;
-      fechaCancelacion?: string;
-      codReservaSucursal?: string;
-    },
-    ReservaCliente
-  >;
 }

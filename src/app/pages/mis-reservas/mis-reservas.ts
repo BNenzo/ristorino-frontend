@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ObtenerReservasCliente } from '../../api/resources/reservas/models/obtener-reservas-cliente.model';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ReservasResource } from '../../api/resources/reservas/reservas-resource';
@@ -7,11 +7,10 @@ import { ObtenerEstadosReserva } from '../../api/resources/reservas/models/obten
 import { FilterDropdown } from '../../components/filter-dropdown/filter-dropdown';
 import { obtenerTextoEstadoClassname } from '../../utils/obtenerColorEstadoReserva';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
-import { puedeEditarReserva } from '../editar-reserva/utils';
 
 @Component({
   selector: 'app-mis-reservas',
-  imports: [ReactiveFormsModule, FilterDropdown, RouterLink],
+  imports: [ReactiveFormsModule, FilterDropdown],
   providers: [ReservasResource, ReservaResource],
   templateUrl: './mis-reservas.html',
   styleUrl: './mis-reservas.scss',
@@ -63,13 +62,9 @@ export class MisReservas {
 
   aplicarFiltros() {
     const raw = this.form.getRawValue();
-    const estadosSeleccionados = Object.entries(raw.estados ?? {})
-      .filter(([, checked]) => checked === true)
-      .map(([estado]) => estado);
 
     const filters = {
       ...(raw.fecha ? { fecha: raw.fecha } : {}),
-      ...(estadosSeleccionados.length ? { estados: estadosSeleccionados } : {}),
     };
 
     this.api
@@ -79,8 +74,6 @@ export class MisReservas {
       .subscribe((res) => {
         this.reservas = res;
       });
-
-    console.log({ filters });
   }
 
   formatearFecha(fechaIso: string): string {
@@ -107,24 +100,5 @@ export class MisReservas {
     const day = String(hoy.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
-  }
-
-  cancelarReserva({ codReservaSucursal, nroReserva, nroRestaurante }: ObtenerReservasCliente) {
-    const reserva = {
-      fechaCancelacion: this.obtenerFechaHoyISO(),
-      codReservaSucursal,
-      nroReserva,
-      nroRestaurante,
-    };
-
-    this.reservaApi.actualizarReservaCliente(reserva).subscribe(() => {
-      this.api.getReservasCliente().subscribe((res) => {
-        this.reservas = res;
-      });
-    });
-  }
-
-  puedeEditarReserva(reserva: ObtenerReservasCliente): boolean {
-    return puedeEditarReserva({ ...reserva });
   }
 }
