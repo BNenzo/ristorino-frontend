@@ -90,7 +90,7 @@
           <div class="chip">{{ nomRestaurante }}</div>
           <div class="chip">{{ nomSucursal }}</div>
           <div class="chip">{{ nombreZonaSeleccionada }}</div>
-          <div class="chip">{{ cantAdultos }} adultos - {{ cantMenores }} menores</div>
+          <div i18n class="chip">{{ cantAdultos }} adultos - {{ cantMenores }} menores</div>
         </div>
 
         <!-- Selector de fecha con flechas -->
@@ -111,7 +111,7 @@
           (change)="onFechaCambiada()"
         />
 
-        <h4 class="turnos-label">Seleccioná un turno:</h4>
+        <h4 class="turnos-label" i18n>Seleccioná un turno:</h4>
 
         <div class="turnos-container">
           @for (turno of turnosDisponibles; track turno.horaDesde) {
@@ -124,7 +124,7 @@
               <div class="hora">
                 {{ turno.horaDesde.slice(0, 5) }} - {{ turno.horaHasta.slice(0, 5) }}
               </div>
-              <div class="cupo">Disponibles: {{ turno.cupoDisponible }}</div>
+              <div class="cupo" i18n>Disponibles: {{ turno.cupoDisponible }}</div>
             </button>
           }
         </div>
@@ -150,14 +150,14 @@
 <!-- MODAL CONFIRMACION -->
 <div class="modal-backdrop" *ngIf="mostrarModal">
   <div class="modal-box">
-    <h3>🎉 Reserva confirmada</h3>
-    <p>
+    <h3 i18n>🎉 Reserva confirmada</h3>
+    <p i18n>
       Has realizado tu reserva para <strong>{{ modalData.restaurante }}</strong>
     </p>
-    <p><strong>Sucursal:</strong> {{ modalData.sucursal }}</p>
-    <p><strong>Fecha:</strong> {{ modalData.fecha | date: 'dd/MM/yyyy' }}</p>
-    <p><strong>Hora:</strong> {{ modalData.hora }}hs</p>
-    <p>
+    <p i18n><strong>Sucursal:</strong> {{ modalData.sucursal }}</p>
+    <p i18n><strong>Fecha:</strong> {{ modalData.fecha | date: 'dd/MM/yyyy' }}</p>
+    <p i18n><strong>Hora:</strong> {{ modalData.hora }}hs</p>
+    <p i18n>
       Tu código de reserva es: <strong class="codigo">{{ modalData.codigo }}</strong>
     </p>
     <button (click)="irHome()">Aceptar</button>
