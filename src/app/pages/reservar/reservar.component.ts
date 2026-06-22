@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Restaurante } from '../../api/resources/restaurante/models/restaurante.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,6 +30,7 @@ export class ReservarComponent {
 
   turnosDisponibles: DisponibilidadTurnos[] = [];
   turnoSeleccionado: string | null = null;
+  @ViewChild('fechaHiddenInput') fechaHiddenInput!: ElementRef<HTMLInputElement>;
 
   mostrarModal = false;
   mostrarModalError = false;
@@ -141,7 +142,24 @@ export class ReservarComponent {
     );
   }
 
+  abrirCalendario(): void {
+    this.fechaHiddenInput.nativeElement.showPicker();
+  }
+
+  cambiarFecha(dias: number): void {
+    const fechaActual = new Date(this.form.get('fecha')!.value);
+    fechaActual.setDate(fechaActual.getDate() + dias);
+    const nueva = fechaActual.toISOString().split('T')[0];
+    this.form.get('fecha')!.setValue(nueva);
+    this.consultarDisponibilidad();
+  }
+
+  onFechaCambiada(): void {
+    this.consultarDisponibilidad();
+  }
+
   consultarDisponibilidad(): void {
+    console.log('Consultando disponibilidad para fecha:', this.form.get('fecha')!.value);
     const nroRestaurante = Number(this.form.get('restaurante')!.value);
     const nroSucursal = Number(this.form.get('sucursal')!.value);
     const codZona = this.form.get('zona')!.value;

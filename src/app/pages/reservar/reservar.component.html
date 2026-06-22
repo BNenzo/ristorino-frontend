@@ -1,9 +1,11 @@
 <section class="reserva-container">
   <h2 class="reserva-title">Hacé tu reserva</h2>
 
-  <!-- FORMULARIO: se oculta cuando hay turnos disponibles -->
-  @if (turnosDisponibles.length === 0) {
-    <form class="reserva-form" [formGroup]="form">
+  <form [formGroup]="form">
+
+    <!-- FORMULARIO: se oculta cuando hay turnos disponibles -->
+    @if (turnosDisponibles.length === 0) {
+      <div class="reserva-form">
       <!-- Restaurante -->
       <div class="form-group">
         <label for="restaurante">Restaurante</label>
@@ -78,70 +80,80 @@
       >
         Consultar disponibilidad
       </button>
-    </form>
-  }
-
-  <!-- TURNOS: se muestra cuando hay resultados -->
-  @if (turnosDisponibles.length > 0) {
-    <div class="turnos-section">
-      <!-- Resumen de lo seleccionado -->
-      <div class="chips-container">
-        <div class="chip">{{ nomRestaurante }}</div>
-        <div class="chip">{{ nomSucursal }}</div>
-        <div class="chip">{{ nombreZonaSeleccionada }}</div>
-        <div class="chip">{{ form.get('fecha')?.value | date: 'dd/MM/yyyy' }}</div>
-        <div class="chip">{{ cantAdultos }} adultos - {{ cantMenores }} menores</div>
       </div>
+    }
 
-      <h4 class="turnos-label">Seleccioná un turno:</h4>
+    <!-- TURNOS: se muestra cuando hay resultados -->
+    @if (turnosDisponibles.length > 0) {
+      <div class="turnos-section">
 
-      <div class="turnos-container">
-        @for (turno of turnosDisponibles; track turno.horaDesde) {
-          <button
-            type="button"
-            class="turno-card"
-            [class.selected]="turnoSeleccionado === turno.horaDesde"
-            (click)="seleccionarTurno(turno)"
-          >
-            <div class="hora">
-              {{ turno.horaDesde.slice(0, 5) }} - {{ turno.horaHasta.slice(0, 5) }}
-            </div>
-            <div class="cupo">Disponibles: {{ turno.cupoDisponible }}</div>
+        <!-- Chips de resumen -->
+        <div class="chips-container">
+          <div class="chip">{{ nomRestaurante }}</div>
+          <div class="chip">{{ nomSucursal }}</div>
+          <div class="chip">{{ nombreZonaSeleccionada }}</div>
+          <div class="chip">{{ cantAdultos }} adultos - {{ cantMenores }} menores</div>
+        </div>
+
+        <!-- Selector de fecha con flechas -->
+        <div class="fecha-nav-container">
+          <button type="button" class="fecha-nav" (click)="cambiarFecha(-1)">&#8592;</button>
+          <div class="chip chip--fecha" (click)="abrirCalendario()">
+            <span>{{ form.get('fecha')?.value | date: 'dd/MM/yyyy' }}</span>
+          </div>
+          <button type="button" class="fecha-nav" (click)="cambiarFecha(1)">&#8594;</button>
+        </div>
+
+         <!-- Input oculto de fecha, siempre presente en el DOM -->
+        <input
+          #fechaHiddenInput
+          type="date"
+          formControlName="fecha"
+          class="fecha-hidden-input"
+          (change)="onFechaCambiada()"
+        />
+
+        <h4 class="turnos-label">Seleccioná un turno:</h4>
+
+        <div class="turnos-container">
+          @for (turno of turnosDisponibles; track turno.horaDesde) {
+            <button
+              type="button"
+              class="turno-card"
+              [class.selected]="turnoSeleccionado === turno.horaDesde"
+              (click)="seleccionarTurno(turno)"
+            >
+              <div class="hora">
+                {{ turno.horaDesde.slice(0, 5) }} - {{ turno.horaHasta.slice(0, 5) }}
+              </div>
+              <div class="cupo">Disponibles: {{ turno.cupoDisponible }}</div>
+            </button>
+          }
+        </div>
+
+        <div class="btns-container">
+          <button class="btn--primary" type="button" [disabled]="!turnoSeleccionado" (click)="reservar()">
+            Reservar
           </button>
-        }
-      </div>
+          <button class="btn--volver" type="button" (click)="volverAlFormulario()">Modificar</button>
+        </div>
 
-      <div class="btns-container">
-        <button class="btn--primary" type="button" [disabled]="form.invalid" (click)="reservar()">
-          Reservar
-        </button>
-        <button class="btn--volver" type="button" (click)="volverAlFormulario()">Modificar</button>
       </div>
-    </div>
-  }
+    }
+
+  </form>
+
 </section>
 
 <!-- MODAL CONFIRMACION -->
 <div class="modal-backdrop" *ngIf="mostrarModal">
   <div class="modal-box">
     <h3>🎉 Reserva confirmada</h3>
-
-    <p>
-      Has realizado tu reserva para
-      <strong>{{ modalData.restaurante }}</strong>
-    </p>
-
+    <p>Has realizado tu reserva para <strong>{{ modalData.restaurante }}</strong></p>
     <p><strong>Sucursal:</strong> {{ modalData.sucursal }}</p>
-
     <p><strong>Fecha:</strong> {{ modalData.fecha | date: 'dd/MM/yyyy' }}</p>
-
     <p><strong>Hora:</strong> {{ modalData.hora }}hs</p>
-
-    <p>
-      Tu código de reserva es:
-      <strong class="codigo">{{ modalData.codigo }}</strong>
-    </p>
-
+    <p>Tu código de reserva es: <strong class="codigo">{{ modalData.codigo }}</strong></p>
     <button (click)="irHome()">Aceptar</button>
   </div>
 </div>
@@ -150,7 +162,6 @@
 <div class="modal-backdrop" *ngIf="mostrarModalError">
   <div class="modal-box modal-error">
     <h3>⚠️ Hubo un error al realizar la reserva</h3>
-
     <button (click)="cerrarModalError()">Aceptar</button>
   </div>
 </div>
