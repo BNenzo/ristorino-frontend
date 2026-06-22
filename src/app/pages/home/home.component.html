@@ -2,8 +2,8 @@
 
 <section class="container">
   <div class="buscador-container">
-    <input [(ngModel)]="searchText" placeholder="¿Qué querés comer?" />
-    <button (click)="onBuscarClick()" class="btn btn--primary">Buscar</button>
+    <input [(ngModel)]="searchText" i18n-placeholder placeholder="¿Qué querés comer?" />
+    <button i18n (click)="onBuscarClick()" class="btn btn--primary">Buscar</button>
   </div>
   <div class="cards-container">
     @for (promo of promos; track promo) {

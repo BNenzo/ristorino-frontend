@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { SessionStore } from '../../store/session-store';
 import { IdiomasResource } from '../../api/resources/idiomas/idiomas-resource';
 import { Idiomas } from '../../api/resources/idiomas/models/idiomas.model';
 import { FormsModule } from '@angular/forms';
+import { NRO_IDIOMA_POR_LOCALE, URL_POR_NRO_IDIOMA_MAP } from '../../constants';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,8 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
+  private locale = inject(LOCALE_ID);
+
   idiomas: Idiomas[] = [];
   idiomaSeleccionado?: number;
   constructor(
@@ -24,13 +27,11 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit(): void {
-    console.log('Test', Number(this.sessionStore.nroIdioma()));
     this.idiomaResource.getIdiomas().subscribe({
       next: (response) => {
-        console.log({});
         this.idiomas = response;
 
-        this.idiomaSeleccionado = this.sessionStore.nroIdioma();
+        this.idiomaSeleccionado = NRO_IDIOMA_POR_LOCALE[this.locale];
       },
       error: (err) => console.error(err),
     });
@@ -44,11 +45,17 @@ export class NavbarComponent {
 
   onIdiomaChange(event: Event) {
     const select = event.target as HTMLSelectElement;
-    const value = select.value;
+    const value = Number(select.value);
 
-    this.idiomaSeleccionado = Number(value);
-    this.sessionStore.setNroIdioma(Number(value));
-    window.location.reload();
+    this.idiomaSeleccionado = value;
+
+    const nuevaUrl = URL_POR_NRO_IDIOMA_MAP[value];
+
+    if (nuevaUrl) {
+      window.location.href = nuevaUrl + window.location.pathname + window.location.search;
+    } else {
+      window.location.reload();
+    }
   }
 
   login() {
