@@ -61,7 +61,6 @@ export class DetalleRestauranteComponent implements OnInit {
       nroRestaurante: promo.nroRestaurante,
       nroIdioma: promo.nroIdioma,
       nroContenido: promo.nroContenido,
-      nroCliente: 1,
       costoClick: promo.costoClick,
       codContenidoRestaurante: promo.codContenidoRestaurante,
     };
