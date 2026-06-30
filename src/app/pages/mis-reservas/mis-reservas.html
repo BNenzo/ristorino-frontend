@@ -51,13 +51,19 @@
           <div dropdown-trigger><h3 i18n>Fecha</h3></div>
           <div dropdown-content>
             <div class="form-group">
-              <input id="fecha" type="date" formControlName="fecha" placeholder="Fecha" />
+              <input
+                id="fecha"
+                type="date"
+                formControlName="fecha"
+                placeholder="Fecha"
+                i18n-placeholder
+              />
             </div>
           </div>
         </app-filter-dropdown>
       </form>
 
-      <button (click)="aplicarFiltros(); closeFilters()" class="aplicar-filtros-btn">
+      <button (click)="aplicarFiltros(); closeFilters()" class="aplicar-filtros-btn" i18n>
         Aplicar
       </button>
     </aside>

@@ -1,7 +1,10 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { DetalleRestauranteComponent } from './pages/detalle-restaurante/detalle-restaurante';
-import { promocionesResolver } from './resolvers/promociones/promociones-resolver';
+import {
+  promocionesResolver,
+  promocionesRestauranteResolver,
+} from './resolvers/promociones/promociones-resolver';
 
 import { MisReservas } from './pages/mis-reservas/mis-reservas';
 import { ReservasResource } from './api/resources/reservas/reservas-resource';
@@ -43,7 +46,7 @@ export const routes: Routes = [
       datosRestaurante: datosRestauranteResolver,
       sucursales: sucursalesResolver,
       preferencias: preferenciasRestauranteResolver,
-      promociones: promocionesResolver,
+      promociones: promocionesRestauranteResolver,
     },
     providers: [RestauranteResource, ContenidoResource],
   },

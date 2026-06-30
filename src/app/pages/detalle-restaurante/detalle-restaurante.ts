@@ -59,9 +59,7 @@ export class DetalleRestauranteComponent implements OnInit {
   onPromoClick(promo: Promotion): void {
     const registrarClickBody: RegistrarClickPromocionBody = {
       nroRestaurante: promo.nroRestaurante,
-      nroIdioma: promo.nroIdioma,
       nroContenido: promo.nroContenido,
-      costoClick: promo.costoClick,
       codContenidoRestaurante: promo.codContenidoRestaurante,
     };
 

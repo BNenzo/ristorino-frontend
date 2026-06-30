@@ -1,5 +1,5 @@
 <section class="reserva-container">
-  <h2 class="reserva-title">Hacé tu reserva</h2>
+  <h2 class="reserva-title" i18n>Hacé tu reserva</h2>
 
   <form [formGroup]="form">
     <!-- FORMULARIO: se oculta cuando hay turnos disponibles -->
@@ -76,6 +76,7 @@
           [disabled]="form.invalid"
           (click)="consultarDisponibilidad()"
           class="btn--primary"
+          i18n
         >
           Consultar disponibilidad
         </button>
@@ -135,10 +136,11 @@
             type="button"
             [disabled]="!turnoSeleccionado"
             (click)="reservar()"
+            i18n
           >
             Reservar
           </button>
-          <button class="btn--volver" type="button" (click)="volverAlFormulario()">
+          <button class="btn--volver" type="button" (click)="volverAlFormulario()" i18n>
             Modificar
           </button>
         </div>
@@ -160,7 +162,7 @@
     <p i18n>
       Tu código de reserva es: <strong class="codigo">{{ modalData.codigo }}</strong>
     </p>
-    <button (click)="irHome()">Aceptar</button>
+    <button (click)="irHome()" i18n>Aceptar</button>
   </div>
 </div>
 
@@ -169,6 +171,6 @@
   <div class="modal-box modal-error">
     <h3 i18n>⚠️ Hubo un error al realizar la reserva</h3>
 
-    <button (click)="cerrarModalError()">Aceptar</button>
+    <button (click)="cerrarModalError()" i18n>Aceptar</button>
   </div>
 </div>

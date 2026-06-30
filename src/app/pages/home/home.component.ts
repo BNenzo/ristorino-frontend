@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { ContenidoResource } from '../../api/resources/contenido/contenido-resource';
 import { FormsModule } from '@angular/forms';
+import { JsonpClientBackend } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -34,9 +35,7 @@ export class HomeComponent implements OnInit {
   onPromoClick(promo: Promotion): void {
     const registrarClickBody: RegistrarClickPromocionBody = {
       nroRestaurante: promo.nroRestaurante,
-      nroIdioma: promo.nroIdioma,
       nroContenido: promo.nroContenido,
-      costoClick: promo.costoClick,
       codContenidoRestaurante: promo.codContenidoRestaurante,
     };
 

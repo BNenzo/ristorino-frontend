@@ -27,6 +27,8 @@
           <input
             id="nombre"
             type="text"
+            placeholder="Ingresá tu nombre"
+            i18n-placeholder
             formControlName="nombre"
           />
         </div>
@@ -36,6 +38,8 @@
           <input
             id="apellido"
             type="text"
+            placeholder="Ingresá tu apellido"
+            i18n-placeholder
             formControlName="apellido"
           />
         </div>
@@ -48,6 +52,8 @@
           <input
             id="dni"
             type="number"
+            placeholder="Ingresá tu documento"
+            i18n-placeholder
             formControlName="dni"
           />
         </div>
@@ -57,6 +63,8 @@
           <input
             id="telefono"
             type="text"
+            placeholder="Ingresá tu teléfono"
+            i18n-placeholder
             formControlName="telefono"
           />
         </div>
@@ -100,6 +108,8 @@
           <input
             id="password"
             type="password"
+            placeholder="Ingresá tu contraseña"
+            i18n-placeholder
             formControlName="password"
           />
         </div>
@@ -109,6 +119,8 @@
           <input
             id="confirm"
             type="password"
+            placeholder="Repetí tu contraseña"
+            i18n-placeholder
             formControlName="confirmPassword"
           />
         </div>
@@ -123,6 +135,7 @@
         type="submit"
         class="register-button"
         [disabled]="form.invalid"
+        i18n
       >
         Registrarme
       </button>
