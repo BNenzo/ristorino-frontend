@@ -428,19 +428,43 @@
         </context-group>
       </trans-unit><trans-unit id="3905178848571662288" datatype="html">
         <source>Aceptar</source><target state="new">Accept</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">165,166</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">174,175</context>
-        </context-group>
-      </trans-unit><trans-unit id="1568984057516104582" datatype="html">
+        
+        
+      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context><context context-type="linenumber">165</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context><context context-type="linenumber">175</context></context-group></trans-unit><trans-unit id="1568984057516104582" datatype="html">
         <source>⚠️ Hubo un error al realizar la reserva</source><target state="new">⚠️ There was an error making the reservation</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
           <context context-type="linenumber">172,174</context>
+        </context-group>
+      </trans-unit><trans-unit id="reservaErrorSinTurno" datatype="html">
+        <source>No hay turno para la hora solicitada.</source><target state="new">There is no time slot for the requested time.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">228</context>
+        </context-group>
+      </trans-unit><trans-unit id="reservaErrorTurnoNoHabilitado" datatype="html">
+        <source>El turno seleccionado no está habilitado.</source><target state="new">The selected time slot is not available.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">230</context>
+        </context-group>
+      </trans-unit><trans-unit id="reservaErrorSinCupo" datatype="html">
+        <source>No hay cupo disponible para el turno seleccionado.</source><target state="new">There is no availability for the selected time slot.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">232</context>
+        </context-group>
+      </trans-unit><trans-unit id="reservaErrorCupoInsuficiente" datatype="html">
+        <source>No hay cupo disponible para la cantidad de comensales solicitada.</source><target state="new">There is no availability for the requested number of guests.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">234</context>
+        </context-group>
+      </trans-unit><trans-unit id="reservaErrorGenerico" datatype="html">
+        <source>Ocurrió un error al realizar la reserva.</source><target state="new">An error occurred while making the reservation.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">236</context>
         </context-group>
       </trans-unit>
 

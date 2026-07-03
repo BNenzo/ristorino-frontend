@@ -503,14 +503,49 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">174,175</context>
+          <context context-type="linenumber">175,176</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1568984057516104582" datatype="html">
         <source>⚠️ Hubo un error al realizar la reserva</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">172,174</context>
+          <context context-type="linenumber">172,173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reservaErrorSinTurno" datatype="html">
+        <source>No hay turno para la hora solicitada.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">228</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reservaErrorTurnoNoHabilitado" datatype="html">
+        <source>El turno seleccionado no está habilitado.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">230</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reservaErrorSinCupo" datatype="html">
+        <source>No hay cupo disponible para el turno seleccionado.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">232</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reservaErrorCupoInsuficiente" datatype="html">
+        <source>No hay cupo disponible para la cantidad de comensales solicitada.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reservaErrorGenerico" datatype="html">
+        <source>Ocurrió un error al realizar la reserva.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">236</context>
         </context-group>
       </trans-unit>
     </body>

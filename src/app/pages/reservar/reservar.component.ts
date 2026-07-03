@@ -5,6 +5,7 @@ import { Restaurante } from '../../api/resources/restaurante/models/restaurante.
 import { ActivatedRoute, Router } from '@angular/router';
 import { ObtenerSucursalesFormReservas } from '../../api/resources/reservas/models/obtener-sucursales.model';
 import { ObtenerZonasSucursalesRestaurantesFormReservas } from '../../api/resources/reservas/models/obtener-zonas-sucursales-restaurantes.model';
+import type { IResourceResponse } from '@ngx-resource/core';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
 import { DisponibilidadTurnos } from '../../api/resources/reserva/models/disponibilidad-turnos.model';
 import { SessionStore } from '../../store/session-store';
@@ -34,6 +35,7 @@ export class ReservarComponent {
 
   mostrarModal = false;
   mostrarModalError = false;
+  mensajeError = '';
   modalData: {
     restaurante?: string;
     sucursal?: string;
@@ -60,9 +62,10 @@ export class ReservarComponent {
   }
 
   ngOnInit(): void {
-    const nroRestaurante = this.route.snapshot.paramMap.get('nroRestaurante');
-    const nroSucursal = this.route.snapshot.paramMap.get('nroSucursal');
+    const nroRestaurante = this.route.snapshot.paramMap.get('nroRestaurante'); // 1
+    const nroSucursal = this.route.snapshot.paramMap.get('nroSucursal'); // 1
 
+    // Logica para enviar al usuario a logearse y cuando termine el proceso sea redirigido a la pagina de reservar
     if (!this.sessionStore.isUserLogged()) {
       const returnUrl = this.router.serializeUrl(
         this.router.createUrlTree(['/reservar', nroRestaurante, nroSucursal]),
@@ -79,11 +82,12 @@ export class ReservarComponent {
         (s) => s.nroRestaurante === Number(nroRestaurante),
       );
 
-      // Reseteás la sucursal seleccionada cuando cambia el restaurante
+      // Reseteás la sucursal y zona seleccionada cuando cambia el restaurante
       this.form.get('sucursal')!.setValue('');
       this.form.get('zona')!.setValue('');
     });
 
+    // Escuchás cambios en el select de sucursal
     this.form.get('sucursal')!.valueChanges.subscribe((nroSucursal) => {
       const nroRestaurante = Number(this.form.get('restaurante')!.value);
 
@@ -92,6 +96,7 @@ export class ReservarComponent {
           zona.nroRestaurante === nroRestaurante && zona.nroSucursal === Number(nroSucursal),
       );
 
+      // Reseteás la zona seleccionada cuando cambia la sucursal
       this.form.get('zona')!.setValue('');
     });
 
@@ -100,7 +105,6 @@ export class ReservarComponent {
       this.sucursales = sucursales;
       this.zonas = zonas;
 
-      console.log(nroSucursal);
       if (nroRestaurante) {
         // Preseleccionás el restaurante → esto dispara el valueChanges
         // que filtra las sucursales automáticamente
@@ -212,11 +216,27 @@ export class ReservarComponent {
           };
           this.mostrarModal = true;
         },
-        error: () => {
-          this.form.get('turno')?.reset();
+        error: (err: IResourceResponse<{ message?: string }>) => {
+          this.mensajeError = this.traducirMensajeError(err.body?.message);
           this.mostrarModalError = true;
         },
       });
+  }
+
+  private traducirMensajeError(mensajeBackend?: string): string {
+    if (mensajeBackend?.includes('RESERVA_TURNO_INEXISTENTE')) {
+      return $localize`:@@reservaErrorSinTurno:No hay turno para la hora solicitada.`;
+    }
+    if (mensajeBackend?.includes('RESERVA_TURNO_NO_HABILITADO')) {
+      return $localize`:@@reservaErrorTurnoNoHabilitado:El turno seleccionado no está habilitado.`;
+    }
+    if (mensajeBackend?.includes('RESERVA_SIN_CUPO')) {
+      return $localize`:@@reservaErrorSinCupo:No hay cupo disponible para el turno seleccionado.`;
+    }
+    if (mensajeBackend?.includes('RESERVA_CUPO_INSUFICIENTE')) {
+      return $localize`:@@reservaErrorCupoInsuficiente:No hay cupo disponible para la cantidad de comensales solicitada.`;
+    }
+    return $localize`:@@reservaErrorGenerico:Ocurrió un error al realizar la reserva.`;
   }
 
   seleccionarTurno(turno: DisponibilidadTurnos): void {
@@ -237,6 +257,8 @@ export class ReservarComponent {
 
   cerrarModalError(): void {
     this.mostrarModalError = false;
-    this.form.reset();
+    this.mensajeError = '';
+    this.turnoSeleccionado = null;
+    this.consultarDisponibilidad();
   }
 }

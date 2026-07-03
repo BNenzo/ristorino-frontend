@@ -36,10 +36,11 @@ export class ReservaResource extends Resource {
     DisponibilidadTurnos[]
   >;
 
-  // REVISAR!!!
-  //HACEMOS POST DE UNA RESERVA
+  // =====================================
+  // REALIZAR UNA RESERVA EN UNA SUCURSAL
+  // =====================================
   @ResourceAction({
-    path: '/reservas',
+    path: '/reservas/crear-reserva',
     method: ResourceRequestMethod.Post,
   })
   declare crearReserva: IResourceMethodObservable<CrearReservaRequest, string>;

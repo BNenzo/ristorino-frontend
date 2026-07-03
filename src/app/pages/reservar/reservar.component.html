@@ -170,6 +170,7 @@
 <div class="modal-backdrop" *ngIf="mostrarModalError">
   <div class="modal-box modal-error">
     <h3 i18n>⚠️ Hubo un error al realizar la reserva</h3>
+    <p>{{ mensajeError }}</p>
 
     <button (click)="cerrarModalError()" i18n>Aceptar</button>
   </div>
