@@ -2,8 +2,8 @@
   <h2 class="reserva-title" i18n>Hacé tu reserva</h2>
 
   <form [formGroup]="form">
-    <!-- FORMULARIO: se oculta cuando hay turnos disponibles -->
-    @if (turnosDisponibles.length === 0) {
+    <!-- FORMULARIO: paso de consulta -->
+    @if (step === 'consulta') {
       <div class="reserva-form">
         <!-- Restaurante -->
         <div class="form-group">
@@ -83,8 +83,8 @@
       </div>
     }
 
-    <!-- TURNOS: se muestra cuando hay resultados -->
-    @if (turnosDisponibles.length > 0) {
+    <!-- TURNOS: paso de reserva -->
+    @if (step === 'reservar') {
       <div class="turnos-section">
         <!-- Chips de resumen -->
         <div class="chips-container">
@@ -112,23 +112,28 @@
           (change)="onFechaCambiada()"
         />
 
-        <h4 class="turnos-label" i18n>Seleccioná un turno:</h4>
+        @if (turnosDisponibles.length > 0) {
+          <h4 class="turnos-label" i18n>Seleccioná un turno:</h4>
 
-        <div class="turnos-container">
-          @for (turno of turnosDisponibles; track turno.horaDesde) {
-            <button
-              type="button"
-              class="turno-card"
-              [class.selected]="turnoSeleccionado === turno.horaDesde"
-              (click)="seleccionarTurno(turno)"
-            >
-              <div class="hora">
-                {{ turno.horaDesde.slice(0, 5) }} - {{ turno.horaHasta.slice(0, 5) }}
-              </div>
-              <div class="cupo" i18n>Disponibles: {{ turno.cupoDisponible }}</div>
-            </button>
-          }
-        </div>
+          <div class="turnos-container">
+            @for (turno of turnosDisponibles; track turno.horaDesde) {
+              <button
+                type="button"
+                class="turno-card"
+                [class.selected]="turnoSeleccionado === turno.horaDesde"
+                [disabled]="turnoDeshabilitado(turno)"
+                (click)="seleccionarTurno(turno)"
+              >
+                <div class="hora">
+                  {{ turno.horaDesde.slice(0, 5) }} - {{ turno.horaHasta.slice(0, 5) }}
+                </div>
+                <div class="cupo" i18n>Disponibles: {{ turno.cupoDisponible }}</div>
+              </button>
+            }
+          </div>
+        } @else {
+          <p class="turnos-placeholder" i18n>No hay horarios disponibles para la fecha seleccionada.</p>
+        }
 
         <div class="btns-container">
           <button

@@ -29,6 +29,8 @@ export class ReservarComponent {
 
   cantidadesComensalesOpciones: number[] = Array.from({ length: 10 }, (_, i) => i);
 
+  step: 'consulta' | 'reservar' = 'consulta';
+
   turnosDisponibles: DisponibilidadTurnos[] = [];
   turnoSeleccionado: string | null = null;
   @ViewChild('fechaHiddenInput') fechaHiddenInput!: ElementRef<HTMLInputElement>;
@@ -36,6 +38,7 @@ export class ReservarComponent {
   mostrarModal = false;
   mostrarModalError = false;
   mensajeError = '';
+  private reintentarConsultaAlCerrarError = false;
   modalData: {
     restaurante?: string;
     sucursal?: string;
@@ -175,9 +178,19 @@ export class ReservarComponent {
         codZona,
         fechaAReservar: fecha,
       })
-      .subscribe((rows: DisponibilidadTurnos[]) => {
-        console.log(rows);
-        this.turnosDisponibles = rows;
+      .subscribe({
+        next: (rows: DisponibilidadTurnos[]) => {
+          console.log(rows);
+          this.turnosDisponibles = rows;
+          this.step = 'reservar';
+        },
+        error: (err: IResourceResponse<{ message?: string }>) => {
+          this.turnosDisponibles = [];
+          this.turnoSeleccionado = null;
+          this.reintentarConsultaAlCerrarError = false;
+          this.mensajeError = $localize`:@@disponibilidadErrorGenerico:Ocurrió un error al consultar la disponibilidad.`;
+          this.mostrarModalError = true;
+        },
       });
   }
 
@@ -217,13 +230,17 @@ export class ReservarComponent {
           this.mostrarModal = true;
         },
         error: (err: IResourceResponse<{ message?: string }>) => {
+          this.reintentarConsultaAlCerrarError = true;
           this.mensajeError = this.traducirMensajeError(err.body?.message);
           this.mostrarModalError = true;
         },
       });
   }
 
-  private traducirMensajeError(mensajeBackend?: string): string {
+  private traducirMensajeError(
+    mensajeBackend?: string,
+    mensajeGenerico: string = $localize`:@@reservaErrorGenerico:Ocurrió un error al realizar la reserva.`,
+  ): string {
     if (mensajeBackend?.includes('RESERVA_TURNO_INEXISTENTE')) {
       return $localize`:@@reservaErrorSinTurno:No hay turno para la hora solicitada.`;
     }
@@ -236,16 +253,28 @@ export class ReservarComponent {
     if (mensajeBackend?.includes('RESERVA_CUPO_INSUFICIENTE')) {
       return $localize`:@@reservaErrorCupoInsuficiente:No hay cupo disponible para la cantidad de comensales solicitada.`;
     }
-    return $localize`:@@reservaErrorGenerico:Ocurrió un error al realizar la reserva.`;
+    return mensajeGenerico;
+  }
+
+  turnoDeshabilitado(turno: DisponibilidadTurnos): boolean {
+    return (
+      turno.cupoDisponible === 0 ||
+      turno.habilitado === 0 ||
+      this.cantMenores + this.cantAdultos > turno.cupoDisponible
+    );
   }
 
   seleccionarTurno(turno: DisponibilidadTurnos): void {
+    if (this.turnoDeshabilitado(turno)) {
+      return;
+    }
     this.turnoSeleccionado = turno.horaDesde;
     // Acá después harías el POST de la reserva
     console.log('Turno seleccionado:', turno);
   }
 
   volverAlFormulario(): void {
+    this.step = 'consulta';
     this.turnosDisponibles = [];
     this.turnoSeleccionado = null;
   }
@@ -258,7 +287,14 @@ export class ReservarComponent {
   cerrarModalError(): void {
     this.mostrarModalError = false;
     this.mensajeError = '';
-    this.turnoSeleccionado = null;
-    this.consultarDisponibilidad();
+
+    // Solo reintenta si el error vino de reservar(): ahí el turno/cupo quedó
+    // desactualizado y refrescar corrige el problema. Si el error vino de
+    // consultarDisponibilidad(), reintentar automáticamente repetiría el
+    // mismo fallo y dejaría al usuario sin poder volver al formulario.
+    if (this.reintentarConsultaAlCerrarError) {
+      this.turnoSeleccionado = null;
+      this.consultarDisponibilidad();
+    }
   }
 }

@@ -429,123 +429,137 @@
         <source>Seleccioná un turno:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">115,117</context>
+          <context context-type="linenumber">116,118</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3886095808118715265" datatype="html">
         <source>Disponibles: <x id="INTERPOLATION" equiv-text="{{ turno.cupoDisponible }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">128,129</context>
+          <context context-type="linenumber">129,130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3480150899117521577" datatype="html">
+        <source>No hay horarios disponibles para la fecha seleccionada.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
+          <context context-type="linenumber">134,135</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1000648427679908984" datatype="html">
         <source> Reservar </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">141</context>
+          <context context-type="linenumber">145</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4980667144709152092" datatype="html">
         <source> Modificar </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">148</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4940491638591823149" datatype="html">
         <source>🎉 Reserva confirmada</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">155,156</context>
+          <context context-type="linenumber">159,160</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4625514570150450887" datatype="html">
         <source> Has realizado tu reserva para <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/><x id="INTERPOLATION" equiv-text="{{ modalData.restaurante }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">157,159</context>
+          <context context-type="linenumber">161,163</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7724477573602358303" datatype="html">
         <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>Sucursal:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/> <x id="INTERPOLATION" equiv-text="{{ modalData.sucursal }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">159,160</context>
+          <context context-type="linenumber">163,164</context>
         </context-group>
       </trans-unit>
       <trans-unit id="502589037601883164" datatype="html">
         <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>Fecha:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/> <x id="INTERPOLATION" equiv-text="{{ modalData.fecha | date: 'dd/MM/yyyy' }}"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">160,161</context>
+          <context context-type="linenumber">164,165</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7690014175718528148" datatype="html">
         <source><x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong>"/>Hora:<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/> <x id="INTERPOLATION" equiv-text="{{ modalData.hora }}"/>hs</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">161,162</context>
+          <context context-type="linenumber">165,166</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4538561495730114453" datatype="html">
         <source> Tu código de reserva es: <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong class=&quot;codigo&quot;>"/><x id="INTERPOLATION" equiv-text="{{ modalData.codigo }}"/><x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong>"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">163,165</context>
+          <context context-type="linenumber">167,169</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3905178848571662288" datatype="html">
         <source>Aceptar</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">165,166</context>
+          <context context-type="linenumber">169,170</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">175,176</context>
+          <context context-type="linenumber">179,180</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1568984057516104582" datatype="html">
         <source>⚠️ Hubo un error al realizar la reserva</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context>
-          <context context-type="linenumber">172,173</context>
+          <context context-type="linenumber">176,177</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="reservaErrorSinTurno" datatype="html">
-        <source>No hay turno para la hora solicitada.</source>
+      <trans-unit id="disponibilidadErrorGenerico" datatype="html">
+        <source>Ocurrió un error al consultar la disponibilidad.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
-          <context context-type="linenumber">228</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="reservaErrorTurnoNoHabilitado" datatype="html">
-        <source>El turno seleccionado no está habilitado.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
-          <context context-type="linenumber">230</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="reservaErrorSinCupo" datatype="html">
-        <source>No hay cupo disponible para el turno seleccionado.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
-          <context context-type="linenumber">232</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="reservaErrorCupoInsuficiente" datatype="html">
-        <source>No hay cupo disponible para la cantidad de comensales solicitada.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
-          <context context-type="linenumber">234</context>
+          <context context-type="linenumber">189</context>
         </context-group>
       </trans-unit>
       <trans-unit id="reservaErrorGenerico" datatype="html">
         <source>Ocurrió un error al realizar la reserva.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
-          <context context-type="linenumber">236</context>
+          <context context-type="linenumber">240</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reservaErrorSinTurno" datatype="html">
+        <source>No hay turno para la hora solicitada.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">243</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reservaErrorTurnoNoHabilitado" datatype="html">
+        <source>El turno seleccionado no está habilitado.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">246</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reservaErrorSinCupo" datatype="html">
+        <source>No hay cupo disponible para el turno seleccionado.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">249</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="reservaErrorCupoInsuficiente" datatype="html">
+        <source>No hay cupo disponible para la cantidad de comensales solicitada.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context>
+          <context context-type="linenumber">252</context>
         </context-group>
       </trans-unit>
     </body>
