@@ -21,6 +21,8 @@ import { JsonpClientBackend } from '@angular/common/http';
 export class HomeComponent implements OnInit {
   promos: Promotion[] = [];
   searchText: string = '';
+  mostrarResultadoVacioModal = false;
+
   constructor(
     private _route: ActivatedRoute,
     private contenidoApi: ContenidoResource,
@@ -65,11 +67,19 @@ export class HomeComponent implements OnInit {
 
     this.contenidoApi.buscarContenidosConIA({ search: this.searchText }).subscribe({
       next: (promociones) => {
+        if (promociones.length === 0) {
+          this.mostrarResultadoVacioModal = true;
+          return;
+        }
         this.promos = promociones;
       },
       error: (err) => {
         console.error('Error buscando con IA:', err);
       },
     });
+  }
+
+  cerrarModalError(): void {
+    this.mostrarResultadoVacioModal = false;
   }
 }

@@ -24,6 +24,7 @@ export class RegistrarseComponent {
   localidades: LocalidadResponse[] = [];
   preferencias: PreferenciaResponse[] = [];
   returnUrl = '/';
+  mostrarModalError = false;
 
   form = this.fb.group(
     {
@@ -35,7 +36,9 @@ export class RegistrarseComponent {
       nroLocalidad: [null, Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
-      preferencias: this.fb.nonNullable.control<number[]>([], Validators.required),
+      preferencias: this.fb.nonNullable.control<
+        Pick<PreferenciaResponse, 'nro_valor_dominio' | 'cod_categoria'>[]
+      >([], Validators.required),
     },
     { validators: passwordMatchValidator },
   );
@@ -56,20 +59,38 @@ export class RegistrarseComponent {
      CHIPS LOGIC
   ========================== */
 
-  isSelected(id: number): boolean {
-    return this.form.value.preferencias?.includes(id) ?? false;
+  isSelected(nroValorDominio: number, codCategoria: string): boolean {
+    return (
+      this.form.value.preferencias?.some(
+        (p) => p.nro_valor_dominio === nroValorDominio && p.cod_categoria === codCategoria,
+      ) ?? false
+    );
   }
 
-  togglePreferencia(id: number) {
+  togglePreferencia(pref: PreferenciaResponse) {
     const actuales = this.form.value.preferencias || [];
 
-    if (actuales.includes(id)) {
+    const yaSeleccionada = actuales.some(
+      (p) =>
+        p.nro_valor_dominio === pref.nro_valor_dominio && p.cod_categoria === pref.cod_categoria,
+    );
+
+    if (yaSeleccionada) {
       this.form.patchValue({
-        preferencias: actuales.filter((p: number) => p !== id),
+        preferencias: actuales.filter(
+          (p) =>
+            !(
+              p.nro_valor_dominio === pref.nro_valor_dominio &&
+              p.cod_categoria === pref.cod_categoria
+            ),
+        ),
       });
     } else {
       this.form.patchValue({
-        preferencias: [...actuales, id],
+        preferencias: [
+          ...actuales,
+          { nro_valor_dominio: pref.nro_valor_dominio, cod_categoria: pref.cod_categoria },
+        ],
       });
     }
 
@@ -98,19 +119,18 @@ export class RegistrarseComponent {
 
     this.clienteApi.registrar(payload).subscribe({
       next: () => {
-        alert('Cuenta creada correctamente 🎉');
         this.router.navigate(['/login'], {
           queryParams: { redirectTo: this.returnUrl },
         });
       },
-      error: (err) => {
-        if (err.status === 409) {
-          alert('El correo ya está registrado ❌');
-        } else {
-          alert('Error inesperado');
-        }
+      error: () => {
+        this.mostrarModalError = true;
       },
     });
+  }
+
+  cerrarModalError(): void {
+    this.mostrarModalError = false;
   }
 }
 

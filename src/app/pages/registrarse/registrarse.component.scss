@@ -136,3 +136,42 @@ input[type='number']::-webkit-outer-spin-button {
   color: #fff;
   border-color: #a8846f;
 }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 2rem;
+  border: 4px solid #a58f7b;
+  background-color: #b8a491;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-box h3 {
+  margin-bottom: 1rem;
+}
+
+.modal-box button {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background: #b48a75;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.modal-box button:hover {
+  background: #89614e;
+}

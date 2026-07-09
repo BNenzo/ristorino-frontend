@@ -93,8 +93,8 @@
           <div
             *ngFor="let pref of preferencias"
             class="chip"
-            [class.selected]="isSelected(pref.nro_valor_dominio)"
-            (click)="togglePreferencia(pref.nro_valor_dominio)"
+            [class.selected]="isSelected(pref.nro_valor_dominio, pref.cod_categoria)"
+            (click)="togglePreferencia(pref)"
           >
             {{ pref.nom_valor_dominio }}
           </div>
@@ -149,3 +149,12 @@
 
   </div>
 </div>
+
+@if (mostrarModalError) {
+  <div class="modal-backdrop">
+    <div class="modal-box modal-error">
+      <h3 i18n="@@registroErrorModalTitulo">No fue posible completar el registro del usuario</h3>
+      <button (click)="cerrarModalError()" i18n="@@modalCerrarBoton">Cerrar</button>
+    </div>
+  </div>
+}

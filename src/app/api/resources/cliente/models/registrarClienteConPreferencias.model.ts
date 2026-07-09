@@ -1,3 +1,8 @@
+export interface PreferenciaSeleccionadaRequest {
+  cod_categoria: string;
+  nro_valor_dominio: number;
+}
+
 export interface RegistrarClienteConPreferenciasRequest {
   correo: string;
   nombre: string;
@@ -6,5 +11,5 @@ export interface RegistrarClienteConPreferenciasRequest {
   telefono?: string;
   nroLocalidad: number;
   password: string;
-  preferencias: number[];
+  preferencias: PreferenciaSeleccionadaRequest[];
 }

@@ -12,3 +12,12 @@
     }
   </div>
 </section>
+
+@if (mostrarResultadoVacioModal) {
+  <div class="modal-backdrop">
+    <div class="modal-box modal-error">
+      <h3 i18n="@@homeBusquedaSinResultadosTitulo">⚠️ La busqueda no encontro resultados, proba buscando otra cosa</h3>
+      <button (click)="cerrarModalError()" i18n="@@modalCerrarBoton">Cerrar</button>
+    </div>
+  </div>
+}
