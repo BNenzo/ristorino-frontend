@@ -173,10 +173,17 @@
   margin-left: auto;
   margin-right: auto;
   font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
 }
 
-.btn--primary:hover {
+.btn--primary:hover:not(:disabled) {
   background: #5f392b;
+}
+
+.btn--primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .chips-container {
