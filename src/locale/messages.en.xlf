@@ -122,6 +122,18 @@
           <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
           <context context-type="linenumber">40,43</context>
         </context-group>
+      </trans-unit><trans-unit id="5906935253962294028" datatype="html">
+        <source>⚠️ Error al iniciar sesión</source><target state="new">⚠️ Error signing in</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">48,49</context>
+        </context-group>
+      </trans-unit><trans-unit id="3117035802150730331" datatype="html">
+        <source>El mail o la contraseña no coinciden, o no se encuentra registrado</source><target state="new">The email or password don't match, or the account isn't registered</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/login/login.component.html</context>
+          <context context-type="linenumber">49,51</context>
+        </context-group>
       </trans-unit><trans-unit id="3715871949679059190" datatype="html">
         <source>Mis Reservas</source>
         <target state="new">My Reservations</target>
@@ -287,7 +299,7 @@
       <context-group purpose="location"><context context-type="sourcefile">src/app/pages/registrarse/registrarse.component.html</context><context context-type="linenumber">140</context></context-group></trans-unit>
 
       <trans-unit id="2723959038980885248" datatype="html">
-        <source> ¿Ya tenés cuenta? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/login&quot;>"/>Iniciar sesión<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
+        <source> ¿Ya tenés cuenta? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/login&quot; [queryParams]=&quot;{ redirectTo: returnUrl }&quot;>"/>Iniciar sesión<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></source>
         <target state="new"> Already have an account? <x id="START_LINK" ctype="x-a" equiv-text="&lt;a routerLink=&quot;/login&quot;>"/>Log in<x id="CLOSE_LINK" ctype="x-a" equiv-text="&lt;/a>"/></target>
         
       <context-group purpose="location"><context context-type="sourcefile">src/app/pages/registrarse/registrarse.component.html</context><context context-type="linenumber">144</context></context-group></trans-unit><trans-unit id="8220253529369905159" datatype="html">
@@ -403,28 +415,28 @@
         <source>Aceptar</source><target state="new">Accept</target>
         
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context><context context-type="linenumber">170</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context><context context-type="linenumber">180</context></context-group></trans-unit><trans-unit id="1568984057516104582" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/login/login.component.html</context><context context-type="linenumber">51</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context><context context-type="linenumber">170</context></context-group><context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context><context context-type="linenumber">180</context></context-group></trans-unit><trans-unit id="1568984057516104582" datatype="html">
         <source>⚠️ Hubo un error al realizar la reserva</source><target state="new">⚠️ There was an error making the reservation</target>
         
       <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.html</context><context context-type="linenumber">177</context></context-group></trans-unit><trans-unit id="disponibilidadErrorGenerico" datatype="html">
         <source>Ocurrió un error al consultar la disponibilidad.</source><target state="new">An error occurred while checking availability.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">191</context></context-group></trans-unit><trans-unit id="reservaErrorSinTurno" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">196</context></context-group></trans-unit><trans-unit id="reservaErrorSinTurno" datatype="html">
         <source>No hay turno para la hora solicitada.</source><target state="new">There is no time slot for the requested time.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">245</context></context-group></trans-unit><trans-unit id="reservaErrorTurnoNoHabilitado" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">250</context></context-group></trans-unit><trans-unit id="reservaErrorTurnoNoHabilitado" datatype="html">
         <source>El turno seleccionado no está habilitado.</source><target state="new">The selected time slot is not available.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">248</context></context-group></trans-unit><trans-unit id="reservaErrorSinCupo" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">253</context></context-group></trans-unit><trans-unit id="reservaErrorSinCupo" datatype="html">
         <source>No hay cupo disponible para el turno seleccionado.</source><target state="new">There is no availability for the selected time slot.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">251</context></context-group></trans-unit><trans-unit id="reservaErrorCupoInsuficiente" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">256</context></context-group></trans-unit><trans-unit id="reservaErrorCupoInsuficiente" datatype="html">
         <source>No hay cupo disponible para la cantidad de comensales solicitada.</source><target state="new">There is no availability for the requested number of guests.</target>
         
-      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">254</context></context-group></trans-unit><trans-unit id="reservaErrorGenerico" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">259</context></context-group></trans-unit><trans-unit id="reservaErrorGenerico" datatype="html">
         <source>Ocurrió un error al realizar la reserva.</source><target state="new">An error occurred while making the reservation.</target>
 
-      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">242</context></context-group></trans-unit><trans-unit id="homeBusquedaSinResultadosTitulo" datatype="html">
+      <context-group purpose="location"><context context-type="sourcefile">src/app/pages/reservar/reservar.component.ts</context><context context-type="linenumber">247</context></context-group></trans-unit><trans-unit id="homeBusquedaSinResultadosTitulo" datatype="html">
         <source>⚠️ La busqueda no encontro resultados, proba buscando otra cosa</source><target state="new">⚠️ The search did not find any results, try searching for something else</target>
 
       <context-group purpose="location"><context context-type="sourcefile">src/app/pages/home/home.component.html</context><context context-type="linenumber">19</context></context-group></trans-unit><trans-unit id="modalCerrarBoton" datatype="html">

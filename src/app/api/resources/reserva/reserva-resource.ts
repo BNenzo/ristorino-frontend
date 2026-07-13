@@ -11,6 +11,7 @@ import type { IResourceMethodObservable } from '@ngx-resource/core';
 import { CrearReservaRequest } from './models/reserva.model';
 import { ReservaCliente } from './models/reserva-cliente.model';
 import { DisponibilidadTurnos } from './models/disponibilidad-turnos.model';
+import { ICrearReservaResponse } from './models/crear-reserva-response.model';
 
 @Injectable()
 @ResourceParams({
@@ -43,5 +44,5 @@ export class ReservaResource extends Resource {
     path: '/reservas/crear-reserva',
     method: ResourceRequestMethod.Post,
   })
-  declare crearReserva: IResourceMethodObservable<CrearReservaRequest, string>;
+  declare crearReserva: IResourceMethodObservable<CrearReservaRequest, ICrearReservaResponse>;
 }

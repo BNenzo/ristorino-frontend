@@ -9,6 +9,7 @@ import type { IResourceResponse } from '@ngx-resource/core';
 import { ReservaResource } from '../../api/resources/reserva/reserva-resource';
 import { DisponibilidadTurnos } from '../../api/resources/reserva/models/disponibilidad-turnos.model';
 import { SessionStore } from '../../store/session-store';
+import { ICrearReservaResponse } from '../../api/resources/reserva/models/crear-reserva-response.model';
 
 @Component({
   selector: 'app-reservar.component',
@@ -217,7 +218,7 @@ export class ReservarComponent {
         horaReserva: this.turnoSeleccionado ?? '',
       })
       .subscribe({
-        next: (codigoReserva: string) => {
+        next: (response: ICrearReservaResponse) => {
           const restauranteSeleccionado = this.restaurantes.find(
             (r) => Number(r.nroRestaurante) === nroRestaurante,
           );
@@ -229,8 +230,8 @@ export class ReservarComponent {
             restaurante: restauranteSeleccionado?.razonSocial ?? '',
             sucursal: sucursalSeleccionada?.nomSucursal ?? '',
             fecha: fecha,
-            hora: this.turnoSeleccionado ?? '',
-            codigo: codigoReserva,
+            hora: this.turnoSeleccionado?.slice(0, 5) ?? '',
+            codigo: response?.codReservaSucursal,
           };
           this.mostrarModal = true;
         },
