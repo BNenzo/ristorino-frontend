@@ -42,3 +42,12 @@
     </p>
   </div>
 </div>
+
+<div class="modal-backdrop" *ngIf="mostrarModalError">
+  <div class="modal-box modal-error">
+    <h3 i18n>⚠️ Error al iniciar sesión</h3>
+    <p i18n>El mail o la contraseña no coinciden, o no se encuentra registrado</p>
+
+    <button (click)="cerrarModalError()" i18n>Aceptar</button>
+  </div>
+</div>

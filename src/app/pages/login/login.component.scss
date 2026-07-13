@@ -97,3 +97,41 @@
  cursor: pointer;
  color: #683f19;
 }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 2rem;
+  border: 4px solid #a58f7b;
+  background-color: #b8a491;
+  border-radius: 12px;
+  width: 400px;
+  text-align: center;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.modal-error {
+  background-color: #b8a491;
+  border-color: #c0392b;
+}
+
+.modal-error h3 {
+  color: #922b21;
+}
+
+.modal-error button {
+  background: #c0392b;
+}
+
+.modal-error button:hover {
+  background: #922b21;
+}

@@ -7,7 +7,7 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { ClienteResource } from '../../api/resources/cliente/cliente-resource';
 import { LocalidadResponse } from '../../api/resources/localidad/models/localidad.model';
@@ -16,7 +16,7 @@ import { PreferenciaResponse } from '../../api/resources/preferencia/models/pref
 @Component({
   selector: 'app-registrarse',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, BannerComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, BannerComponent],
   templateUrl: './registrarse.component.html',
   styleUrl: './registrarse.component.scss',
 })

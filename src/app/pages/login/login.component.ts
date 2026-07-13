@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BannerComponent } from '../../components/banner/banner.component';
@@ -9,7 +10,7 @@ import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [BannerComponent, FormsModule, RouterModule],
+  imports: [CommonModule, BannerComponent, FormsModule, RouterModule],
   providers: [AuthResource],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -18,6 +19,7 @@ export class LoginComponent {
   usuario = '';
   password = '';
   returnUrl = '/';
+  mostrarModalError = false;
 
   constructor(
     private router: Router,
@@ -39,8 +41,18 @@ export class LoginComponent {
             this.authStore.setUser(user);
             this.router.navigateByUrl(this.returnUrl);
           },
+          error: () => {
+            this.mostrarModalError = true;
+          },
         });
       },
+      error: () => {
+        this.mostrarModalError = true;
+      },
     });
+  }
+
+  cerrarModalError(): void {
+    this.mostrarModalError = false;
   }
 }
