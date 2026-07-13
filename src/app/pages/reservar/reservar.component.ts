@@ -136,8 +136,13 @@ export class ReservarComponent {
 
   get nomSucursal(): string {
     const nroSucursal = this.form.get('sucursal')!.value;
+    const nroRestaurante = this.form.get('restaurante')!.value;
+
+    console.log({ nroRestaurante });
     return (
-      this.sucursales.find((s) => s.nroSucursal === Number(nroSucursal))?.nomSucursal ?? nroSucursal
+      this.sucursales.find(
+        (s) => s.nroSucursal === Number(nroSucursal) && s.nroRestaurante === Number(nroRestaurante),
+      )?.nomSucursal ?? nroSucursal
     );
   }
 
@@ -217,7 +222,7 @@ export class ReservarComponent {
             (r) => Number(r.nroRestaurante) === nroRestaurante,
           );
           const sucursalSeleccionada = this.sucursales.find(
-            (s) => Number(s.nroSucursal) === nroSucursal,
+            (s) => Number(s.nroSucursal) === nroSucursal && s.nroRestaurante === nroRestaurante,
           );
 
           this.modalData = {
