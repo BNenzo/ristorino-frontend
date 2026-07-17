@@ -52,7 +52,7 @@ export class RegistrarseComponent {
     // DATOS VIENEN DEL RESOLVER
     this.localidades = this.route.snapshot.data['localidades'];
     this.preferencias = this.route.snapshot.data['preferencias'];
-    this.returnUrl = this.route.snapshot.queryParamMap.get('redirectTo') ?? '/'; // 👈
+    this.returnUrl = this.route.snapshot.queryParamMap.get('redirectTo') ?? '/';
   }
 
   /* ==========================
