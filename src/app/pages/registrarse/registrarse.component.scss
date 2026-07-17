@@ -2,17 +2,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0px 8px 0 8px;
 }
 
 .register-card {
   background-color: #f5e7d8;
   border: 2px solid #bfa292;
   border-radius: 12px;
-  padding: 30px 34px;
-  width: 430px;
+  padding: 30px 4px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   margin-top: 30px;
   margin-bottom: 50px;
+  width: 100%;
+  @media (min-width: 768px) {
+    width: 430px;
+    padding: 30px 34px;
+  }
 }
 
 .register-title {
@@ -105,9 +110,8 @@
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
-  color: #683f19; 
+  color: #683f19;
 }
-
 
 /* Sacar flechas en inputs number */
 input[type='number']::-webkit-inner-spin-button,
